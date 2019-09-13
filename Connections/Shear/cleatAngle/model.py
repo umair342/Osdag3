@@ -66,7 +66,7 @@ def get_beamcombolist():
     combo_list = []
     beam_query = QSqlQuery("Select Designation from Beams")
     combo_list.append("Select section")
-    while(next(beam_query)):
+    while(beam_query.next()):
         combo_list.append(beam_query.value(0))
     return combo_list
 
@@ -100,7 +100,7 @@ def get_oldbeamcombolist():
     columnQuery = QSqlQuery("SELECT Designation FROM Beams where Source = 'IS808_Old' order by id ASC")
     a = columnQuery.size()
 
-    while(next(columnQuery)):
+    while(columnQuery.next()):
         old_columnList.append(columnQuery.value(0))
 
     return old_columnList
@@ -115,7 +115,7 @@ def get_oldcolumncombolist():
     a = columnQuery.size()
 
     #comboList.append("Select section")
-    while(next(columnQuery)):
+    while(columnQuery.next()):
         old_columnList.append(columnQuery.value(0))
 
     return old_columnList
@@ -127,7 +127,7 @@ def get_columncombolist():
     combo_list = []
     column_query = QSqlQuery("SELECT Designation FROM Columns")
     combo_list.append("Select section")
-    while(next(column_query)):
+    while(column_query.next()):
         combo_list.append(column_query.value(0)
                           )
     return combo_list
@@ -147,7 +147,7 @@ def get_columndata(sect):
     ret_dict = {}
     record = design_query.record()
     
-    while(next(design_query)):
+    while(design_query.next()):
         for i in range(0, record.count()):
             col_name = record.fieldName(i)
             ret_dict[col_name] = design_query.value(i)
@@ -162,7 +162,7 @@ def get_anglecombolist():
     combo_list = []
     angle_query = QSqlQuery("SELECT Designation FROM Angles ORDER BY Id ASC")
     combo_list.append("Select Cleat")
-    while(next(angle_query)):
+    while(angle_query.next()):
         combo_list.append(angle_query.value(0))
     return combo_list
 
@@ -181,7 +181,7 @@ def get_angledata(sect):
     ret_dict = {}
     record = design_query.record()
      
-    while(next(design_query)):
+    while(design_query.next()):
         for i in range(0, record.count()):
             angle_name = record.fieldName(i)
             ret_dict[angle_name] = design_query.value(i)

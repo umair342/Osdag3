@@ -738,7 +738,7 @@ class MainController(QMainWindow):
             return
 
         # yaml.dump(self.uiObj,out_file,allow_unicode=True, default_flow_style=False)
-        json.dump(self.uiObj, out_file)
+        pickle.dump(self.uiObj, out_file)
 
         out_file.close()
 
@@ -1138,9 +1138,9 @@ class MainController(QMainWindow):
         display = self.ui.modelTab._display
 
         # background gradient
-        display.set_bg_gradient_color(23, 1, 32, 23, 1, 32)
+        display.set_bg_gradient_color([23, 1, 32], [23, 1, 32])
         # display_2d.set_bg_gradient_color(255,255,255,255,255,255)
-        display.display_trihedron()
+        display.display_triedron()
         display.View.SetProj(1, 1, 1)
 
         def centerOnScreen(self):

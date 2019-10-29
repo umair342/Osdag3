@@ -1123,9 +1123,9 @@ class MainController(QMainWindow):
 		filename = os.path.join("Connections", "Shear", "Endplate", "saveINPUT.txt")
 
 		if os.path.isfile(filename):
-			file_object = open(filename, 'r')
-			uiobj = pickle.load(file_object)
-			return uiobj
+			with open(filename, 'rb') as fileObject:
+				uiObj = pickle.load(fileObject)
+			return uiObj
 		else:
 			return None
 

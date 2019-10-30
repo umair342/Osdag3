@@ -6,7 +6,7 @@ Created on 07-Jun-2015
 import numpy
 from .bolt import Bolt
 from .nut import Nut
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeSphere
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 from .ModelUtils import get_gp_pt
 import copy
 

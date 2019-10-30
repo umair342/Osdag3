@@ -6,11 +6,11 @@ Created on 14-Oct-2015
 '''
 import numpy
 import math
-from OCC.BRepFilletAPI import BRepFilletAPI_MakeFillet
-from OCC.GC import GC_MakeArcOfCircle
-from OCC.TopExp import TopExp_Explorer
-from OCC.TopoDS import topods
-from OCC.TopAbs import TopAbs_EDGE
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
+from OCC.Core.GC import GC_MakeArcOfCircle
+from OCC.Core.TopExp import TopExp_Explorer
+from OCC.Core.TopoDS import topods
+from OCC.Core.TopAbs import TopAbs_EDGE
 from .ModelUtils import getGpPt, make_edge, makeWireFromEdges, \
     makeFaceFromWire, makePrismFromFace,makeEdgesFromPoints
 
@@ -55,11 +55,11 @@ Created on 14-Oct-2015
 '''
 import numpy
 import math
-from OCC.BRepFilletAPI import BRepFilletAPI_MakeFillet
-from OCC.GC import GC_MakeArcOfCircle
-from OCC.TopExp import TopExp_Explorer
-from OCC.TopoDS import topods
-from OCC.TopAbs import TopAbs_EDGE
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
+from OCC.Core.GC import GC_MakeArcOfCircle
+from OCC.Core.TopExp import TopExp_Explorer
+from OCC.Core.TopoDS import topods
+from OCC.Core.TopAbs import TopAbs_EDGE
 from .ModelUtils import getGpPt, make_edge, makeWireFromEdges, \
     makeFaceFromWire, makePrismFromFace
 

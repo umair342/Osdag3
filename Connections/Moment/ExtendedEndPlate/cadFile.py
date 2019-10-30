@@ -7,7 +7,7 @@ modified : Anand Swaroop
 
 import numpy
 import copy
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 
 class CADFillet(object):
 

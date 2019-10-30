@@ -4,15 +4,15 @@ Created on 29-Nov-2014
 @author: deepa
 '''
 import numpy
-from CAD_ModelUtils import *
+from .CAD_ModelUtils import *
 import math
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-from OCC.gp import gp_Ax2
-from OCC.BRepAlgoAPI import  BRepAlgoAPI_Fuse
-from OCC.BRepFilletAPI import BRepFilletAPI_MakeFillet
-from OCC.TopAbs import TopAbs_EDGE
-from OCC.TopoDS import topods
-from OCC.TopExp import TopExp_Explorer
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.gp import gp_Ax2
+from OCC.Core.BRepAlgoAPI import  BRepAlgoAPI_Fuse
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
+from OCC.Core.TopAbs import TopAbs_EDGE
+from OCC.Core.TopoDS import topods
+from OCC.Core.TopExp import TopExp_Explorer
 
 class Bolt(object):
     #

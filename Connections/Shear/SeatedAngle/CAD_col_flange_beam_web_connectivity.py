@@ -3,7 +3,7 @@ Created on 11-May-2015
 
 @author: deepa
 '''
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 import math
 import numpy
 

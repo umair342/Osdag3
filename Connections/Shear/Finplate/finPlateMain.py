@@ -5,7 +5,6 @@ comment
 @author: deepa
 """
 import json
-
 from PyQt5.QtCore import QFile, pyqtSignal, QTextStream, Qt, QIODevice
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QBrush
@@ -14,6 +13,7 @@ from PyQt5.QtGui import QDoubleValidator, QIntValidator, QPixmap, QPalette
 from PyQt5.QtGui import QTextCharFormat
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QMainWindow, QDialog, QFontDialog, QApplication, QFileDialog, QColorDialog
+
 from .ui_finPlate import Ui_MainWindow
 from .ui_summary_popup import Ui_Dialog
 from ui_aboutosdag import Ui_AboutOsdag
@@ -23,13 +23,15 @@ from .ui_design_preferences import Ui_ShearDesignPreferences
 from .model import *
 from Connections.Shear.common_logic import CommonDesignLogic
 from .Svg_Window import SvgWindow
-from OCC import BRepTools
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC import IGESControl
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.StlAPI import StlAPI_Writer
+
+from OCC.Core import BRepTools
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core import IGESControl
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.StlAPI import StlAPI_Writer
+
 import pdfkit
 import subprocess
 import os.path
@@ -2102,7 +2104,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     module_setup()
     ########################################
-    folder_path = "D:\Osdag_Workspace\\Finplate"
+    folder_path = r'D:\Osdag_Workspace\\Finplate'
     if not os.path.exists(folder_path):
         os.mkdir(folder_path, 0o755)
     image_folder_path = os.path.join(folder_path, 'images_html')

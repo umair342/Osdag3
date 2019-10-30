@@ -3,7 +3,7 @@
 @author: Siddhesh C.
 """
 import numpy as np
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeSphere
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 
 from Connections.Component.ModelUtils import getGpPt
 from Connections.Component.bolt import Bolt

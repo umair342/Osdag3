@@ -11,7 +11,7 @@ W is for bolting over Web.
 
 from Connections.Component.bolt import Bolt
 from Connections.Component.nut import Nut
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeSphere
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 from Connections.Component.ModelUtils import getGpPt
 
 

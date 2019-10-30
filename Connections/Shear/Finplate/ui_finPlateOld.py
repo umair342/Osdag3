@@ -6,21 +6,22 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
+from PyQt5 import QtWidgets
 
 try:
-    _fromUtf8 = QtCore.QString.fromUtf8
+    _fromUtf8 = lambda s:s
 except AttributeError:
     def _fromUtf8(s):
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QtWidgets.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QtWidgets.QApplication.translate(context, text, disambig)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -30,17 +31,17 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/download1.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setIconSize(QtCore.QSize(20, 2))
-        self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-        self.frame = QtGui.QFrame(self.centralwidget)
+        self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setMinimumSize(QtCore.QSize(0, 28))
         self.frame.setMaximumSize(QtCore.QSize(16777215, 28))
-        self.frame.setFrameShape(QtGui.QFrame.NoFrame)
-        self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName(_fromUtf8("frame"))
-        self.btnInput = QtGui.QToolButton(self.frame)
+        self.btnInput = QtWidgets.QToolButton(self.frame)
         self.btnInput.setGeometry(QtCore.QRect(0, 0, 28, 28))
         self.btnInput.setFocusPolicy(QtCore.Qt.NoFocus)
         self.btnInput.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -49,7 +50,7 @@ class Ui_MainWindow(object):
         self.btnInput.setIcon(icon1)
         self.btnInput.setIconSize(QtCore.QSize(18, 18))
         self.btnInput.setObjectName(_fromUtf8("btnInput"))
-        self.btnOutput = QtGui.QToolButton(self.frame)
+        self.btnOutput = QtWidgets.QToolButton(self.frame)
         self.btnOutput.setGeometry(QtCore.QRect(30, 0, 28, 28))
         self.btnOutput.setFocusPolicy(QtCore.Qt.NoFocus)
         icon2 = QtGui.QIcon()
@@ -57,7 +58,7 @@ class Ui_MainWindow(object):
         self.btnOutput.setIcon(icon2)
         self.btnOutput.setIconSize(QtCore.QSize(18, 18))
         self.btnOutput.setObjectName(_fromUtf8("btnOutput"))
-        self.btnTop = QtGui.QToolButton(self.frame)
+        self.btnTop = QtWidgets.QToolButton(self.frame)
         self.btnTop.setGeometry(QtCore.QRect(160, 0, 28, 28))
         self.btnTop.setFocusPolicy(QtCore.Qt.NoFocus)
         icon3 = QtGui.QIcon()
@@ -65,7 +66,7 @@ class Ui_MainWindow(object):
         self.btnTop.setIcon(icon3)
         self.btnTop.setIconSize(QtCore.QSize(22, 22))
         self.btnTop.setObjectName(_fromUtf8("btnTop"))
-        self.btnFront = QtGui.QToolButton(self.frame)
+        self.btnFront = QtWidgets.QToolButton(self.frame)
         self.btnFront.setGeometry(QtCore.QRect(100, 0, 28, 28))
         self.btnFront.setFocusPolicy(QtCore.Qt.NoFocus)
         icon4 = QtGui.QIcon()
@@ -73,7 +74,7 @@ class Ui_MainWindow(object):
         self.btnFront.setIcon(icon4)
         self.btnFront.setIconSize(QtCore.QSize(22, 22))
         self.btnFront.setObjectName(_fromUtf8("btnFront"))
-        self.btnSide = QtGui.QToolButton(self.frame)
+        self.btnSide = QtWidgets.QToolButton(self.frame)
         self.btnSide.setGeometry(QtCore.QRect(130, 0, 28, 28))
         self.btnSide.setFocusPolicy(QtCore.Qt.NoFocus)
         icon5 = QtGui.QIcon()
@@ -81,7 +82,7 @@ class Ui_MainWindow(object):
         self.btnSide.setIcon(icon5)
         self.btnSide.setIconSize(QtCore.QSize(22, 22))
         self.btnSide.setObjectName(_fromUtf8("btnSide"))
-        self.btn3D = QtGui.QToolButton(self.frame)
+        self.btn3D = QtWidgets.QToolButton(self.frame)
         self.btn3D.setGeometry(QtCore.QRect(220, 0, 28, 28))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Droid Serif"))
@@ -96,7 +97,7 @@ class Ui_MainWindow(object):
         self.btn3D.setAutoRaise(False)
         self.btn3D.setArrowType(QtCore.Qt.NoArrow)
         self.btn3D.setObjectName(_fromUtf8("btn3D"))
-        self.chkBxBeam = QtGui.QCheckBox(self.frame)
+        self.chkBxBeam = QtWidgets.QCheckBox(self.frame)
         self.chkBxBeam.setGeometry(QtCore.QRect(260, 0, 71, 29))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -105,7 +106,7 @@ class Ui_MainWindow(object):
         self.chkBxBeam.setFont(font)
         self.chkBxBeam.setFocusPolicy(QtCore.Qt.NoFocus)
         self.chkBxBeam.setObjectName(_fromUtf8("chkBxBeam"))
-        self.chkBxCol = QtGui.QCheckBox(self.frame)
+        self.chkBxCol = QtWidgets.QCheckBox(self.frame)
         self.chkBxCol.setGeometry(QtCore.QRect(330, 0, 91, 29))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -114,7 +115,7 @@ class Ui_MainWindow(object):
         self.chkBxCol.setFont(font)
         self.chkBxCol.setFocusPolicy(QtCore.Qt.NoFocus)
         self.chkBxCol.setObjectName(_fromUtf8("chkBxCol"))
-        self.chkBxFinplate = QtGui.QCheckBox(self.frame)
+        self.chkBxFinplate = QtWidgets.QCheckBox(self.frame)
         self.chkBxFinplate.setGeometry(QtCore.QRect(410, 0, 92, 29))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -124,20 +125,20 @@ class Ui_MainWindow(object):
         self.chkBxFinplate.setFocusPolicy(QtCore.Qt.NoFocus)
         self.chkBxFinplate.setObjectName(_fromUtf8("chkBxFinplate"))
         self.verticalLayout_2.addWidget(self.frame)
-        self.splitter = QtGui.QSplitter(self.centralwidget)
+        self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setOrientation(QtCore.Qt.Vertical)
         self.splitter.setObjectName(_fromUtf8("splitter"))
-        self.frame_2 = QtGui.QFrame(self.splitter)
+        self.frame_2 = QtWidgets.QFrame(self.splitter)
         self.frame_2.setMinimumSize(QtCore.QSize(0, 100))
-        self.frame_2.setFrameShape(QtGui.QFrame.Box)
-        self.frame_2.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.Box)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setLineWidth(1)
         self.frame_2.setMidLineWidth(1)
         self.frame_2.setObjectName(_fromUtf8("frame_2"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.frame_2)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
         self.verticalLayout.setMargin(1)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.mytabWidget = QtGui.QTabWidget(self.frame_2)
+        self.mytabWidget = QtWidgets.QTabWidget(self.frame_2)
         self.mytabWidget.setMinimumSize(QtCore.QSize(0, 450))
         font = QtGui.QFont()
         font.setPointSize(8)
@@ -147,10 +148,10 @@ class Ui_MainWindow(object):
         self.mytabWidget.setFont(font)
         self.mytabWidget.setFocusPolicy(QtCore.Qt.NoFocus)
         self.mytabWidget.setStyleSheet(_fromUtf8("QTabBar::tab { height: 75px; width: 1px;  }"))
-        self.mytabWidget.setTabPosition(QtGui.QTabWidget.West)
+        self.mytabWidget.setTabPosition(QtWidgets.QTabWidget.West)
         self.mytabWidget.setObjectName(_fromUtf8("mytabWidget"))
         self.verticalLayout.addWidget(self.mytabWidget)
-        self.textEdit = QtGui.QTextEdit(self.splitter)
+        self.textEdit = QtWidgets.QTextEdit(self.splitter)
         self.textEdit.setMinimumSize(QtCore.QSize(0, 125))
         self.textEdit.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.textEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -159,12 +160,12 @@ class Ui_MainWindow(object):
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
         self.verticalLayout_2.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1332, 26))
         self.menubar.setStyleSheet(_fromUtf8(""))
         self.menubar.setNativeMenuBar(False)
         self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFile = QtGui.QMenu(self.menubar)
+        self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setStyleSheet(_fromUtf8("QMenu {\n"
 "    background-color:#b2bd84;\n"
 "    border-color: black;\n"

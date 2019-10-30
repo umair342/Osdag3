@@ -4,9 +4,9 @@ Created on 29-Nov-2014
 @author: deepa
 '''
 import numpy
-from ModelUtils import *
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
-from notch import Notch
+from .ModelUtils import *
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+from .notch import Notch
 
 
 class ISection(object):

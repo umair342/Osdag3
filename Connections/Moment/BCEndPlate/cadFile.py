@@ -6,8 +6,8 @@ Commenced on 24-04-2019
 
 import numpy
 import copy
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 
 
 class CADFillet(object):

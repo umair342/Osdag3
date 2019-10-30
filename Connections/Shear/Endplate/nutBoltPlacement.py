@@ -5,7 +5,7 @@ Created on 07-Jun-2015
 '''
 from Connections.Component.bolt import Bolt
 from Connections.Component.nut import Nut
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeSphere
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 from .ModelUtils import get_gp_pt
 
 

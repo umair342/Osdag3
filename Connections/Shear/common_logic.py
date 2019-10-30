@@ -7,13 +7,12 @@ Created on 18-Nov-2016
 import os
 
 import math
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeSphere
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
 
 from Connections.Shear.Finplate.colWebBeamWebConnectivity import ColWebBeamWeb as finColWebBeamWeb
 from Connections.Shear.Endplate.colWebBeamWebConnectivity import ColWebBeamWeb as endColWebBeamWeb
 from Connections.Shear.cleatAngle.colWebBeamWebConnectivity import ColWebBeamWeb as cleatColWebBeamWeb
 from Connections.Shear.SeatedAngle.CAD_col_web_beam_web_connectivity import ColWebBeamWeb as seatColWebBeamWeb
-
 from Connections.Shear.Finplate.beamWebBeamWebConnectivity import BeamWebBeamWeb as finBeamWebBeamWeb
 from Connections.Shear.Endplate.beamWebBeamWebConnectivity import BeamWebBeamWeb as endBeamWebBeamWeb
 from Connections.Shear.cleatAngle.beamWebBeamWebConnectivity import BeamWebBeamWeb as cleatBeamWebBeamWeb
@@ -27,10 +26,13 @@ from Connections.Shear.Finplate.finPlateCalc import finConn
 from Connections.Shear.Endplate.endPlateCalc import end_connection
 from Connections.Shear.cleatAngle.cleatCalculation import cleat_connection
 from Connections.Shear.SeatedAngle.seat_angle_calc import SeatAngleCalculation
+
+
 from Connections.Component.filletweld import FilletWeld
 from Connections.Component.plate import Plate
 from Connections.Component.bolt import Bolt
 from Connections.Component.nut import Nut
+
 from Connections.Component.notch import Notch
 from Connections.Component.ISection import ISection
 from Connections.Component.angle import Angle
@@ -39,16 +41,13 @@ from Connections.Shear.Endplate.nutBoltPlacement import NutBoltArray as endNutBo
 from Connections.Shear.cleatAngle.nutBoltPlacement import NutBoltArray as cleatNutBoltArray
 from Connections.Shear.SeatedAngle.CAD_nut_bolt_placement import NutBoltArray as seatNutBoltArray
 from utilities import osdag_display_shape
-
-import OCC.V3d
-from OCC.Quantity import Quantity_NOC_SADDLEBROWN, Quantity_NOC_BLUE1
-from OCC.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
-
+import OCC.Core.V3d
+from OCC.Core.Quantity import Quantity_NOC_SADDLEBROWN, Quantity_NOC_BLUE1
+from OCC.Core.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
 from Connections.Shear.Finplate.drawing_2D import FinCommonData
 from Connections.Shear.Endplate.drawing_2D import EndCommonData
 from Connections.Shear.cleatAngle.drawing2D import cleatCommonData
 from Connections.Shear.SeatedAngle.drawing_2D import SeatCommonData
-
 from Connections.Shear.Finplate.reportGenerator import save_html as fin_save_html
 from Connections.Shear.Endplate.reportGenerator import save_html as end_save_html
 from Connections.Shear.cleatAngle.reportGenerator import save_html as cleat_save_html

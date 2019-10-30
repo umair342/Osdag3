@@ -10,13 +10,13 @@ from PyQt5.QtGui import QBrush
 from PyQt5.QtGui import QColor
 from PyQt5.QtGui import QDoubleValidator, QIntValidator,QPixmap, QPalette
 from PyQt5.QtWidgets import QMainWindow, QDialog, QMessageBox, QFontDialog, QApplication, QFileDialog, QColorDialog, qApp
-from OCC import IGESControl
-from OCC import BRepTools
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.StlAPI import StlAPI_Writer
+from OCC.Core import IGESControl
+from OCC.Core import BRepTools
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core.StlAPI import StlAPI_Writer
 import configparser
 import json
 import os.path
@@ -2142,7 +2142,7 @@ if __name__ == '__main__':
 	app = QApplication(sys.argv)
 	module_setup()
 	# workspace_folder_path, _ = QFileDialog.getSaveFileName(caption='Select Workspace Directory', directory="F:\Osdag_workspace")
-	workspace_folder_path = "D:\Osdag_Workspace\endplate"
+	workspace_folder_path = r'D:\Osdag_Workspace\endplate'
 	if not os.path.exists(workspace_folder_path):
 		os.mkdir(workspace_folder_path, 0o755)
 	image_folder_path = os.path.join(workspace_folder_path, 'images_html')

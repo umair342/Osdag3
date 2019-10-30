@@ -4,7 +4,7 @@ Created on 11-May-2015
 @author: deepa
 '''
 import numpy
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 import math
 
 """

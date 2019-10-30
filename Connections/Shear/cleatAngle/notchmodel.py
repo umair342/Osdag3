@@ -4,9 +4,9 @@ Created on 15-Mar-2016
 @author: deepa
 '''
 from OCC.Display.SimpleGui import init_display
-from notch import Notch
-from OCC.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
-from ModelUtils import *
+from .notch import Notch
+from OCC.Core.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
+from .ModelUtils import *
 
 display, start_display, add_menu, add_function_to_menu = init_display()
 notchObject = Notch(B=140, t=8.9, R1=14, height=50, length=55.55)

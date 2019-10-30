@@ -3,16 +3,16 @@ Created on 12-Dec-2014
 NUT COMMENT
 @author: deepa
 '''
-from OCC.BRepFilletAPI import BRepFilletAPI_MakeFillet
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 import numpy
-from CAD_ModelUtils import *
+from .CAD_ModelUtils import *
 import math
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-from OCC.TopAbs import TopAbs_EDGE
-from OCC.TopExp import TopExp_Explorer
-from OCC.TopoDS import topods
-from OCC.gp import gp_Ax2
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.TopAbs import TopAbs_EDGE
+from OCC.Core.TopExp import TopExp_Explorer
+from OCC.Core.TopoDS import topods
+from OCC.Core.gp import gp_Ax2
 
 
 class Nut(object):

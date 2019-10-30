@@ -12,17 +12,14 @@ from PyQt5.QtGui import QDoubleValidator, QIntValidator, QPixmap, QPalette
 from PyQt5.QtWidgets import QMainWindow, QDialog, QFontDialog, QApplication, QFileDialog, QColorDialog
 import shutil
 import pickle
-
-from OCC import BRepTools
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC import IGESControl
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.StlAPI import StlAPI_Writer
-
+from OCC.Core import BRepTools
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core import IGESControl
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.StlAPI import StlAPI_Writer
 from .model import *
-
 from .svg_window import SvgWindow
 from .ui_design_preferences import Ui_ShearDesignPreferences
 from .ui_seat_angle import Ui_MainWindow
@@ -750,14 +747,15 @@ class MainController(QMainWindow):
         if not fileName:
             return
         try:
-            in_file = open(str(fileName), 'rb')
+            in_file = str(fileName)
+            with open(in_file, 'rb') as fileObject:
+                uiObj = pickle.load(fileObject)
+            self.setDictToUserInputs(uiObj)
 
         except IOError:
             QMessageBox.information(self, "Unable to open file",
                                     "There was an error opening \"%s\"" % fileName)
             return
-        uiObj = json.load(in_file)
-        self.setDictToUserInputs(uiObj)
 
     def save_inputs(self, uiObj):
         """(Dictionary)--> None

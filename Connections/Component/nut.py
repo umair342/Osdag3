@@ -6,10 +6,10 @@ NUT COMMENT
 
 import math
 import numpy
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 from .ModelUtils import getGpPt, getGpDir, makeEdgesFromPoints, makeWireFromEdges, makePrismFromFace, makeFaceFromWire
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-from OCC.gp import gp_Ax2
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.gp import gp_Ax2
 
 
 class Nut(object):

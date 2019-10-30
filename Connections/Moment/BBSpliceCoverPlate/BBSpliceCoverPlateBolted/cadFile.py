@@ -8,8 +8,8 @@ This file is for creating CAD model for cover plate bolted moment connection for
 """""
 
 import numpy
-# from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
+# from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 
 
 

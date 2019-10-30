@@ -4,12 +4,12 @@ Created on Oct 25, 2016
 @author: Jayant Patil
 '''
 import sys
-import model
+from . import model
 from PyQt5 import QtWidgets
-from reportGenerator import save_html
-import finPlateCalc, test_fin_plate_calc
+from .reportGenerator import save_html
+from . import finPlateCalc, test_fin_plate_calc
 import unittest
-from model import get_columndata, get_beamdata
+from .model import get_columndata, get_beamdata
 
 class TestReportGenerator(unittest.TestCase):
     """Test save_html function from reportGenerator.

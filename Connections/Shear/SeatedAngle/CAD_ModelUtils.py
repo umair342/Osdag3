@@ -3,16 +3,16 @@ Created on 29-Nov-2014
 
 @author: deepa
 '''
-from OCC.BRepPrimAPI import BRepPrimAPI_MakePrism
-from OCC.gp import gp_Pnt, gp_Dir, gp_Vec
-from OCC.BRepBuilderAPI import BRepBuilderAPI_MakeFace
-from OCC.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakePrism
+from OCC.Core.gp import gp_Pnt, gp_Dir, gp_Vec
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_MakeFace
+from OCC.Core.BRepBuilderAPI import (BRepBuilderAPI_MakeEdge,
                                 BRepBuilderAPI_MakeVertex,
                                 BRepBuilderAPI_MakeWire)
-from OCC.BRepFill import BRepFill_Filling
-from OCC.GeomAbs import GeomAbs_C0
-from OCC.GeomAPI import GeomAPI_PointsToBSpline
-from OCC.TColgp import TColgp_Array1OfPnt
+from OCC.Core.BRepFill import BRepFill_Filling
+from OCC.Core.GeomAbs import GeomAbs_C0
+from OCC.Core.GeomAPI import GeomAPI_PointsToBSpline
+from OCC.Core.TColgp import TColgp_Array1OfPnt
 
     
 def make_edge(*args):

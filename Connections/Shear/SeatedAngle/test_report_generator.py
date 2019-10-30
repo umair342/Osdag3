@@ -4,14 +4,14 @@ Created on Oct 25, 2016
 @author: Jayant Patil
 '''
 import sys
-import model
+from . import model
 from PyQt5 import QtWidgets
-from design_report_generator import ReportGenerator
-from seat_angle_calc import SeatAngleCalculation
-import test_seat_angle_calc
+from .design_report_generator import ReportGenerator
+from .seat_angle_calc import SeatAngleCalculation
+from . import test_seat_angle_calc
 import unittest
 import logging
-import seat_angle_main
+from . import seat_angle_main
 
 
 # logger = logging.getLogger("osdag.SeatAngleCalc")

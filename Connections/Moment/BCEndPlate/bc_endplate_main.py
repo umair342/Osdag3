@@ -16,7 +16,7 @@ from .ui_weld_details_1 import Ui_Weld_Details_1
 from .ui_weld_details_2 import Ui_Weld_Details_2
 from .reportGenerator import save_html
 from .drawing_2D import ExtendedEndPlate
-from OCC.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
+from OCC.Core.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
 from .drawing2D_bothway import ExtendedEndPlate
 from .drawing2D_oneway import OnewayEndPlate
 from .drawing2D_flush import FlushEndPlate
@@ -54,13 +54,13 @@ from Connections.Moment.BCEndPlate.cadFile import CADcolwebGroove
 from Connections.Moment.BCEndPlate.nutBoltPlacement import NutBoltArray
 
 from Connections.Component.quarterCone import QuarterCone
-from OCC.Quantity import Quantity_NOC_SADDLEBROWN
-from OCC import IGESControl, BRepTools
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.StlAPI import StlAPI_Writer
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core.Quantity import Quantity_NOC_SADDLEBROWN
+from OCC.Core import IGESControl, BRepTools
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.StlAPI import StlAPI_Writer
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
 
 from utilities import osdag_display_shape
 import copy
@@ -825,9 +825,9 @@ class Maincontroller(QMainWindow):
         self.ui.modelTab.InitDriver()
         # ===========================================================
         display = self.ui.modelTab._display
-        display.set_bg_gradient_color(23, 1, 32, 23, 1, 32)
+        display.set_bg_gradient_color([23, 1, 32], [23, 1, 32])
         # ========================  CAD ========================
-        display.display_trihedron()
+        display.display_triedron()
         # ===========================================================
         display.View.SetProj(1, 1, 1)
 
@@ -853,7 +853,7 @@ class Maincontroller(QMainWindow):
             QMessageBox.information(self, "Unable to open file",
                                     "There was an error opening \"%s\"" % filename)
             return
-        json.dump(self.uiObj, out_file)
+        pickle.dump(self.uiObj, out_file)
         out_file.close()
         pass
 
@@ -862,13 +862,14 @@ class Maincontroller(QMainWindow):
         if not filename:
             return
         try:
-            in_file = open(str(filename), 'rb')
+            in_file = str(filename)
+            with open(in_file, 'rb') as fileObject:
+                ui_obj = pickle.load(fileObject)
+            self.set_dict_touser_inputs(ui_obj)
         except IOError:
             QMessageBox.information(self, "Unable to open file",
                                     "There was an error opening \"%s\"" % filename)
             return
-        ui_obj = json.load(in_file)
-        self.set_dict_touser_inputs(ui_obj)
 
     def save_log_messages(self):
         filename, pat = QFileDialog.getSaveFileName(self, "Save File As", os.path.join(str(self.folder), "LogMessages"),
@@ -2246,9 +2247,9 @@ class Maincontroller(QMainWindow):
         self.display.DisableAntiAliasing()
         if bgcolor == "gradient_bg":
 
-            self.display.set_bg_gradient_color(51, 51, 102, 150, 150, 170)
+            self.display.set_bg_gradient_color([51, 51, 102], [150, 150, 170])
         else:
-            self.display.set_bg_gradient_color(255, 255, 255, 255, 255, 255)
+            self.display.set_bg_gradient_color([255, 255, 255], [255, 255, 255])
 
         # ExtObj is an object which gets all the calculated values of CAD models
         self.ExtObj = self.create_extended_both_ways()

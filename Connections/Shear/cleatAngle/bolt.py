@@ -6,14 +6,14 @@ Created on 29-Nov-2014
 import numpy
 from .ModelUtils import *
 import math
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-from OCC.BRepAlgo import BRepAlgo_BooleanOperations
-from OCC.gp import gp_Pnt, gp_Dir, gp_Pln, gp_Ax2
-from OCC.BRepAlgoAPI import  BRepAlgoAPI_Fuse
-from OCC.BRepFilletAPI import BRepFilletAPI_MakeFillet
-from OCC.TopAbs import TopAbs_EDGE
-from OCC.TopoDS import topods
-from OCC.TopExp import TopExp_Explorer
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.BRepAlgo import BRepAlgo_BooleanOperations
+from OCC.Core.gp import gp_Pnt, gp_Dir, gp_Pln, gp_Ax2
+from OCC.Core.BRepAlgoAPI import  BRepAlgoAPI_Fuse
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
+from OCC.Core.TopAbs import TopAbs_EDGE
+from OCC.Core.TopoDS import topods
+from OCC.Core.TopExp import TopExp_Explorer
 
 
 class Bolt(object):

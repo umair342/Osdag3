@@ -1,7 +1,7 @@
 import numpy, math
 from Connections.Component.ModelUtils import getGpPt, getGpDir, makeEdgesFromPoints, makeWireFromEdges, makeFaceFromWire
-from OCC.gp import gp_Ax1
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeRevol
+from OCC.Core.gp import gp_Ax1
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeRevol
 
 class QuarterCone(object):
 

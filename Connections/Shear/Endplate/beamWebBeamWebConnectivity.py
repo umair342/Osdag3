@@ -11,7 +11,7 @@ Created on 11-May-2015
 
 import numpy
 import copy
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 
 
 class BeamWebBeamWeb(object):

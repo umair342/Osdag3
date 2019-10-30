@@ -4,7 +4,7 @@ Created on 29-Nov-2014
 @author: deepa
 '''
 import numpy
-from ModelUtils import *
+from Connections.Component.ModelUtils import *
 
 
 class ISection(object):

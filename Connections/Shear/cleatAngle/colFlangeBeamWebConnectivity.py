@@ -3,8 +3,8 @@ Created on 11-May-2015
 
 @author: deepa
 '''
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeSphere
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeSphere
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 '''
 Created on 11-May-2015
 

@@ -3,14 +3,14 @@ Created on 14-Mar-2016
 
 @author: deepa
 '''
-from OCC.gp import gp_Circ, gp_Ax2
+from OCC.Core.gp import gp_Circ, gp_Ax2
 '''
 Created on 29-Nov-2014
 
 @author: deepa
 '''
 import numpy
-from ModelUtils import *
+from .ModelUtils import *
 
 
 class Notch(object):

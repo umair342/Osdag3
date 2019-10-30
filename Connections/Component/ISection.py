@@ -5,7 +5,7 @@ Created on 29-Nov-2014
 '''
 import numpy
 from .ModelUtils import *
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
 #from notch import Notch
 from Connections.Component.notch import Notch
 """

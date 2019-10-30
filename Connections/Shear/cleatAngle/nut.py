@@ -3,27 +3,27 @@ Created on 12-Dec-2014
 NUT COMMENT
 @author: deepa
 '''
-from OCC.BRepFilletAPI import BRepFilletAPI_MakeFillet
+from OCC.Core.BRepFilletAPI import BRepFilletAPI_MakeFillet
 # from OCC import TopoDS.TopoDS_Compound
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse
 import numpy
 from .ModelUtils import *
 import math
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-# from OCC.BRepAlgo import BRepAlgo_BooleanOperation
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+# from OCC.Core.BRepAlgo import BRepAlgo_BooleanOperation
 
-from OCC.TopAbs import TopAbs_EDGE  # TopAbs_FACE
-from OCC.TopExp import TopExp_Explorer
-from OCC.TopoDS import TopoDS_Compound, topods
-from OCC.TopTools import *
-from OCC.Geom import *
-from OCC.gp import gp_Pnt, gp_Ax2, gp_DZ, gp_Ax3, gp_Pnt2d, gp_Dir2d, gp_Ax2d
-from OCC.Geom import *
-from OCC.Geom2d import *
-from OCC.GCE2d import *
-import OCC.BRepLib as BRepLib
-from OCC.BRepOffsetAPI import *
-import OCC.BRep as BRep
+from OCC.Core.TopAbs import TopAbs_EDGE  # TopAbs_FACE
+from OCC.Core.TopExp import TopExp_Explorer
+from OCC.Core.TopoDS import TopoDS_Compound, topods
+from OCC.Core.TopTools import *
+from OCC.Core.Geom import *
+from OCC.Core.gp import gp_Pnt, gp_Ax2, gp_DZ, gp_Ax3, gp_Pnt2d, gp_Dir2d, gp_Ax2d
+from OCC.Core.Geom import *
+from OCC.Core.Geom2d import *
+from OCC.Core.GCE2d import *
+# import OCC.BRepLib as BRepLib
+from OCC.Core.BRepOffsetAPI import *
+import OCC.Core.BRep as BRep
 
 
 class Nut(object):

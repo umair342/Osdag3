@@ -1,9 +1,9 @@
 import sys
 import unittest
-import model
+from . import model
 import math
 from PyQt5.QtWidgets import QApplication
-from seat_angle_calc import SeatAngleCalculation
+from .seat_angle_calc import SeatAngleCalculation
 
 
 class TestSeatAngleCalculation(unittest.TestCase, SeatAngleCalculation):

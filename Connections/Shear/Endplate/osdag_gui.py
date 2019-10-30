@@ -9,35 +9,35 @@ comment
 
 @author: deepa
 '''
-from PyQt4.QtCore import QString, pyqtSignal
-from OCC.TopoDS import topods, TopoDS_Shape
-from OCC.gp import gp_Pnt
-from nutBoltPlacement import NutBoltArray
+from PyQt5.QtCore import pyqtSignal, QtGui
+from OCC.Core.TopoDS import topods, TopoDS_Shape
+from OCC.Core.gp import gp_Pnt
+from .nutBoltPlacement import NutBoltArray
 from OCC import VERSION, BRepTools, OSD
-from ui_finPlate import Ui_MainWindow
-from model import *
-from Connections.Shear.Endplate.endPlateCalc import finConn
-import yaml
+# from .ui_finPlate import Ui_MainWindow
+from .model import *
+# from Connections.Shear.Endplate.endPlateCalc import finConn
+# import yaml
 import pickle
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC._Quantity import Quantity_NOC_RED, Quantity_NOC_BLUE1, Quantity_NOC_SADDLEBROWN
-from ISection import ISection
-from OCC.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
-from weld import  Weld
-from plate import Plate
-from bolt import Bolt
-from nut import Nut 
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.Quantity import Quantity_NOC_RED, Quantity_NOC_BLUE1, Quantity_NOC_SADDLEBROWN
+from Connections.Component.ISection import ISection
+from OCC.Core.Graphic3d import Graphic3d_NOT_2D_ALUMINUM
+from Connections.Component.weld import Weld
+from Connections.Component.plate import Plate
+from Connections.Component.bolt import Bolt
+from Connections.Component.nut import Nut
 import os.path
-from utilities import osdagDisplayShape
-from OCC.Display.pyqt4Display import qtViewer3d
-from colWebBeamWebConnectivity import ColWebBeamWeb
-from colFlangeBeamWebConnectivity import ColFlangeBeamWeb
-from OCC import IGESControl
-from filletweld import FilletWeld
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.StlAPI import StlAPI_Writer
+# from utilities import osdagDisplayShape
+# from OCC.Display.pyqt4Display import qtViewer3d
+from .colWebBeamWebConnectivity import ColWebBeamWeb
+from .colFlangeBeamWebConnectivity import ColFlangeBeamWeb
+from OCC.Core import IGESControl
+from Connections.Component.filletweld import FilletWeld
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.StlAPI import StlAPI_Writer
 # Developed by deepa
 
 class MainController(QtGui.QMainWindow):

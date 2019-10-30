@@ -16,12 +16,12 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtGui import QDoubleValidator, QIntValidator,QPixmap, QPalette
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QDialog, QFontDialog, QApplication, QFileDialog, QColorDialog,QDesktopWidget
-from OCC import IGESControl,BRepTools
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
-from OCC.StlAPI import StlAPI_Writer
+from OCC.Core import IGESControl,BRepTools
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core.StlAPI import StlAPI_Writer
 from .cleatCalculation import cleat_connection
 from .drawing2D import *
 from .model import *

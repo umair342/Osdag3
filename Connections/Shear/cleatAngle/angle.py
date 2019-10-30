@@ -4,7 +4,7 @@ Created on 14-Oct-2015
 @author: aravind
 '''
 import numpy
-from ModelUtils import *
+from .ModelUtils import *
 
 
 class Angle(object):

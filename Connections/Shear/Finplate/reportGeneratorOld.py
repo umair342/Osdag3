@@ -5,7 +5,7 @@ Created on Dec 10, 2015
 
 @author: deepa
 '''
-from __builtin__ import str
+from builtins import str
 import time
 import math
 import os

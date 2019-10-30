@@ -22,12 +22,12 @@ from PyQt5.QtWidgets import QDialog, QMainWindow, QApplication, QFontDialog, QFi
 from PyQt5.Qt import QIntValidator, QDoubleValidator, QFile, Qt, QBrush, QColor, QTextStream, pyqtSignal, QPixmap, QPalette
 from PyQt5 import QtCore, QtGui, QtWidgets, QtOpenGL
 from .model import *
-from OCC import IGESControl, BRepTools
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
-from OCC.Interface import Interface_Static_SetCVal
-from OCC.IFSelect import IFSelect_RetDone
-from OCC.StlAPI import StlAPI_Writer
-from OCC.STEPControl import STEPControl_Writer, STEPControl_AsIs
+from OCC.Core import IGESControl, BRepTools
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.Interface import Interface_Static_SetCVal
+from OCC.Core.IFSelect import IFSelect_RetDone
+from OCC.Core.StlAPI import StlAPI_Writer
+from OCC.Core.STEPControl import STEPControl_Writer, STEPControl_AsIs
 import cairosvg
 import configparser
 import json
@@ -48,7 +48,7 @@ from Connections.Moment.BBSpliceCoverPlate.BBSpliceCoverPlateBolted.cadFile impo
 from Connections.Moment.BBSpliceCoverPlate.BBSpliceCoverPlateBolted.nutBoltPlacement_AF import NutBoltArray_AF
 from Connections.Moment.BBSpliceCoverPlate.BBSpliceCoverPlateBolted.nutBoltPlacement_BF import NutBoltArray_BF
 from Connections.Moment.BBSpliceCoverPlate.BBSpliceCoverPlateBolted.nutBoltPlacement_Web import NutBoltArray_Web
-from OCC.Quantity import Quantity_NOC_SADDLEBROWN
+from OCC.Core.Quantity import Quantity_NOC_SADDLEBROWN
 from utilities import osdag_display_shape
 import copy
 
@@ -498,9 +498,9 @@ class MainController(QMainWindow):
 		# ===========================================================
 
 		display = self.ui.modelTab._display
-		display.set_bg_gradient_color(23, 1, 32, 23, 1, 32)
+		display.set_bg_gradient_color([23, 1, 32], [23, 1, 32])
 		# ========================  CAD ========================
-		display.display_trihedron()
+		display.display_triedron()
 		# ===========================================================
 
 		display.View.SetProj(1, 1, 1)
@@ -649,22 +649,23 @@ class MainController(QMainWindow):
 			QMessageBox.information(self, "Unable to open file",
 									"There was an error opening \"%s\"" % filename)
 			return
-		json.dump(self.uiObj, out_file)
+		pickle.dump(self.uiObj, out_file)
 		out_file.close()
 		pass
 
 	def load_design_inputs(self):
-		filename, _ = QFileDialog.getOpenFileName(self, "Open Design", str(self.folder), "(*.osi)")
+		filename, _ = QFileDialog.getOpenFileName(self, "Open Design", str(self.folder), "osi(*.osi)")
 		if not filename:
 			return
 		try:
-			in_file = open(str(filename), 'rb')
+			in_file = str(filename)
+			with open(in_file, 'rb') as fileObject:
+				ui_obj = pickle.load(fileObject)
+			self.set_dict_touser_inputs(ui_obj)
 		except IOError:
 			QMessageBox.information(self, "Unable to open file",
 									"There was an error opening \"%s\"" % filename)
 			return
-		ui_obj = json.load(in_file)
-		self.set_dict_touser_inputs(ui_obj)
 
 	def save_log_messages(self):
 		filename, pat = QFileDialog.getSaveFileName(self, "Save File As", os.path.join(str(self.folder), "LogMessages"),
@@ -1609,11 +1610,9 @@ class MainController(QMainWindow):
 		self.display.DisableAntiAliasing()
 		if bgcolor == "gradient_bg":
 
-			self.display.set_bg_gradient_color(51, 51, 102, 150, 150,
-											   170)  # Changes the background color in graphics window iff the design is safe
+			self.display.set_bg_gradient_color([51, 51, 102], [150, 150, 170])  # Changes the background color in graphics window iff the design is safe
 		else:
-			self.display.set_bg_gradient_color(255, 255, 255, 255, 255,
-											   255)  # Sets the color of graphics window to dark (black)
+			self.display.set_bg_gradient_color([255, 255, 255], [255, 255, 255])  # Sets the color of graphics window to dark (black)
 
 		self.CPBoltedObj = self.createBBCoverPlateBoltedCAD()  # CPBoltedObj is an object which gets all the calculated values of CAD models
 

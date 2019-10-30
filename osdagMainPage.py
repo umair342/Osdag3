@@ -6,7 +6,7 @@ Created on 31-Mar-2016
 '''
 
 import sys
-from PyQt5 import Qt
+# from PyQt5 import Qt
 
 from PyQt5.QtCore import pyqtSlot,pyqtSignal, QObject
 from PyQt5.QtWidgets import QMainWindow, QDialog,QMessageBox, QFileDialog, QApplication
@@ -14,9 +14,9 @@ from ui_OsdagMainPage import Ui_MainWindow
 from ui_tutorial import Ui_Tutorial
 from ui_aboutosdag import Ui_AboutOsdag
 from ui_ask_question import Ui_AskQuestion
-from Connections.Shear.Finplate.finPlateMain import launchFinPlateController
-
 import os
+
+from Connections.Shear.Finplate.finPlateMain import launchFinPlateController
 from Connections.Shear.SeatedAngle.seat_angle_main import launchSeatedAngleController
 from Connections.Shear.cleatAngle.cleatAngleMain import launch_cleatangle_controller
 from Connections.Shear.Endplate.endPlateMain import launch_endplate_controller
@@ -133,7 +133,7 @@ class OsdagMainWindow(QMainWindow):
 
 
         config = configparser.ConfigParser()
-        config.readfp(open(r'Osdag.config'))
+        config.read_file(open(r'Osdag.config'))
         desktop_path = config.get("desktop_path", "path1")
         folder = QFileDialog.getExistingDirectory(self, "Select Workspace Folder (Don't use spaces in the folder name)", desktop_path)
 

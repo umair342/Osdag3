@@ -1,14 +1,14 @@
 import unittest
 import sys
-import model
-from PyQt4 import QtGui
-from seat_angle_calc import SeatAngleCalculation
-from test_seat_angle_calc import create_sample_ui_input_sa
-from test_seat_angle_calc import create_sample_ui_output_sa
+from . import model
+from PyQt5 import QtGui, QtWidgets
+from .seat_angle_calc import SeatAngleCalculation
+from .test_seat_angle_calc import create_sample_ui_input_sa
+from .test_seat_angle_calc import create_sample_ui_output_sa
 import svgwrite
-from PyQt4.QtCore import QString
+# from PyQt5.QtCore import QString
 import cairosvg
-from drawing_2D import SeatCommonData, Seat2DCreatorFront, Seat2DCreatorSide, Seat2DCreatorTop
+from .drawing_2D import SeatCommonData, Seat2DCreatorFront, Seat2DCreatorSide, Seat2DCreatorTop
 
 is_test_for_all = False
 
@@ -33,7 +33,7 @@ class TestSeatCommonData(unittest.TestCase, SeatCommonData):
         Returns:
             None
         """
-        app = QtGui.QApplication(sys.argv)
+        app = QtWidgets.QApplication(sys.argv)
         model.module_setup()
         self.sa_calc_obj = SeatAngleCalculation()
         sa_sample_ui_input = create_sample_ui_input_sa()

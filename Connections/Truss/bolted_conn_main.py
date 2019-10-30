@@ -3,37 +3,37 @@ Created on 27-Sept-2017
 
 @author: Reshma Konjari
 """
-from ui_boltedconnection import Ui_MainWindow
-from ui_selection import Ui_Selection
-from ui_singleangle import Ui_Singleangle
-from ui_singleangle2 import Ui_Singleangle_Two
-from ui_singleangle3 import Ui_Singleangle_Three
-from ui_singleangle4 import Ui_Singleangle_Four
-from ui_singleangle5 import Ui_Singleangle_Five
-from ui_singleangle6 import Ui_Singleangle_Six
-from ui_singleangle7 import Ui_Singleangle_Seven
-from ui_doubleangle import Ui_Doubleangle
-from ui_doubleangle2 import Ui_Doubleangle_Two
-from ui_doubleangle3 import Ui_Doubleangle_Three
-from ui_doubleangle4 import Ui_Doubleangle_Four
-from ui_doubleangle5 import Ui_Doubleangle_Five
-from ui_doubleangle6 import Ui_Doubleangle_Six
-from ui_doubleangle7 import Ui_Doubleangle_Seven
-from ui_channel import Ui_Channel
-from ui_channel2 import Ui_Channel_Two
-from ui_channel3 import Ui_Channel_Three
-from ui_channel4 import Ui_Channel_Four
-from ui_channel5 import Ui_Channel_Five
-from ui_channel6 import Ui_Channel_Six
-from ui_channel7 import Ui_Channel_Seven
-from ui_output import Ui_BoltOutput
-from drawing_2D import TrussBoltedConnection
-from truss_bolted_conn_calc import trussboltedconnection
+from .ui_boltedconnection import Ui_MainWindow
+from .ui_selection import Ui_Selection
+from .ui_singleangle import Ui_Singleangle
+from .ui_singleangle2 import Ui_Singleangle_Two
+from .ui_singleangle3 import Ui_Singleangle_Three
+from .ui_singleangle4 import Ui_Singleangle_Four
+from .ui_singleangle5 import Ui_Singleangle_Five
+from .ui_singleangle6 import Ui_Singleangle_Six
+from .ui_singleangle7 import Ui_Singleangle_Seven
+from .ui_doubleangle import Ui_Doubleangle
+from .ui_doubleangle2 import Ui_Doubleangle_Two
+from .ui_doubleangle3 import Ui_Doubleangle_Three
+from .ui_doubleangle4 import Ui_Doubleangle_Four
+from .ui_doubleangle5 import Ui_Doubleangle_Five
+from .ui_doubleangle6 import Ui_Doubleangle_Six
+from .ui_doubleangle7 import Ui_Doubleangle_Seven
+from .ui_channel import Ui_Channel
+from .ui_channel2 import Ui_Channel_Two
+from .ui_channel3 import Ui_Channel_Three
+from .ui_channel4 import Ui_Channel_Four
+from .ui_channel5 import Ui_Channel_Five
+from .ui_channel6 import Ui_Channel_Six
+from .ui_channel7 import Ui_Channel_Seven
+from .ui_output import Ui_BoltOutput
+from .drawing_2D import TrussBoltedConnection
+from .truss_bolted_conn_calc import trussboltedconnection
 from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtGui import QIntValidator, QPalette, QDoubleValidator
 from PyQt5.Qt import Qt
 from PyQt5.QtCore import pyqtSignal, QFile
-from model import *
+from .model import *
 import pickle
 import sys
 import os
@@ -68,7 +68,7 @@ class SingleAngleSelection(QDialog):
         self.save_singledata["SingleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved =True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -89,7 +89,7 @@ class SingleAngleSelection(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection.setText(type + ' ' + section)
             else:
@@ -102,7 +102,7 @@ class SingleAngleSelection(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print (angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -153,7 +153,7 @@ class SingleAngleSelectionTwo(QDialog):
         self.save_singledata["SingleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved =True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -175,7 +175,7 @@ class SingleAngleSelectionTwo(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_2.setText(type + ' ' + section)
             else:
@@ -188,7 +188,7 @@ class SingleAngleSelectionTwo(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print (angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -240,7 +240,7 @@ class SingleAngleSelectionThree(QDialog):
             self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved = True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -262,7 +262,7 @@ class SingleAngleSelectionThree(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_3.setText(type + ' ' + section)
             else:
@@ -275,7 +275,7 @@ class SingleAngleSelectionThree(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print (angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -326,7 +326,7 @@ class SingleAngleSelectionFour(QDialog):
         self.save_singledata["SingleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved =True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -348,7 +348,7 @@ class SingleAngleSelectionFour(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_4.setText(type + ' ' + section)
             else:
@@ -361,7 +361,7 @@ class SingleAngleSelectionFour(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print (angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -412,7 +412,7 @@ class SingleAngleSelectionFive(QDialog):
         self.save_singledata["SingleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved =True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -434,7 +434,7 @@ class SingleAngleSelectionFive(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_5.setText(type + ' ' + section)
             else:
@@ -447,7 +447,7 @@ class SingleAngleSelectionFive(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -498,7 +498,7 @@ class SingleAngleSelectionSix(QDialog):
         self.save_singledata["SingleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved =True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -520,7 +520,7 @@ class SingleAngleSelectionSix(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_6.setText(type + ' ' + section)
             else:
@@ -533,7 +533,7 @@ class SingleAngleSelectionSix(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -584,7 +584,7 @@ class SingleAngleSelectionSeven(QDialog):
         self.save_singledata["SingleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_sign_selct_section.currentText())
         self.save_singledata["SingleAngle"]["leg"] = str(self.ui.comboBox_sign_leg.currentText())
         self.saved =True
-        print self.save_singledata, "Single data"
+        print(self.save_singledata, "Single data")
         QMessageBox.about(self, 'Information', "Single angle data saved")
 
         return self.save_singledata
@@ -606,7 +606,7 @@ class SingleAngleSelectionSeven(QDialog):
             type = ui_sing_obj["SingleAngle"]["angle_type"]["type"]
             section = ui_sing_obj["SingleAngle"]["angle_type"]["section"]
             leg = ui_sing_obj["SingleAngle"]["leg"]
-            print ui_sing_obj, type, section, leg
+            print(ui_sing_obj, type, section, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_7.setText(type + ' ' + section)
             else:
@@ -619,7 +619,7 @@ class SingleAngleSelectionSeven(QDialog):
 
         """
         angle_type = self.ui.comboBox_sign_angle.currentText()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_sign_selct_section.clear()
             self.ui.comboBox_sign_leg.setEnabled(False)
@@ -670,7 +670,7 @@ class DoubleAngleSelection(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -693,7 +693,7 @@ class DoubleAngleSelection(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection.setText(type + ' ' + section + ' ' + side)
             else:
@@ -707,7 +707,7 @@ class DoubleAngleSelection(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -759,7 +759,7 @@ class DoubleAngleSelectionTwo(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -782,7 +782,7 @@ class DoubleAngleSelectionTwo(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_2.setText(type + ' ' + section + ' ' + side)
             else:
@@ -796,7 +796,7 @@ class DoubleAngleSelectionTwo(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -848,7 +848,7 @@ class DoubleAngleSelectionThree(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -871,7 +871,7 @@ class DoubleAngleSelectionThree(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_3.setText(type + ' ' + section + ' ' + side)
             else:
@@ -885,7 +885,7 @@ class DoubleAngleSelectionThree(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -937,7 +937,7 @@ class DoubleAngleSelectionFour(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -960,7 +960,7 @@ class DoubleAngleSelectionFour(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_4.setText(type + ' ' + section + ' ' + side)
             else:
@@ -974,7 +974,7 @@ class DoubleAngleSelectionFour(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -1026,7 +1026,7 @@ class DoubleAngleSelectionFive(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -1049,7 +1049,7 @@ class DoubleAngleSelectionFive(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_5.setText(type + ' ' + section + ' ' + side)
             else:
@@ -1063,7 +1063,7 @@ class DoubleAngleSelectionFive(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -1115,7 +1115,7 @@ class DoubleAngleSelectionSix(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -1138,7 +1138,7 @@ class DoubleAngleSelectionSix(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_6.setText(type + ' ' + section + ' ' + side)
             else:
@@ -1152,7 +1152,7 @@ class DoubleAngleSelectionSix(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -1204,7 +1204,7 @@ class DoubleAngleSelectionSeven(QDialog):
         self.save_doubledata["DoubleAngle"]["angle_type"]["section"] = str(self.ui.comboBox_doub_selct_section.currentText())
         self.save_doubledata["DoubleAngle"]["side"] = str(self.ui.comboBx_doub_sides.currentText())
         self.save_doubledata["DoubleAngle"]["leg"] = str(self.ui.comboBox_doub_leg.currentText())
-        print self.save_doubledata, "Double data"
+        print(self.save_doubledata, "Double data")
         QMessageBox.about(self, 'Information', "Double angle data saved")
 
         return self.save_doubledata
@@ -1227,7 +1227,7 @@ class DoubleAngleSelectionSeven(QDialog):
             section = ui_doubl_obj["DoubleAngle"]["angle_type"]["section"]
             side = ui_doubl_obj["DoubleAngle"]["side"]
             leg = ui_doubl_obj["DoubleAngle"]["leg"]
-            print ui_doubl_obj, type, section, side, leg
+            print(ui_doubl_obj, type, section, side, leg)
             if type == "Equal angle":
                 self.sectionselection.ui.lbl_sectionSelection_7.setText(type + ' ' + section + ' ' + side)
             else:
@@ -1241,7 +1241,7 @@ class DoubleAngleSelectionSeven(QDialog):
         """
         angle_type = self.ui.comboBox_doub_angle.currentText()
         self.ui.comboBox_doub_selct_section.clearFocus()
-        print angle_type
+        print(angle_type)
         if angle_type == "Equal angle":
             self.ui.comboBox_doub_selct_section.clear()
             self.ui.comboBox_doub_leg.setEnabled(False)
@@ -1277,7 +1277,7 @@ class ChannelSelection(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1286,7 +1286,7 @@ class ChannelSelection(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1298,7 +1298,7 @@ class ChannelSelection(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1322,7 +1322,7 @@ class ChannelSelectionTwo(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1331,7 +1331,7 @@ class ChannelSelectionTwo(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1343,7 +1343,7 @@ class ChannelSelectionTwo(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection_2.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1367,7 +1367,7 @@ class ChannelSelectionThree(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1376,7 +1376,7 @@ class ChannelSelectionThree(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1388,7 +1388,7 @@ class ChannelSelectionThree(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection_3.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1412,7 +1412,7 @@ class ChannelSelectionFour(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1421,7 +1421,7 @@ class ChannelSelectionFour(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1433,7 +1433,7 @@ class ChannelSelectionFour(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection_4.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1457,7 +1457,7 @@ class ChannelSelectionFive(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1466,7 +1466,7 @@ class ChannelSelectionFive(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1478,7 +1478,7 @@ class ChannelSelectionFive(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection_5.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1502,7 +1502,7 @@ class ChannelSelectionSix(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1511,7 +1511,7 @@ class ChannelSelectionSix(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1523,7 +1523,7 @@ class ChannelSelectionSix(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection_6.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1547,7 +1547,7 @@ class ChannelSelectionSeven(QDialog):
         self.ui.comboBox_channel.setCurrentIndex(0)
         if self.ui.comboBox_channel.currentText() == "Channel":
             self.get_channeldata()
-            print self.ui.comboBox_channel.currentText(), "yes"
+            print(self.ui.comboBox_channel.currentText(), "yes")
         self.ui.btn_save.clicked.connect(self.lbl_section)
         self.ui.btn_close.clicked.connect(self.close_channel_para)
 
@@ -1556,7 +1556,7 @@ class ChannelSelectionSeven(QDialog):
         self.save_channeldata["Channel"] = {}
         self.save_channeldata["Channel"]["type"] = str(self.ui.comboBox_channel.currentText())
         self.save_channeldata["Channel"]["section"] = str(self.ui.comboBox_channl_selct_section.currentText())
-        print self.save_channeldata, "Channel data"
+        print(self.save_channeldata, "Channel data")
         QMessageBox.about(self, "Information", "Channel data saved")
 
         return self.save_channeldata
@@ -1568,7 +1568,7 @@ class ChannelSelectionSeven(QDialog):
         ui_chanl_obj = self.save_channel_para()
         type = ui_chanl_obj["Channel"]["type"]
         section = ui_chanl_obj["Channel"]["section"]
-        print ui_chanl_obj, type, section
+        print(ui_chanl_obj, type, section)
         self.sectionselection.ui.lbl_sectionSelection_7.setText(type + ' ' + section)
 
     def get_channeldata(self):
@@ -1656,7 +1656,7 @@ class SectionSelection(QDialog):
         # no_of_member = ui_obj["Member"]["No. of members"]
         ui_obj = self.maincontroller.no_of_members()
         no_of_member = ui_obj
-        print no_of_member, "no_of_member"
+        print(no_of_member, "no_of_member")
 
         # self.hide_section(no_of_member)
         # def hide_section(no_of_member):
@@ -1798,7 +1798,7 @@ class SectionSelection(QDialog):
         self.save_section["section"]["sec_six"] = str(self.ui.lbl_sectionSelection_6.text())
         self.save_section["section"]["sec_seven"] = str(self.ui.lbl_sectionSelection_7.text())
         self.saved = True
-        print self.save_section, "inputs"
+        print(self.save_section, "inputs")
         QMessageBox.about(self, 'Information', "Define members data saved")
 
         return self.save_section
@@ -2105,7 +2105,7 @@ class BoltOutput(QDialog):
 
         members = self.maincontroller.no_of_members()
         no_of_member = members
-        print no_of_member, "no of members"
+        print(no_of_member, "no of members")
         if no_of_member == '2':
             self.ui.lbl_mem3.hide()
             self.ui.lbl_mem4.hide()
@@ -2411,7 +2411,7 @@ class Maincontroller(QMainWindow):
         self.ui.btnFront.clicked.connect(lambda: self.call_2D_drawing("Front"))
         self.gradeType = {'Please select type': '', 'HSFG': [8.8, 10.9],
                           'Bearing Bolt': [3.6, 4.6, 4.8, 5.6, 5.8, 6.8, 8.8, 9.8, 10.9, 12.9]}
-        self.ui.combo_type.addItems(self.gradeType.keys())
+        self.ui.combo_type.addItems(list(self.gradeType.keys()))
         self.ui.combo_type.currentIndexChanged[str].connect(self.combotype_current_index_changed)
         self.ui.combo_type.setCurrentIndex(0)
         self.ui.btn_Design.clicked.connect(self.design_btnclicked)
@@ -2476,7 +2476,7 @@ class Maincontroller(QMainWindow):
 
         """
         membr_num = self.ui.combo_member.currentText()
-        print membr_num
+        print(membr_num)
         return membr_num
 
     def section_selection(self):
@@ -2526,7 +2526,7 @@ class Maincontroller(QMainWindow):
 
         ui_obj["Gusset"] = {}
         ui_obj["Gusset"]["Thickness (mm)"] = self.ui.combo_gussetSize.currentText()
-        print ui_obj, "ui_obj"
+        print(ui_obj, "ui_obj")
         return ui_obj
 
     def closeEvent(self, event):
@@ -2603,7 +2603,7 @@ class Maincontroller(QMainWindow):
     def definemembers_para(self):
 
         dmObj = self.defineMembers.save_section()
-        print dmObj
+        print(dmObj)
 
         # self.uiObj = self.get_user_inputs()
         # if self.defineMembers.saved is True:
@@ -2622,7 +2622,7 @@ class Maincontroller(QMainWindow):
         self.uiObj = self.get_user_inputs()
         self.dmObj = self.definemembers_para()
         self.outputs = trussboltedconnection(self.uiObj, self.dmObj)
-        print "Designbtn", self.dmObj
+        print("Designbtn", self.dmObj)
         self.display_output(self.outputs)
         # self.resultObj = outputs
         # alist =self.resultObj.values()
@@ -2630,13 +2630,13 @@ class Maincontroller(QMainWindow):
         # isempty = [True if val != '' else False for ele in alist for val in ele.values()]
 
     def display_output(self, outputObj):
-        for k in outputObj.keys():
+        for k in list(outputObj.keys()):
             for value in outputObj.vaules():
-                if outputObj.items() == " ":
+                if list(outputObj.items()) == " ":
                     resultObj = outputObj
                 else:
                     resultObj = outputObj
-        print resultObj
+        print(resultObj)
 
         plate_length = resultObj["Plate"]["Length"]
         self.ui.txt_plateLength.setText(str(plate_length))

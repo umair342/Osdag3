@@ -6,9 +6,9 @@ Created on 29-Nov-2014
 import numpy
 from .ModelUtils import getGpPt, getGpDir, makeEdgesFromPoints, makeWireFromEdges, makePrismFromFace, makeFaceFromWire
 import math
-from OCC.BRepPrimAPI import BRepPrimAPI_MakeCylinder
-from OCC.gp import gp_Ax2
-from OCC.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCC.Core.BRepPrimAPI import BRepPrimAPI_MakeCylinder
+from OCC.Core.gp import gp_Ax2
+from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Fuse
 
 
 class Bolt(object):

@@ -23,7 +23,7 @@ Hst    | |                           X
 
 """
 import numpy
-from ModelUtils import *
+from .ModelUtils import *
 
 class Stiffener_CAD(object):
     def __init__(self, Hst, Lst, Tst):

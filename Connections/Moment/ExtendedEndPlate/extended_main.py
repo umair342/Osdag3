@@ -1019,12 +1019,15 @@ class Maincontroller(QMainWindow):
         Returns: Save the user input to txt format
 
         """
-        input_file = QFile(os.path.join("Connections", "Moment", "ExtendedEndPlate", "saveINPUT.txt"))
+        inputFile = os.path.join("Connections", "Moment", "ExtendedEndPlate", "saveINPUT.txt")
+        with open(inputFile, 'wb') as input_file:
+            pickle.dump(uiObj, input_file)
+        """
         if not input_file.open(QFile.WriteOnly | QFile.Text):
             QMessageBox.warning(self, "Application",
                                 "Cannot write file %s: \n%s"
                                 % (input_file.fileName(), input_file.errorString()))
-        pickle.dump(uiObj, input_file)
+        """
 
     def get_prevstate(self):
         """

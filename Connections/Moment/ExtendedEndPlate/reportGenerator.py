@@ -173,7 +173,7 @@ def save_html(outObj, uiObj, dictbeamdata, filename, reportsummary, folder):
 
     # Plate
     if float(number_of_bolts) <= 20:
-        tp_required = str(float(outObj['Plate']['ThickRequired']))
+        tp_required = float(outObj['Plate']['ThickRequired'])
         M_p = str(float(outObj['Plate']['Mp']))
         plate_height = str(float(outObj['Plate']['Height']))
         plate_width = str(float(outObj['Plate']['Width']))
@@ -1630,7 +1630,7 @@ def save_html(outObj, uiObj, dictbeamdata, filename, reportsummary, folder):
                    "<br>[Design of Steel Structures - N. Subramanian, 2014]", "<p align=left style=color:red><b>Fail</b></p>"]
         else:
             row = [0, "Plate moment capacity (kNm)",
-                   "Moment demand (<i>M</i><sub>d</sub>) = ((" + tp_required + "<sup>2</sup>" + "*" + end_plate_fy + "*" + b_e + ")/(4.4)) * 10^ -3 = " + plate_moment_demand + " <br>[Design of Steel Structures - N. Subramanian, 2014]",
+                   "Moment demand (<i>M</i><sub>d</sub>) = ((" + str(tp_required) + "<sup>2</sup>" + "*" + end_plate_fy + "*" + b_e + ")/(4.4)) * 10^ -3 = " + plate_moment_demand + " <br>[Design of Steel Structures - N. Subramanian, 2014]",
                    "Moment capacity (<i>M</i><sub>c</sub>) = ((" + end_plate_thickness + "<sup>2</sup>" + "*" + end_plate_fy + "*" + b_e + ")/(4.4)) * 10^ -3 = " + plate_moment_capacity +
                    "<br>[Design of Steel Structures - N. Subramanian, 2014]", "<p align=left style=color:green><b>Pass</b></p>"]
     else:
@@ -1731,13 +1731,13 @@ def save_html(outObj, uiObj, dictbeamdata, filename, reportsummary, folder):
         rstr += t('tr')
 
         if float(number_of_bolts) <= 20:
-            web_weld_req = str(int(min(beam_tw, tp_required)))
+            web_weld_req = min(beam_tw, tp_required)
 
             if float(weld_thickness_web) > float(web_weld_req):
-                row = [0, "Weld size at web (mm)", "&#8804; minimum(" + str(beam_tw) + "," + tp_required + ")" "<br>", weld_thickness_web,
+                row = [0, "Weld size at web (mm)", "&#8804; minimum(" + str(beam_tw) + "," + str(tp_required) + ")" "<br>", weld_thickness_web,
                        " <p align=left style=color:red><b>Fail</b></p>"]
             else:
-                row = [0, "Weld size at web (mm)", "&#8804; minimum(" + str(beam_tw) + "," + tp_required + ")" "<br>", weld_thickness_web,
+                row = [0, "Weld size at web (mm)", "&#8804; minimum(" + str(beam_tw) + "," + str(tp_required) + ")" "<br>", weld_thickness_web,
                        " <p align=left style=color:green><b>Pass</b></p>"]
         else:
             row = [0, "Weld size at web (mm)", " Cannot compute ", weld_thickness_web, " <p align=left style=color:red><b>Fail</b></p>"]

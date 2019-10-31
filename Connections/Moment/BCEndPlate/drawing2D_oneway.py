@@ -489,16 +489,16 @@ class OnewayEndPlate(object):
         else:
             filename = os.path.join(str(self.folder), 'images_html', 'extendFront.svg')
             Oneway_2d_front.call_Oneway_front(filename)
-            cairosvg.svg2png(file_obj=filename,
+            cairosvg.svg2png(file_obj=open(filename,'rb'),
                              write_to=os.path.join(str(self.folder), "images_html", "extendFront.png"))
 
             filename = os.path.join(str(self.folder), 'images_html', 'extendTop.svg')
             Oneway_2d_top.call_Oneway_top(filename)
-            cairosvg.svg2png(file_obj=filename, write_to=os.path.join(str(self.folder), "images_html", "extendTop.png"))
+            cairosvg.svg2png(file_obj=open(filename,'rb'), write_to=os.path.join(str(self.folder), "images_html", "extendTop.png"))
 
             filename = os.path.join(str(self.folder), 'images_html', 'extendSide.svg')
             Oneway_2d_side.call_Oneway_side(filename)
-            cairosvg.svg2png(file_obj=filename,
+            cairosvg.svg2png(file_obj=open(filename,'rb'),
                              write_to=os.path.join(str(self.folder), "images_html", "extendSide.png"))
 
 
@@ -524,8 +524,8 @@ class Oneway2DFront(object):
 		downward to the origin is considered as +ve Y axis
 		"""
 
-        ptA1x = 0
-        ptA1y = 0
+        ptA1x = 0.0
+        ptA1y = 0.0
         self.A1 = np.array([ptA1x, ptA1y])
 
         ptA2x = ptA1x + self.data_object.column_depth_D1
@@ -1081,12 +1081,12 @@ class Oneway2DTop(object):
 		downward to the origin is considered as +ve Y axis
 		"""
 
-        ptA1x = 0
-        ptA1y = 0
+        ptA1x = 0.0
+        ptA1y = 0.0
         self.A1 = np.array([ptA1x, ptA1y])
 
         ptA2x = ptA1x + self.data_object.flange_thickness_T1
-        ptA2y = 0
+        ptA2y = 0.0
         self.A2 = np.array([ptA2x, ptA2y])
 
         ptA3x = ptA2x
@@ -1473,12 +1473,12 @@ class Oneway2DSide(object):
 		downward to the origin is considered as +ve Y axis
 		"""
 
-        ptP1x = 0
-        ptP1y = 0  # (self.data_object.plate_length_L1 + self.data_object.beam_depth_D1)/2
+        ptP1x = 0.0
+        ptP1y = 0.0  # (self.data_object.plate_length_L1 + self.data_object.beam_depth_D1)/2
         self.P1 = np.array([ptP1x, ptP1y])
 
         ptP2x = ptP1x + self.data_object.plate_width_B1
-        ptP2y = 0
+        ptP2y = 0.0
         self.P2 = np.array([ptP2x, ptP2y])
 
         ptP3x = ptP2x

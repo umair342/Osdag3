@@ -1,1 +1,13 @@
-/Osdag.config
+**/*.log
+*.pyo
+*.xml
+**/*.txt
+*.pyc
+.idea/
+*~
+*.html
+*.xml
+*.log
+output/*
+Osdag_Workspace/*
+/01

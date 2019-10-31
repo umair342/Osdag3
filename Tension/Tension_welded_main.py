@@ -750,7 +750,7 @@ class Maincontroller(QMainWindow):
 		self.ui.actionAsk_Us_a_Question.triggered.connect(self.open_ask_question)
 		self.ui.actionSample_Tutorials.triggered.connect(self.open_tutorials)
 		self.ui.actionDesign_examples.triggered.connect(self.design_examples)
-		self.ui.combo_conn_loc.currentTextChanged.connect(self.conn_on_change)
+		# self.ui.combo_conn_loc.currentTextChanged.connect(self.conn_on_change)
 		# self.ui.combo_sectiontype.currentTextChanged.connect(self.type_on_change)
 		# self.ui.combo_conn_loc.activated.connect(self.on_change)
 		# self.ui.btn_Weld.clicked.connect(self.weld_details)
@@ -796,31 +796,8 @@ class Maincontroller(QMainWindow):
 			lambda: self.validate_fu_fy(self.ui.txt_Fu, self.ui.txt_Fy, self.ui.txt_Fy, self.ui.lbl_fy))
 
 		# TODO #
-		# dictmemberdata = self.fetchMembPara()
-		# if self.ui.combo_sectiontype != "Angles":
-		# 	member_d = float(dictmemberdata["D"])
-		# 	member_B = float(dictmemberdata["B"])
-		# else:
-		# 	member_leg = dictmemberdata["AXB"]
-		# 	leg = member_leg.split("x")
-		# 	leg1 = leg[0]
-		# 	leg2 = leg[1]
-		# 	min_leg = min(leg1,leg2)
-		# 	max_leg = max (leg1,leg2)
-		#
-		# if self.ui.combo_conn_loc == "Flange":
-		# 	min_weld_length = member_B
-		# 	max_weld_length = (2 * member_B - 20)
-		# elif self.ui.combo_conn_loc == "Web" or "Back to Back Web":
-		# 	min_weld_length = 0.6* member_d
-		# 	max_weld_length = member_d -20
-		# elif self.ui.combo_conn_loc == "Back to Back Angles":
-		# 	min_weld_length = min_leg
-		# 	max_weld_length = max_leg
-		# elif self.ui.combo_conn_loc == "Star Angles":
-		# 	min_weld_length = (min_leg + min_leg)
-		# 	max_weld_length = (max_leg + max_leg)
-		# self.ui.txt_oppline_tension.editingFinished.connect(lambda: self.check_weld_range(self.ui.txt_oppline_tension,min_weld_length,max_weld_length))
+
+		self.ui.txt_oppline_tension.editingFinished.connect(lambda: self.check_weld_range(self.ui.txt_oppline_tension,self.ui.lbl_beam1_3,self.uiObj))
 		# TODO #
 
 
@@ -831,36 +808,6 @@ class Maincontroller(QMainWindow):
 		self.fuse_model = None
 		self.resultObj = None
 		self.disable_buttons()
-	# #added
-	# def Typechanged(self):
-	# 	# for count in range(self.ui.combo_sectiontype.count()):
-	# 	# 	print index
-	# 	membertype = self.ui.combo_sectiontype.currentText()
-	# 	# membdata = get_membercombolist(membertype)
-	# 	return membertype
-	# #added
-
-
-	def conn_on_change(self, newIndex):
-		if newIndex == "Back to Back Angles" :
-			self.ui.txt_plate_thk.setEnabled(True)
-		elif newIndex ==  "Star Angles":
-			self.ui.txt_plate_thk.setEnabled(True)
-		elif newIndex == "Back to Back Web":
-			self.ui.txt_plate_thk.setEnabled(True)
-		else:
-			self.ui.txt_plate_thk.setEnabled(False)
-
-	# def type_on_change(self,type):
-	# 	if type == "Beams":
-	# 		self.ui.txt_inline_tension.setEnabled(True)
-	# 		# self.ui.txt_oppline_tension.setEnabled(True)
-	# 	elif type == "Columns":
-	# 		self.ui.txt_inline_tension.setEnabled(True)
-	# 		self.ui.txt_oppline_tension.setEnabled(True)
-	# 	else:
-	# 		self.ui.txt_inline_tension.setEnabled(False)
-	# 		self.ui.txt_oppline_tension.setEnabled(False)
 
 
 	def init_display(self, backend_str=None, size=(1024, 768)):
@@ -875,7 +822,6 @@ class Maincontroller(QMainWindow):
 		self.ui.modelTab = qtViewer3d(self)
 
 		# ========================  CAD ========================
-		# self.setWindowTitle("Osdag Finplate")
 		self.ui.mytabWidget.resize(size[0], size[1])
 		self.ui.mytabWidget.addTab(self.ui.modelTab, "")
 		self.ui.modelTab.InitDriver()
@@ -900,7 +846,7 @@ class Maincontroller(QMainWindow):
 
 	def save_design_inputs(self):
 		filename, _ = QFileDialog.getSaveFileName(self, "Save Design", os.path.join(str(self.folder), "untitled.osi"),
-												  "Input Files(*.osi)")
+												  "Input Files osi(*.osi)")
 		if not filename:
 			return
 		try:
@@ -914,7 +860,7 @@ class Maincontroller(QMainWindow):
 		pass
 
 	def load_design_inputs(self):
-		filename, _ = QFileDialog.getOpenFileName(self, "Open Design", str(self.folder), "(*.osi)")
+		filename, _ = QFileDialog.getOpenFileName(self, "Open Design", str(self.folder), "osi(*.osi)")
 		if not filename:
 			return
 		try:
@@ -1002,37 +948,12 @@ class Maincontroller(QMainWindow):
 		uiObj["Member"]["Member_length"] = self.ui.txt_Member_length.text()
 
 		uiObj["Load"] = {}
-		# uiObj["Load"]["ShearForce (kN)"] = self.ui.txt_Shear.text()
-		# uiObj["Load"]["Moment (kNm)"] = self.ui.txt_Moment.text()
 		uiObj["Load"]["AxialForce (kN)"] = self.ui.txt_Tensionforce.text()
-
-		# uiObj["Bolt"] = {}
-		# uiObj["Bolt"]["Diameter (mm)"] = self.ui.combo_diameter.currentText()
-		# uiObj["Bolt"]["RowsofBolts"] = self.ui.txt_rowsofbolts.text()
-		# uiObj["Bolt"]["ColumnsofBolts"] = self.ui.txt_columssofbolts.text()
-		# uiObj["Bolt"]["Rowpitch"] = self.ui.txt_rowpitch.text()
-		# uiObj["Bolt"]["Columnpitch"] = self.ui.txt_columpitch.text()
-		# uiObj["Bolt"]["Enddistance"] = self.ui.txt_Enddistance.text()
-		# uiObj["Bolt"]["Edgedistance"] = self.ui.txt_Edgedistance.text()
-		# uiObj["Bolt"]["Platethickness"] = self.ui.txt_plate_thk.text()
-		# uiObj["Bolt"]["Type"] = self.ui.combo_type.currentText()
 
 		uiObj["Weld"] = {}
 		uiObj["Weld"]["inline_tension"] = self.ui.txt_inline_tension.text()
 		uiObj["Weld"]["oppline_tension"] = self.ui.txt_oppline_tension.text()
 		uiObj["Weld"]["Platethickness"] = self.ui.txt_plate_thk.text()
-
-		# uiObj["Plate"] = {}
-		# uiObj["Plate"]["Thickness (mm)"] = str(self.ui.combo_plateThick.currentText())
-
-		# uiObj["Weld"] = {}
-		# uiObj["Weld"]["weldlength_inline"] = str(self.ui.txt_weldlength_inline.text())
-		# uiObj["Weld"]["weldlength_oppline"] = str(self.ui.txt_weldlength_oppline.text())
-		# uiObj["Weld"]["Web (mm)"] = str(self.ui.combo_webSize.currentText())
-		# if uiObj["Weld"]["Web (mm)"] == "Select weld thickness":
-		# 	uiObj["Weld"]["Web (mm)"] = 3
-		# if uiObj["Weld"]["Flange (mm)"] == "Select weld thickness":
-		# 	uiObj["Weld"]["Flange (mm)"] = 3
 
 		uiObj["Support_Condition"] = {}
 		uiObj["Support_Condition"]["end1_cond1"] = self.ui.combo_end1_cond1.currentText()
@@ -1136,55 +1057,20 @@ class Maincontroller(QMainWindow):
 				return
 
 			self.ui.combo_conn_loc.setCurrentIndex(self.ui.combo_conn_loc.findText(uiObj["Member"]["Location"]))
-			# self.ui.combo_connLoc.setCurrentIndex(self.ui.combo_connLoc.findText(str(uiObj["Member"]["EndPlate_type"])))
-			# if uiObj["Member"]["EndPlate_type"] == "Flush" or "Extended one way" or "Extended both ways":
-				# self.ui.combo_connLoc.setCurrentIndex(self.ui.combo_connect.findText(uiObj["Member"]["Connectivity"]))
-			# self.ui.combo_connLoc.setCurrentIndex(self.ui.combo_connLoc.findText(uiObj["Member"]["EndPlate_type"]))
 			self.ui.combo_sectiontype.setCurrentIndex(self.ui.combo_sectiontype.findText(uiObj["Member"]["SectionType"]))
 			self.ui.combo_sectionsize.setCurrentIndex(self.ui.combo_sectionsize.findText(uiObj["Member"]["SectionSize"]))
-			# self.ui.combo_beamSec.setCurrentIndex(self.ui.combo_beamSec.findText(uiObj["Member"]["BeamSection"]))
 			self.ui.txt_Fu.setText(str(uiObj["Member"]["fu (MPa)"]))
 			self.ui.txt_Fy.setText(str(uiObj["Member"]["fy (MPa)"]))
 			self.ui.txt_Member_length.setText(str(uiObj["Member"]["Member_length"]))
-			# self.ui.txt_Shear.setText(str(uiObj["Load"]["ShearForce (kN)"]))
 			self.ui.txt_Tensionforce.setText(str(uiObj["Load"]["AxialForce (kN)"]))
-			# self.ui.txt_Moment.setText(str(uiObj["Load"]["Moment (kNm)"]))
-			# self.ui.combo_diameter.setCurrentIndex(self.ui.combo_diameter.findText(uiObj["Bolt"]["Diameter (mm)"]))
 			self.ui.txt_Member_length.setText(str(uiObj["Member"]["Member_length"]))
-			# self.ui.txt_rowsofbolts.setText(str(uiObj["Bolt"]["RowsofBolts"]))
-			# self.ui.txt_columssofbolts.setText(str(uiObj["Bolt"]["ColumnsofBolts"]))
-			# self.ui.txt_rowpitch.setText(str(uiObj["Bolt"]["Rowpitch"]))
-			# self.ui.txt_columpitch.setText(str(uiObj["Bolt"]["Columnpitch"]))
-			# self.ui.txt_Enddistance.setText(str(uiObj["Bolt"]["Enddistance"]))
 			self.ui.txt_plate_thk.setText(str(uiObj["Weld"]["Platethickness"]))
 			self.ui.txt_inline_tension.setText(str(uiObj["Weld"]["inline_tension"]))
 			self.ui.txt_oppline_tension.setText(str(uiObj["Weld"]["oppline_tension"]))
-			# self.ui.txt_Edgedistance.setText(str(uiObj["Bolt"]["Edgedistance"]))
-			# self.ui.txt_weldlength_inline.setText(str(uiObj["Weld"]["weldlength_inline"]))
-			# self.ui.txt_weldlength_oppline.setText(str(uiObj["Weld"]["weldlength_oppline"]))
 			self.ui.combo_end1_cond1.setCurrentIndex(self.ui.combo_end1_cond1.findText(uiObj["Support_Condition"]["end1_cond1"]))
 			self.ui.combo_end1_cond2.setCurrentIndex(self.ui.combo_end1_cond1.findText(uiObj["Support_Condition"]["end1_cond2"]))
 			self.ui.combo_end2_cond1.setCurrentIndex(self.ui.combo_end1_cond1.findText(uiObj["Support_Condition"]["end2_cond1"]))
 			self.ui.combo_end2_cond2.setCurrentIndex(self.ui.combo_end1_cond1.findText(uiObj["Support_Condition"]["end2_cond2"]))
-
-
-
-			# self.ui.combo_type.setCurrentIndex(self.ui.combo_type.findText(uiObj["Bolt"]["Type"]))
-			# self.ui.combo_grade.setCurrentIndex(self.ui.combo_grade.findText(uiObj["Bolt"]["Grade"]))
-			# self.ui.combo_plateThick.setCurrentIndex(
-			# 	self.ui.combo_plateThick.findText(uiObj["Plate"]["Thickness (mm)"]))
-			# self.ui.combo_weld_method.setCurrentIndex(self.ui.combo_weld_method.findText(uiObj["Weld"]["Method"]))
-			# self.ui.combo_flangeSize.setCurrentIndex(
-			# 	self.ui.combo_flangeSize.findText(str(uiObj["Weld"]["Flange (mm)"])))
-			# self.ui.combo_webSize.setCurrentIndex(self.ui.combo_webSize.findText(str(uiObj["Weld"]["Web (mm)"])))
-
-			# self.designPrefDialog.ui.combo_boltType.setCurrentIndex(
-			# 	self.designPrefDialog.ui.combo_boltType.findText(uiObj["bolt"]["bolt_type"]))
-			# self.designPrefDialog.ui.combo_boltHoleType.setCurrentIndex(
-			# 	self.designPrefDialog.ui.combo_boltHoleType.findText(uiObj["bolt"]["bolt_hole_type"]))
-			# self.designPrefDialog.ui.txt_boltFu.setText(str(uiObj["bolt"]["bolt_fu"]))
-			# self.designPrefDialog.ui.combo_slipfactor.setCurrentIndex(
-			# 	self.designPrefDialog.ui.combo_slipfactor.findText(str(uiObj["bolt"]["slip_factor"])))
 			self.designPrefDialog.ui.combo_weldType.setCurrentIndex(
 				self.designPrefDialog.ui.combo_weldType.findText(uiObj["weld"]["typeof_weld"]))
 			self.designPrefDialog.ui.txt_weldFu.setText(str(uiObj["weld"]["fu_overwrite"]))
@@ -1202,11 +1088,11 @@ class Maincontroller(QMainWindow):
 		Returns: Design preference inputs
 		"""
 		self.uiObj = self.get_user_inputs()
-		# if self.designPrefDialog.saved is not True:
-		# 	design_pref = self.designPrefDialog.save_default_para()
-		# else:
-		design_pref = self.designPrefDialog.save_designPref_para()
-		self.uiObj.update(design_pref)
+		if self.designPrefDialog.saved is not True:
+			design_pref = self.designPrefDialog.save_default_para()
+		else:
+			design_pref = self.designPrefDialog.save_designPref_para()
+			self.uiObj.update(design_pref)
 		return self.uiObj
 
 	# def setimage_connection(self):
@@ -1278,12 +1164,6 @@ class Maincontroller(QMainWindow):
 	def validate_inputs_on_design_btn(self):
 		flag = True
 		incomplete_list = []
-		# state = self.setimage_connection()
-		# if state is True:
-		# 	if self.ui.combo_connect.currentIndex() == 0:
-		# 		incomplete_list.append("Connectivity")
-		# else:
-		# 	pass
 
 		if self.ui.combo_conn_loc.currentIndex() == 0:
 			incomplete_list.append("Location")
@@ -1306,21 +1186,6 @@ class Maincontroller(QMainWindow):
 		if self.ui.txt_Tensionforce.text() == '' or float(self.ui.txt_Tensionforce.text()) == 0:
 			incomplete_list.append("Axial force")
 
-		# if self.ui.txt_rowsofbolts.text() == "":
-		# 	incomplete_list.append("No of Row Bolts")
-		#
-		# if self.ui.txt_columssofbolts.text() == "":
-		# 	incomplete_list.append("No of Column Bolts")
-		#
-		# if self.ui.txt_rowpitch.text() == "":
-		# 	incomplete_list.append("Row Pitch")
-		#
-		# if self.ui.txt_columpitch.text() == "":
-		# 	incomplete_list.append("Column Pitch")
-		#
-		# if self.ui.txt_Enddistance.text() == "":
-		# 	incomplete_list.append("Enddistance")
-
 		if self.ui.combo_conn_loc.currentText() == "Back to Back Angles":
 			if self.ui.txt_plate_thk.text() == "":
 				incomplete_list.append("Platethickness")
@@ -1338,13 +1203,6 @@ class Maincontroller(QMainWindow):
 
 		if self.ui.txt_oppline_tension.text() == "":
 			incomplete_list.append("oppline_tension")
-
-
-		# if self.ui.combo_diameter.currentIndex() == 0:
-		# 	incomplete_list.append("Diameter of Bolts")
-		#
-		# if self.ui.txt_Edgedistance.text() == "":
-		# 	incomplete_list.append("Edgedistance")
 
 		if self.ui.combo_end1_cond1.currentIndex() == 0:
 			incomplete_list.append("End 1 Condition 1")
@@ -1458,42 +1316,6 @@ class Maincontroller(QMainWindow):
 		tension_slenderness = resultObj['Tension_Force']['Slenderness']
 		self.ui.txt_slender.setText(str(tension_slenderness))
 
-		# shear_capacity = resultObj["Bolt"]["ShearCapacity"]
-		# if shear_capacity == 0:
-		# 	shear_capacity = resultObj["Bolt"]["SlipCapacity"]
-		# 	self.ui.label_167.setText("Slip resistance (kN)")
-		# self.ui.txt_shearCapacity.setText(str(shear_capacity))
-		#
-		# bearing_capacity = resultObj["Bolt"]["BearingCapacity"]
-		# if bearing_capacity == 0:
-		# 	bearing_capacity = 'N/A'
-		# self.ui.txt_bearCapacity.setText(str(bearing_capacity))
-		#
-		# combined_capacity = resultObj["Bolt"]["CombinedCapacity"]
-		# self.ui.txt_boltgrpcapacity.setText(str(combined_capacity))
-		#
-		# bolt_capacity = resultObj["Bolt"]["BoltCapacity"]
-		# self.ui.txt_boltcapacity.setText(str(bolt_capacity))
-		#
-		# bolts_required = resultObj["Bolt"]["NumberOfBolts"]
-		# self.ui.txt_noBolts.setText(str(bolts_required))
-		#
-		# cross_centre_gauge = resultObj["Bolt"]["CrossCentreGauge"]
-		# self.ui.txt_crossGauge.setText(str(cross_centre_gauge))
-		#
-		# end_distance = resultObj["Bolt"]["End"]
-		# self.ui.txt_endDist.setText(str(end_distance))
-		#
-		# edge_distance = resultObj["Bolt"]["Edge"]
-		# self.ui.txt_edgeDist.setText(str(edge_distance))
-		#
-		# self.ui.plate_lineEdit_2.setText(str(resultObj["Plate"]["Height"]))
-		# self.ui.plate_lineEdit_1.setText(str(resultObj["Plate"]["Width"]))
-		#
-		# if resultObj['Stiffener']['Status'] == False:
-		# 	self.ui.btn_stiffnrDetail.setEnabled(False)
-		# else:
-		# 	pass
 
 	def display_log_to_textedit(self):
 		file = QFile(os.path.join('Tension', 'extnd.log'))
@@ -1516,12 +1338,6 @@ class Maincontroller(QMainWindow):
 		self.ui.chkBx_columnSec.setEnabled(False)
 		self.ui.chkBx_beamSec.setEnabled(False)
 		self.ui.chkBx_connector.setEnabled(False)
-		# self.ui.btn_pitchDetail.setEnabled(False)
-		# self.ui.btn_plateDetail.setEnabled(False)
-		# self.ui.btn_plateDetail_2.setEnabled(False)
-		# self.ui.btn_stiffnrDetail.setEnabled(False)
-		# self.ui.btn_Weld.setEnabled(False)
-
 		self.ui.action_save_input.setEnabled(False)
 		self.ui.actionCreate_design_report.setEnabled(False)
 		self.ui.actionSave_3D_model.setEnabled(False)
@@ -1542,12 +1358,6 @@ class Maincontroller(QMainWindow):
 		self.ui.chkBx_columnSec.setEnabled(True)
 		self.ui.chkBx_beamSec.setEnabled(True)
 		self.ui.chkBx_connector.setEnabled(True)
-		# self.ui.btn_pitchDetail.setEnabled(True)
-		# self.ui.btn_plateDetail.setEnabled(True)
-		# self.ui.btn_plateDetail_2.setEnabled(True)
-		# self.ui.btn_stiffnrDetail.setEnabled(True)
-		# self.ui.btn_Weld.setEnabled(True)
-
 		self.ui.action_save_input.setEnabled(True)
 		self.ui.actionCreate_design_report.setEnabled(True)
 		self.ui.actionSave_3D_model.setEnabled(True)
@@ -1565,44 +1375,18 @@ class Maincontroller(QMainWindow):
 		self.ui.combo_conn_loc.setCurrentIndex(0)
 		self.ui.combo_sectiontype.setCurrentIndex(0)
 		self.ui.combo_sectionsize.setCurrentIndex(0)
-		# self.ui.combo_columnSec.setCurrentIndex(0)
-		# self.ui.combo_beamSec.setCurrentIndex(0)
-		#self.ui.lbl_connectivity.clear()
 		self.ui.txt_Fu.clear()
 		self.ui.txt_Fy.clear()
 		self.ui.txt_Member_length.clear()
 		self.ui.txt_Tensionforce.clear()
-		# self.ui.txt_Shear.clear()
-		# self.ui.txt_Moment.clear()
-		# self.ui.combo_diameter.setCurrentIndex(0)
-		# self.ui.txt_rowsofbolts.clear()
-		# self.ui.txt_columssofbolts.clear()
-		# self.ui.txt_columpitch.clear()
-		# self.ui.txt_rowpitch.clear()
-		# self.ui.txt_Edgedistance.clear()
-		# self.ui.txt_Enddistance.clear()
 		self.ui.txt_plate_thk.clear()
 		self.ui.txt_inline_tension.clear()
 		self.ui.txt_oppline_tension.clear()
-		# self.ui.txt_weldlength_inline.clear()
-		# self.ui.txt_weldlength_oppline.clear()
 		self.ui.combo_end1_cond1.setCurrentIndex(0)
 		self.ui.combo_end1_cond2.setCurrentIndex(0)
 		self.ui.combo_end2_cond1.setCurrentIndex(0)
 		self.ui.combo_end2_cond2.setCurrentIndex(0)
-		# self.ui.txt_boltgrpcapacity.clear()
-		# self.ui.txt_noBolts.clear()
-		# self.ui.txt_crossGauge.clear()
-		# self.ui.txt_endDist.clear()
-		# self.ui.txt_edgeDist.clear()
-		# self.ui.plate_lineEdit_1.clear()
-		# self.ui.plate_lineEdit_2.clear()
-		#
-		# self.ui.btn_pitchDetail.setDisabled(True)
-		# self.ui.btn_plateDetail.setDisabled(True)
-		# self.ui.btn_plateDetail_2.setDisabled(True)
-		# self.ui.btn_stiffnrDetail.setDisabled(True)
-		# self.ui.btn_Weld.setDisabled(True)
+
 		self.ui.btnFront.setDisabled(True)
 		self.ui.btnTop.setDisabled(True)
 		self.ui.btnSide.setDisabled(True)
@@ -1610,28 +1394,8 @@ class Maincontroller(QMainWindow):
 		self.display.EraseAll()
 		self.designPrefDialog.save_default_para()
 
-	# def get_columndata(self):
-	# 	"""Fetch  old and new column sections from "Intg_osdag" database.
-	# 	Returns:
-	# 		"""
-	# 	columndata = get_columncombolist()
-	# 	old_colList = get_oldcolumncombolist()
-	#
-	# 	self.ui.combo_sectionsize.addItems(columndata)
-	# 	combo_section = self.ui.combo_sectionsize
-	# 	self.color_oldDatabase_section(old_colList, columndata, combo_section)
-	#
-	# def get_beamdata(self):
-	# 	# loc = self.ui.combo_connLoc.currentText()
-	# 	beamdata = get_beamcombolist()
-	# 	old_beamdata = get_oldbeamcombolist()
-	# 	combo_section = ''
-	# 	self.ui.combo_sectionsize.addItems(beamdata)
-	# 	combo_section = self.ui.combo_sectionsize
-	# 	self.color_oldDatabase_section(old_beamdata, beamdata, combo_section)
-
 	def get_sectiondata(self,text):
-		# loc = self.ui.combo_connLoc.currentText()
+
 		self.ui.combo_sectionsize.clear()
 		member_type = text
 		membdata = get_membercombolist(member_type)
@@ -1665,77 +1429,6 @@ class Maincontroller(QMainWindow):
 		dictmembdata = get_memberdata(memberdata_sec,membertype_sec)
 		return dictmembdata
 
-	# def fetchBeamPara(self):
-	# 	beamdata_sec = self.ui.combo_sectionsize.currentText()
-	# 	dictbeamdata = get_beamdata(beamdata_sec)
-	# 	return dictbeamdata
-
-	# def populate_weld_thk_flange(self):
-	# 	"""
-	# 	Returns: The list of weld thickness in Gui
-	# 	"""
-	# 	if str(self.ui.combo_beamSec.currentText()) == "Select section":
-	# 		self.ui.combo_plateThick.setCurrentIndex(0)
-	# 		self.ui.combo_flangeSize.setCurrentIndex(0)
-	# 		return
-	#
-	# 	else:
-	# 		newlist = []
-	# 		newlist.append("Select thickness")
-	# 		weldlist = [3, 4, 5, 6, 8, 10, 12, 16, 18, 20]
-	# 		dictbeamdata = self.fetchBeamPara()
-	# 		beam_tw = float(dictbeamdata["tw"])
-	# 		plate_thickness = str(self.ui.combo_plateThick.currentText())
-	#
-	# 		if plate_thickness != "Select plate thickness":
-	# 			plate_thick = float(plate_thickness)
-	#
-	# 			if str(self.ui.combo_connLoc.currentText()) == "Extended both ways":
-	# 				if str(self.ui.combo_beamSec.currentText()) == "Select section":
-	# 					self.ui.combo_flangeSize.clear()
-	# 					return
-	# 				else:
-	# 					beam_tf = float(dictbeamdata["T"])
-	# 					beam_tw = float(dictbeamdata["tw"])
-	# 					# column_tf = float(dictbeamdata["T"])
-	# 					thicker_part = max(beam_tf, beam_tw, plate_thick)
-	#
-	# 			if thicker_part in range(0, 11):
-	# 				weld_index = weldlist.index(3)
-	# 				newlist.extend(weldlist[weld_index:])
-	# 			elif thicker_part in range(11, 21):
-	# 				weld_index = weldlist.index(5)
-	# 				newlist.extend(weldlist[weld_index:])
-	# 			elif thicker_part in range(21, 33):
-	# 				weld_index = weldlist.index(6)
-	# 				newlist.extend(weldlist[weld_index:])
-	# 			else:
-	# 				weld_index = weldlist.index(8)
-	# 				newlist.extend(weldlist[weld_index:])
-	#
-	# 			self.ui.combo_flangeSize.clear()
-	# 			for element in newlist[:]:
-	# 				self.ui.combo_flangeSize.addItem(str(element))
-	# 		else:
-	# 			pass
-
-	# def combotype_current_index_changed(self, index):
-	# 	"""
-	# 	Args:
-	# 		index: Number
-	# 	Returns: Types of Grade
-	# 	"""
-	# 	items = self.gradeType[str(index)]
-	# 	if items != 0:
-	# 		self.ui.combo_grade.clear()
-	# 		stritems = []
-	# 		for val in items:
-	# 			stritems.append(str(val))
-	#
-	# 		self.ui.combo_grade.addItems(stritems)
-	# 	else:
-	# 		pass
-
 	def check_range(self, widget, min_val, max_val):
 		"""
 		Args:
@@ -1752,20 +1445,55 @@ class Maincontroller(QMainWindow):
 			widget.setFocus()
 
 	# TODO #
-	# def check_weld_range(self, widget, min_weld_length, max_weld_length):
-	# 	"""
-	# 	Args:
-	# 		widget: Fu , Fy lineedit
-	# 		min_val: min value
-	# 		max_val: max value
-	# 	Returns: Check for the value mentioned for the given range
-	# 	"""
-	# 	text_str = widget.text()
-	# 	text_str = int(text_str)
-	# 	if (text_str < min_weld_length or text_str > max_weld_length or text_str == ''):
-	# 		QMessageBox.about(self, "Error", "Please enter a value between %s-%s" % (min_weld_length, max_weld_length))
-	# 		widget.clear()
-	# 		widget.setFocus()
+	def check_weld_range(self, widget, lblwidget,uiObj):
+		"""
+		Args:
+			widget: Fu , Fy lineedit
+			min_val: min value
+			max_val: max value
+		Returns: Check for the value mentioned for the given range
+		"""
+
+		def clear_widget():
+			''' Clear the widget and change the label colour in to red '''
+			widget.clear()
+			widget.setFocus()
+			palette = QPalette()
+			palette.setColor(QPalette.Foreground, Qt.red)
+			lblwidget.setPalette(palette)
+			pass
+
+		dictmemberdata = self.fetchMembPara()
+		plate_thick = float(uiObj["Weld"]["Platethickness"])
+		if self.ui.combo_sectiontype.currentText() != "Angles":
+			member_d = float(dictmemberdata["D"])
+			member_B = float(dictmemberdata["B"])
+		else:
+			member_leg = dictmemberdata["AXB"]
+			leg = member_leg.split("x")
+			leg1 = float(leg[0])
+			leg2 = float(leg[1])
+			min_leg = min(leg1, leg2)
+			max_leg = max(leg1, leg2)
+		loc = self.ui.combo_conn_loc.currentText()
+		if loc == "Flange":
+			min_weld_length = member_B
+			max_weld_length = (2 * member_B - 4 * plate_thick)
+		elif loc == "Web" or loc =="Back to Back Web":
+			min_weld_length = 0.6 * member_d
+			max_weld_length = member_d - 2 * plate_thick
+		elif loc == "Back to Back Angles" or loc == "Leg":
+			min_weld_length = min_leg
+			max_weld_length = max_leg
+		elif loc == "Star Angles":
+			min_weld_length = (min_leg + min_leg)
+			max_weld_length = (max_leg + max_leg)
+		text_str = widget.text()
+		text_str = int(text_str)
+		if (text_str < min_weld_length or text_str > max_weld_length or text_str == ''):
+			QMessageBox.about(self, "Error", "Please enter a value between {}-{}".format(min_weld_length, max_weld_length))
+			widget.clear()
+			widget.setFocus()
 
 	# TODO #
 
@@ -1806,33 +1534,7 @@ class Maincontroller(QMainWindow):
 		self.member_data = self.fetchMembPara()
 		tension_drawing = Tension_drawing(self.alist, self.result_obj, self.member_data,
 										  self.folder)
-		# self.beam_data = self.fetchBeamPara()
 
-		# if self.alist["Member"]["Location"] == "Web":
-		# 	# conn_type = 'col_web_connectivity'
-		# 	# if self.alist['Member']['EndPlate_type'] == "Extended both ways":
-		# 	# 	self.endplate_type = "both_way"
-
-		# 	elif self.alist['Member']['EndPlate_type'] == "Extended one way":
-		# 		self.endplate_type = "one_way"
-		# 		beam_beam = OnewayEndPlate_WW(self.alist, self.result_obj, self.column_data, self.beam_data,
-		# 									  self.folder)
-		# 	else:
-		# 		self.endplate_type = "flush"
-		# 		beam_beam = FlushEndPlate_WW(self.alist, self.result_obj, self.column_data, self.beam_data, self.folder)
-		# else:  # "Column flange-Beam web"
-		# 	# conn_type = 'col_flange_connectivity'
-		# 	if self.alist['Member']['EndPlate_type'] == "Extended one way":
-		# 		self.endplate_type = "one_way"
-		# 		beam_beam = OnewayEndPlate(self.alist, self.result_obj, self.column_data, self.beam_data, self.folder)
-		# 	elif self.alist['Member']['EndPlate_type'] == "Flush end plate":
-		# 		self.endplate_type = "flush"
-		# 		beam_beam = FlushEndPlate(self.alist, self.result_obj, self.column_data, self.beam_data, self.folder)
-		# 	else:  # uiObj['Member']['EndPlate_type'] == "Extended both ways":
-		# 		self.endplate_type = "both_way"
-		# 		beam_beam = ExtendedEndPlate(self.alist, self.result_obj, self.column_data, self.beam_data, self.folder)
-
-		# beam_beam = ExtendedEndPlate(self.alist, self.result_obj, self.column_data, self.beam_data, self.folder)
 		status = self.resultObj['Tension_Force']['Design_Status']
 		if status is True:
 			if view != "All":
@@ -1869,39 +1571,19 @@ class Maincontroller(QMainWindow):
 	def show_font_dialogue(self):
 		font, ok = QFontDialog.getFont()
 		if ok:
-			# self.ui.textEdit.setFont()
 			self.ui.textEdit.setFont(font)
-
-	# def pitch_details(self):
-	# 	section = Pitch(self)
-	# 	section.show()
-	#
-	# def weld_details(self):
-	# 	section = WeldDetails(self)
-	# 	section.show()
-	#
-	# def plate_details(self):
-	# 	section = PlateDetails(self)
-	# 	section.show()
-	# def plate_details_bottom(self):
-	# 	section = PlateDetailsBottom(self)
-	# 	section.show()
-	#
-	# def stiffener_details(self):
-	# 	section = Stiffener(self)
-	# 	section.show()
 
 	def design_report(self):
 		design_report_dialog = DesignReportDialog(self)
 		design_report_dialog.show()
 
-	# fileName = ("Connections\Moment\BCEndPlate\Html_Report.html")
-	# fileName = str(fileName)
-	# self.alist = self.designParameters()
-	# self.result = bc_endplate_design(self.alist)
-	# print "result_obj", self.result
-	# self.beam_data = self.fetchBeamPara()
-	# save_html(self.result, self.alist, self.beam_data, fileName)
+		fileName = ("Connections\Moment\BCEndPlate\Html_Report.html")
+		fileName = str(fileName)
+		self.alist = self.designParameters()
+		self.result = tension_welded_design(self.alist)
+		print ("result_obj", self.result)
+		self.memb_data = self.fetchBeamPara()
+		save_html(self.result, self.alist, self.beam_data, fileName)
 
 	# ===========================  CAD ===========================
 	# def show_color_dialog(self):

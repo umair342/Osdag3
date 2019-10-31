@@ -848,12 +848,12 @@ class Maincontroller(QMainWindow):
         if not filename:
             return
         try:
-            out_file = open(str(filename), 'wb')
+            out_file = open(str(filename), 'w')
         except IOError:
             QMessageBox.information(self, "Unable to open file",
                                     "There was an error opening \"%s\"" % filename)
             return
-        pickle.dump(self.uiObj, out_file)
+        json.dump(self.uiObj, out_file)
         out_file.close()
         pass
 
@@ -864,7 +864,7 @@ class Maincontroller(QMainWindow):
         try:
             in_file = str(filename)
             with open(in_file, 'rb') as fileObject:
-                ui_obj = pickle.load(fileObject)
+                ui_obj = json.load(fileObject)
             self.set_dict_touser_inputs(ui_obj)
         except IOError:
             QMessageBox.information(self, "Unable to open file",
@@ -1033,12 +1033,9 @@ class Maincontroller(QMainWindow):
             uiObj: User inputs
         Returns: Save the user input to txt format
         """
-        input_file = QFile(os.path.join("Connections", "Moment", "BCEndPlate", "saveINPUT.txt"))
-        if not input_file.open(QFile.WriteOnly | QFile.Text):
-            QMessageBox.warning(self, "Application",
-                                "Cannot write file %s: \n%s"
-                                % (input_file.fileName(), input_file.errorString()))
-        pickle.dump(uiObj, input_file)
+        inputFile = os.path.join("Connections", "Moment", "BCEndPlate", "saveINPUT.txt")
+        with open(inputFile, 'wb') as input_file:
+            json.dump(uiObj, input_file)
 
     def get_prevstate(self):
         """
@@ -1047,7 +1044,7 @@ class Maincontroller(QMainWindow):
         filename = os.path.join("Connections", "Moment", "BCEndPlate", "saveINPUT.txt")
         if os.path.isfile(filename):
             file_object = open(filename, 'r')
-            uiObj = pickle.load(file_object)
+            uiObj = json.load(file_object)
             return uiObj
         else:
             return None

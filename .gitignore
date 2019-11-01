@@ -3,12 +3,11 @@
 *.xml
 **/*.txt
 *.pyc
+**/*.pyc
 .idea/
 *~
-*.html
-*.xml
+*.htm
 *.log
 output/*
 Osdag_Workspace/*
 /Osdag.config
-__pycache__/

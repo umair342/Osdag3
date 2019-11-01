@@ -1,6 +1,6 @@
 **/*.log
 **/*.bak
-**/__pychache__/
+**/__pycache__/
 *.pyo
 *.pyc
 **/*.pyc

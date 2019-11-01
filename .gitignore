@@ -1,13 +1,14 @@
 **/*.log
 **/*.bak
+__pychache__
 *.pyo
+*.pyc
+**/*.pyc
 *.xml
 **/*.txt
-*.pyc
 .idea/
 *~
 *.html
-*.xml
 *.log
 *.bak
 output/*

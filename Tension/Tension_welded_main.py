@@ -1186,17 +1186,17 @@ class Maincontroller(QMainWindow):
 		if self.ui.txt_Tensionforce.text() == '' or float(self.ui.txt_Tensionforce.text()) == 0:
 			incomplete_list.append("Axial force")
 
-		if self.ui.combo_conn_loc.currentText() == "Back to Back Angles":
-			if self.ui.txt_plate_thk.text() == "":
-				incomplete_list.append("Platethickness")
-		elif self.ui.combo_conn_loc.currentText() == "Star Angles":
-			if self.ui.txt_plate_thk.text() == "":
-				incomplete_list.append("Platethickness")
-		elif self.ui.combo_conn_loc.currentText() == "Back to Back Web":
-			if self.ui.txt_plate_thk.text() == "":
-				incomplete_list.append("Platethickness")
-		else:
-			pass
+		# if self.ui.combo_conn_loc.currentText() == "Back to Back Angles":
+		if self.ui.txt_plate_thk.text() == "":
+			incomplete_list.append("Platethickness")
+		# elif self.ui.combo_conn_loc.currentText() == "Star Angles":
+		# 	if self.ui.txt_plate_thk.text() == "":
+		# 		incomplete_list.append("Platethickness")
+		# elif self.ui.combo_conn_loc.currentText() == "Back to Back Web":
+		# 	if self.ui.txt_plate_thk.text() == "":
+		# 		incomplete_list.append("Platethickness")
+		# else:
+		# 	pass
 
 		if self.ui.txt_inline_tension.text() == "":
 			incomplete_list.append("inline_tension")
@@ -1482,14 +1482,14 @@ class Maincontroller(QMainWindow):
 		elif loc == "Web" or loc =="Back to Back Web":
 			min_weld_length = 0.6 * member_d
 			max_weld_length = member_d - 2 * plate_thick
-		elif loc == "Back to Back Angles" or loc == "Leg":
+		elif loc == "Leg":
 			min_weld_length = min_leg
 			max_weld_length = max_leg
-		elif loc == "Star Angles":
+		elif loc == "Star Angles" or loc == "Back to Back Angles":
 			min_weld_length = (min_leg + min_leg)
 			max_weld_length = (max_leg + max_leg)
 		text_str = widget.text()
-		text_str = int(text_str)
+		text_str = float(text_str)
 		if (text_str < min_weld_length or text_str > max_weld_length or text_str == ''):
 			QMessageBox.about(self, "Error", "Please enter a value between {}-{}".format(min_weld_length, max_weld_length))
 			widget.clear()

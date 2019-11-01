@@ -1,4 +1,5 @@
 **/*.log
+**/*.bak
 *.pyo
 *.xml
 **/*.txt
@@ -8,6 +9,7 @@
 *.html
 *.xml
 *.log
+*.bak
 output/*
 Osdag_Workspace/*
 /Osdag.config

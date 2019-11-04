@@ -2155,7 +2155,7 @@ class Side_View (object):
 			ptA1y = 0.0
 			self.A1 = np.array([ptA1x, ptA1y])
 
-			if self.data_object.weld_oppline > self.data_object.leg_min:
+			if self.data_object.weld_oppline > 2*self.data_object.leg_min:
 				ptA2x = ptA1x
 				ptA2y = ptA1y + self.data_object.leg_max
 				self.A2 = np.array([ptA2x, ptA2y])

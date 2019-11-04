@@ -633,9 +633,9 @@ class DesignReportDialog(QDialog):
 			flag = False
 			return flag
 		else:
-			infile = open(filename, 'w')
-			pickle.dump(inputData, infile)
-			infile.close()
+			with open(filename, 'w') as infile:
+				json.dump(inputData, infile)
+
 
 	def get_report_summary(self):
 		report_summary = {"ProfileSummary": {}}
@@ -658,7 +658,7 @@ class DesignReportDialog(QDialog):
 												  "All Files (*)")
 		if os.path.isfile(filename):
 			outfile = open(filename, 'r')
-			reportsummary = pickle.load(outfile)
+			reportsummary = json.load(outfile)
 			self.ui.lineEdit_companyName.setText(reportsummary["ProfileSummary"]['CompanyName'])
 			self.ui.lbl_browse.setText(reportsummary["ProfileSummary"]['CompanyLogo'])
 			self.ui.lineEdit_groupName.setText(reportsummary["ProfileSummary"]['Group/TeamName'])
@@ -861,27 +861,28 @@ class Maincontroller(QMainWindow):
 		if not filename:
 			return
 		try:
-			out_file = open(str(filename), 'wb')
+			with open(str(filename), 'w') as out_file:
+				json.dump(self.uiObj, out_file)
 		except IOError:
 			QMessageBox.information(self, "Unable to open file",
 									"There was an error opening \"%s\"" % filename)
 			return
-		pickle.dump(self.uiObj, out_file)
-		out_file.close()
 		pass
 
 	def load_design_inputs(self):
-		filename, _ = QFileDialog.getOpenFileName(self, "Open Design", str(self.folder), "(*.osi)")
+		filename, _ = QFileDialog.getOpenFileName(self, "Open Design", str(self.folder), "Input Files(*.osi)")
 		if not filename:
 			return
 		try:
-			in_file = open(str(filename), 'rb')
+			with open(filename, 'r') as in_file:
+				ui_obj = json.load(in_file)
+			self.set_dict_touser_inputs(ui_obj)
 		except IOError:
 			QMessageBox.information(self, "Unable to open file",
 									"There was an error opening \"%s\"" % filename)
 			return
-		ui_obj = json.load(in_file)
-		self.set_dict_touser_inputs(ui_obj)
+
+
 
 	def save_log_messages(self):
 		filename, pat = QFileDialog.getSaveFileName(self, "Save File As", os.path.join(str(self.folder), "LogMessages"),
@@ -920,7 +921,7 @@ class Maincontroller(QMainWindow):
 
 		# Creates PDF
 		config = configparser.ConfigParser()
-		config.readfp(open(r'Osdag.config'))
+		config.read_file(open(r'Osdag.config'))
 		wkhtmltopdf_path = config.get('wkhtml_path', 'path1')
 
 		config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
@@ -1048,12 +1049,13 @@ class Maincontroller(QMainWindow):
 			uiObj: User inputs
 		Returns: Save the user input to txt format
 		"""
-		input_file = QFile(os.path.join("Tension", "BsaveINPUT.txt"))
-		if not input_file.open(QFile.WriteOnly | QFile.Text):
+		inputFile = os.path.join("Tension", "BsaveINPUT.txt")
+		try:
+			with open(inputFile, 'w') as input_file:
+				json.dump(uiObj, input_file)
+		except Exception as e:
 			QMessageBox.warning(self, "Application",
-								"Cannot write file %s: \n%s"
-								% (input_file.fileName(), input_file.errorString()))
-		pickle.dump(uiObj, input_file)
+							"Cannot write file %s:\n%s" % (inputFile, str(e)))
 
 	def get_prevstate(self):
 		"""
@@ -1061,8 +1063,8 @@ class Maincontroller(QMainWindow):
 		"""
 		filename = os.path.join("Tension", "saveINPUT.txt")
 		if os.path.isfile(filename):
-			file_object = open(filename, 'r')
-			uiObj = pickle.load(file_object)
+			with open(filename, 'r') as file_object:
+				uiObj = json.load(file_object)
 			return uiObj
 		else:
 			return None

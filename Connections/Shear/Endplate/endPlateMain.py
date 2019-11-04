@@ -300,9 +300,8 @@ class MyPopupDialog(QDialog):
 			flag =False
 			return flag
 		else:
-			infile = open(filename, 'w')
-			pickle.dump(input_data, infile)
-			infile.close()
+			with open(str(filename), 'w') as infile:
+				json.dump(input_data, infile)
 
 	def get_design_report_inputs(self):
 
@@ -324,8 +323,8 @@ class MyPopupDialog(QDialog):
 	def use_user_profile(self):
 		filename, _ = QFileDialog.getOpenFileName(self, 'Open Files', os.path.join(str(self.mainController.folder), "Profile"), '*.txt')
 		if os.path.isfile(filename):
-			outfile = open(filename, 'r')
-			reportsummary = pickle.load(outfile)
+			with open(filename, 'r') as outfile:
+				reportsummary = json.load(outfile)
 			self.ui.lineEdit_companyName.setText(reportsummary["ProfileSummary"]['CompanyName'])
 			self.ui.lbl_browse.setText(reportsummary["ProfileSummary"]['CompanyLogo'])
 			self.ui.lineEdit_groupName.setText(reportsummary["ProfileSummary"]['Group/TeamName'])
@@ -1080,7 +1079,8 @@ class MainController(QMainWindow):
 			return
 
 		try:
-			out_file = open(str(fileName), 'wb')
+			with open(fileName, 'w') as out_file:
+				json.dump(self.uiobj, out_file)
 
 		except IOError:
 			QMessageBox.information(self, "Unable to open file",
@@ -1088,9 +1088,6 @@ class MainController(QMainWindow):
 			return
 
 		# yaml.dump(self.uiObj,out_file,allow_unicode=True, default_flow_style=False)
-		pickle.dump(self.uiobj, out_file)
-
-		out_file.close()
 
 	def openDesign_inputs(self):
 
@@ -1099,8 +1096,8 @@ class MainController(QMainWindow):
 			return
 		try:
 			in_file = str(fileName)
-			with open(in_file, 'rb') as fileObject:
-				uiObj = pickle.load(fileObject)
+			with open(in_file, 'r') as fileObject:
+				uiObj = json.load(fileObject)
 			self.setDictToUserInputs(uiObj)
 
 		except IOError:
@@ -1111,11 +1108,13 @@ class MainController(QMainWindow):
 	def save_inputs(self, uiobj):
 		'''(Dictionary)--> None
 		'''
-		input_file = QFile(os.path.join("Connections", "Shear", "Endplate", "saveINPUT.txt"))
-		if not input_file.open(QFile.WriteOnly | QFile.Text):
+		inputFile = os.path.join("Connections", "Shear", "Endplate", "saveINPUT.txt")
+		try:
+			with open(inputFile, 'w') as input_file:
+				json.dump(uiobj, input_file)
+		except Exception as e:
 			QMessageBox.warning(self, "Application",
-									  "Cannot write file %s:\n%s." % (input_file, file.errorString()))
-		pickle.dump(uiobj, input_file)
+								"Cannot write file %s:\n%s" % (inputFile, str(e)))
 
 	def get_prevstate(self):
 		'''
@@ -1123,8 +1122,8 @@ class MainController(QMainWindow):
 		filename = os.path.join("Connections", "Shear", "Endplate", "saveINPUT.txt")
 
 		if os.path.isfile(filename):
-			with open(filename, 'rb') as fileObject:
-				uiObj = pickle.load(fileObject)
+			with open(filename, 'r') as fileObject:
+				uiObj = json.load(fileObject)
 			return uiObj
 		else:
 			return None

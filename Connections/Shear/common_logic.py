@@ -503,11 +503,11 @@ class CommonDesignLogic(object):
             self.display.set_bg_gradient_color([255, 255, 255], [255, 255, 255])
 
         if self.loc == "Column flange-Beam web" and self.connection == "Finplate":
-            self.display.View.SetProj(OCC.V3d.V3d_XnegYnegZpos)
+            self.display.View.SetProj(OCC.Core.V3d.V3d_XnegYnegZpos)
         elif self.loc == "Column flange-Beam flange" and self.connection == "SeatedAngle":
-            self.display.View.SetProj(OCC.V3d.V3d_XnegYnegZpos)
+            self.display.View.SetProj(OCC.Core.V3d.V3d_XnegYnegZpos)
         elif self.loc == "Column web-Beam flange" and self.connection == "SeatedAngle":
-            self.display.View.SetProj(OCC.V3d.V3d_XposYnegZpos)
+            self.display.View.SetProj(OCC.Core.V3d.V3d_XposYnegZpos)
 
         if self.component == "Column":
             osdag_display_shape(self.display, self.connectivityObj.get_columnModel(), update=True)

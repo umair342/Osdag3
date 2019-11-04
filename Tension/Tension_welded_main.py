@@ -634,9 +634,8 @@ class DesignReportDialog(QDialog):
 			flag = False
 			return flag
 		else:
-			infile = open(filename, 'w')
-			pickle.dump(inputData, infile)
-			infile.close()
+			with open(filename, 'w') as infile:
+				json.dump(inputData, infile)
 
 	def get_report_summary(self):
 		report_summary = {"ProfileSummary": {}}
@@ -658,8 +657,8 @@ class DesignReportDialog(QDialog):
 												  os.path.join(str(self.maincontroller.folder), "Profile"),
 												  "All Files (*)")
 		if os.path.isfile(filename):
-			outfile = open(filename, 'r')
-			reportsummary = pickle.load(outfile)
+			with open(filename, 'r') as outfile:
+				reportsummary = json.load(outfile)
 			self.ui.lineEdit_companyName.setText(reportsummary["ProfileSummary"]['CompanyName'])
 			self.ui.lbl_browse.setText(reportsummary["ProfileSummary"]['CompanyLogo'])
 			self.ui.lineEdit_groupName.setText(reportsummary["ProfileSummary"]['Group/TeamName'])
@@ -1017,12 +1016,13 @@ class Maincontroller(QMainWindow):
 			uiObj: User inputs
 		Returns: Save the user input to txt format
 		"""
-		input_file = QFile(os.path.join("Tension", "WsaveINPUT.txt"))
-		if not input_file.open(QFile.WriteOnly | QFile.Text):
+		inputFile = os.path.join("Tension", "WsaveINPUT.txt")
+		try:
+			with open(inputFile, 'w') as input_file:
+				json.dump(uiObj, input_file)
+		except Exception as e:
 			QMessageBox.warning(self, "Application",
-								"Cannot write file %s: \n%s"
-								% (input_file.fileName(), input_file.errorString()))
-		pickle.dump(uiObj, input_file)
+								"Cannot write file %s:\n%s" % (inputFile, str(e)))
 
 	def get_prevstate(self):
 		"""
@@ -1030,8 +1030,8 @@ class Maincontroller(QMainWindow):
 		"""
 		filename = os.path.join("Tension", "saveINPUT.txt")
 		if os.path.isfile(filename):
-			file_object = open(filename, 'r')
-			uiObj = pickle.load(file_object)
+			with open(filename, 'r') as file_object:
+				uiObj = json.load(file_object)
 			return uiObj
 		else:
 			return None
@@ -1479,21 +1479,34 @@ class Maincontroller(QMainWindow):
 		if loc == "Flange":
 			min_weld_length = member_B
 			max_weld_length = (2 * member_B - 4 * plate_thick)
-		elif loc == "Web" or loc =="Back to Back Web":
+		elif loc == "Web":
 			min_weld_length = 0.6 * member_d
 			max_weld_length = member_d - 2 * plate_thick
+
+		elif loc == "Back to Back Web":
+			min_weld_length = 2* 0.6 * member_d
+			max_weld_length = 2* member_d
+
+
 		elif loc == "Leg":
 			min_weld_length = min_leg
 			max_weld_length = max_leg
 		elif loc == "Star Angles" or loc == "Back to Back Angles":
 			min_weld_length = (min_leg + min_leg)
 			max_weld_length = (max_leg + max_leg)
+
 		text_str = widget.text()
-		text_str = float(text_str)
-		if (text_str < min_weld_length or text_str > max_weld_length or text_str == ''):
-			QMessageBox.about(self, "Error", "Please enter a value between {}-{}".format(min_weld_length, max_weld_length))
-			widget.clear()
-			widget.setFocus()
+
+		if text_str == "":
+			QMessageBox.about(self, "Error", "Please enter some value")
+		else:
+			text_str = float(text_str)
+			if (text_str < min_weld_length or text_str > max_weld_length or text_str == ''):
+				QMessageBox.about(self, "Error", "Please enter a value between {}-{}".format(min_weld_length, max_weld_length))
+				widget.clear()
+				widget.setFocus()
+			else:
+				pass
 
 	# TODO #
 

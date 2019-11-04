@@ -10,7 +10,7 @@ from PyQt5 import Qt
 
 from PyQt5.QtCore import pyqtSlot,pyqtSignal, QObject
 from PyQt5.QtWidgets import QMainWindow, QDialog,QMessageBox, QFileDialog, QApplication
-from Osdag3.OsdagMainPage_updated import Ui_MainWindow
+from Osdag3.ui_OsdagMainPage import Ui_MainWindow
 from Osdag3.ui_tutorial import Ui_Tutorial
 from Osdag3.ui_aboutosdag import Ui_AboutOsdag
 from Osdag3.ui_ask_question import Ui_AskQuestion

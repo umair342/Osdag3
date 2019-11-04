@@ -6,11 +6,13 @@
 **/*.pyc
 *.xml
 **/*.txt
-.idea/
+**/.idea/
 *~
 *.html
 *.log
 *.bak
+.project
+.pydevproject
 output/*
 Osdag_Workspace/*
 /Osdag.config

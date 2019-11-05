@@ -227,11 +227,11 @@ class OsdagMainWindow(QMainWindow):
                     shutil.rmtree(os.path.join(folder, create_folder))
                     os.mkdir(os.path.join(root_path, create_folder))
 
-        if self.ui.rdbtn_coverplate7.isChecked():
+        if self.ui.rdbtn_coverplate_7.isChecked():
             launch_coverplate_controller(self, folder)
             self.ui.myStackedWidget.setCurrentIndex(0)
 
-        elif self.ui.rdbtn_endplate_ext7.isChecked():
+        elif self.ui.rdbtn_endplate_ext_7.isChecked():
             launch_extendedendplate_controller(self, folder)
             self.ui.myStackedWidget.setCurrentIndex(0)
 

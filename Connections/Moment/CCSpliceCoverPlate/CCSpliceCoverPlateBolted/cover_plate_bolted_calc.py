@@ -1185,7 +1185,7 @@ def coverplateboltedconnection(uiObj):
         boltParam["EdgeF"] = min_edge_dist
         boltParam["FlangePlateHeight"] = flange_plate_l
         boltParam["FlangePlateWidth"] = flange_plate_w
-        boltParam["FlangePlateDemand"] = flange_force (column_d, column_f_t,column_b,column_area, axial_force, moment_load)
+        boltParam["FlangePlateDemand"] = flange_force(column_d, column_f_t,column_b,column_area, axial_force, moment_load)
         boltParam['MaxPitchF'] = max_pitch_flange
         boltParam["FlangeTThinner"] = flange_t_thinner
         boltParam["WebTThinner"] = web_t_thinner

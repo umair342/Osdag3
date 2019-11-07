@@ -131,9 +131,9 @@ class DesignPreferences(QDialog):
 			self.saved_designPref["detailing"]["min_edgend_dist"] = float(1.5)
 		if self.ui.txt_detailingGap.text() == '':
 
-			self.saved_designPref["detailing"]["gap"] = float(5)
+			self.saved_designPref["detailing"]["gap(mm)"] = float(5)
 		else:
-			self.saved_designPref["detailing"]["gap"] = float(self.ui.txt_detailingGap.text())
+			self.saved_designPref["detailing"]["gap(mm)"] = float(self.ui.txt_detailingGap.text())
 
 		self.saved_designPref["detailing"]["is_env_corrosive"] = str(self.ui.combo_detailing_memebers.currentText())
 		self.saved_designPref["design"] = {}
@@ -902,7 +902,7 @@ class MainController(QMainWindow):
 		Returns: Save the user input to txt format
 
 		"""
-		inputFile = os.path.join("Connections","Moment","BBSpliceCoverPlate","BBSpliceCoverPlateBolted","saveINPUT.txt")
+		inputFile = os.path.join("Connections","Moment","CCSpliceCoverPlate","CCSpliceCoverPlateBolted","saveINPUT.txt")
 		try:
 			with open(inputFile, 'w') as input_file:
 				json.dump(uiObj, input_file)
@@ -916,7 +916,7 @@ class MainController(QMainWindow):
 		Returns: Read for the previous user inputs design
 
 		"""
-		filename = os.path.join("Connections", "Moment", "BBSpliceCoverPlate", "BBSpliceCoverPlateBolted", "saveINPUT.txt")
+		filename = os.path.join("Connections", "Moment", "CCSpliceCoverPlate", "CCSpliceCoverPlateBolted", "saveINPUT.txt")
 		if os.path.isfile(filename):
 			with open(filename, 'r') as fileObject:
 				ui_obj = json.load(fileObject)
@@ -1681,7 +1681,7 @@ def set_osdaglogger():
 	logger.setLevel(logging.DEBUG)
 
 	# create the logging file handler
-	fh = logging.FileHandler(os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'coverplate.log'), mode='a')
+	fh = logging.FileHandler(os.path.join('Connections','Moment','CCSpliceCoverPlate','CCSpliceCoverPlateBolted', 'coverplate.log'), mode='a')
 
 	# ,datefmt='%a, %d %b %Y %H:%M:%S'
 	# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -1697,49 +1697,49 @@ def set_osdaglogger():
 	logger.addHandler(fh)
 
 
-def launch_coverplate_controller(osdagMainWindow, folder):
-	set_osdaglogger()
-	# --------------- To display log messages in different colors ---------------
-	rawLogger = logging.getLogger("raw")
-	rawLogger.setLevel(logging.INFO)
-	# fh = logging.FileHandler("Connections\Moment\BBSpliceCoverPlate\BBSpliceCoverPlateBolted\coverplate.log", mode="w")
-	file_handler = logging.FileHandler(os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'coverplate.log'), mode='w')
-	formatter = logging.Formatter('''%(message)s''')
-	file_handler.setFormatter(formatter)
-	rawLogger.addHandler(file_handler)
-	rawLogger.info(
-		'''<link rel="stylesheet" type="text/css" href='''+ os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'log.css') +'''/>''')
-	# ----------------------------------------------------------------------------
-	module_setup()
-	window = MainController(folder)
-	osdagMainWindow.hide()
-	window.show()
-	window.closed.connect(osdagMainWindow.show)
-
-
-if __name__ == '__main__':
-	# --------------- To display log messages in different colors ---------------
-	rawLogger = logging.getLogger("raw")
-	rawLogger.setLevel(logging.INFO)
-	# file_handler = logging.FileHandler(os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'coverplate.log'), mode='w')
-	file_handler = logging.FileHandler(os.path.join('..', 'coverplate.log'), mode='w')
-	formatter = logging.Formatter('''%(message)s''')
-	file_handler.setFormatter(formatter)
-	rawLogger.addHandler(file_handler)
-	rawLogger.info('''<link rel="stylesheet" type="text/css" href="log.css"/>''')
-	app = QApplication(sys.argv)
-	module_setup()
-	# ----------------------------------------------------------------------------
-	folder_path = "/home/reshma/Osdag_workspace/Coverplate"
-	if not os.path.exists(folder_path):
-		os.mkdir(folder_path, 0o755)
-	image_folder_path = os.path.join(folder_path, 'images_html')
-	if not os.path.exists(image_folder_path):
-		os.mkdir(image_folder_path, 0o755)
-	window = MainController(folder_path)
-	window.show()
-	sys.exit(app.exec_())
-# launch_coverplate_controller()
+# def launch_coverplate_controller(osdagMainWindow, folder):
+# 	set_osdaglogger()
+# 	# --------------- To display log messages in different colors ---------------
+# 	rawLogger = logging.getLogger("raw")
+# 	rawLogger.setLevel(logging.INFO)
+# 	# fh = logging.FileHandler("Connections\Moment\BBSpliceCoverPlate\BBSpliceCoverPlateBolted\coverplate.log", mode="w")
+# 	file_handler = logging.FileHandler(os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'coverplate.log'), mode='w')
+# 	formatter = logging.Formatter('''%(message)s''')
+# 	file_handler.setFormatter(formatter)
+# 	rawLogger.addHandler(file_handler)
+# 	rawLogger.info(
+# 		'''<link rel="stylesheet" type="text/css" href='''+ os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'log.css') +'''/>''')
+# 	# ----------------------------------------------------------------------------
+# 	module_setup()
+# 	window = MainController(folder)
+# 	osdagMainWindow.hide()
+# 	window.show()
+# 	window.closed.connect(osdagMainWindow.show)
+#
+#
+# if __name__ == '__main__':
+# 	# --------------- To display log messages in different colors ---------------
+# 	rawLogger = logging.getLogger("raw")
+# 	rawLogger.setLevel(logging.INFO)
+# 	# file_handler = logging.FileHandler(os.path.join('Connections','Moment','BBSpliceCoverPlate','BBSpliceCoverPlateBolted', 'coverplate.log'), mode='w')
+# 	file_handler = logging.FileHandler(os.path.join('..', 'coverplate.log'), mode='w')
+# 	formatter = logging.Formatter('''%(message)s''')
+# 	file_handler.setFormatter(formatter)
+# 	rawLogger.addHandler(file_handler)
+# 	rawLogger.info('''<link rel="stylesheet" type="text/css" href="log.css"/>''')
+# 	app = QApplication(sys.argv)
+# 	module_setup()
+# 	# ----------------------------------------------------------------------------
+# 	folder_path = "/home/reshma/Osdag_workspace/Coverplate"
+# 	if not os.path.exists(folder_path):
+# 		os.mkdir(folder_path, 0o755)
+# 	image_folder_path = os.path.join(folder_path, 'images_html')
+# 	if not os.path.exists(image_folder_path):
+# 		os.mkdir(image_folder_path, 0o755)
+# 	window = MainController(folder_path)
+# 	window.show()
+# 	sys.exit(app.exec_())
+# # launch_coverplate_controller()
 
 
 def launch_column_coverplate_controller(osdagMainWindow, folder):

@@ -23,7 +23,7 @@ logger = None
 
 def module_setup():
     global logger
-    logger = logging.getLogger("osdag.coverPlateBoltedCalc")
+    logger = logging.getLogger("osdag.cover_plate_bolted_calc")
     module_setup()
 
 ########################################################################################################################
@@ -95,10 +95,12 @@ ASCII diagram - Column-Column Bolted Splice Connection with Cover Plates
 ########################################################################################################################
 # Force in flange (kN)  [Reference: M.L. Gambhir (page 10.83), N. Subramanian (page 427)]
 # Revised on 15-June-2018
-def flange_force(column_d, column_f_t,area_f,total_area, axial_force, moment_load):
+def flange_force(column_d, column_f_t,column_b,column_area, axial_force, moment_load):
+
     """
     Args:
        Column_d: Overall depth of the column section in mm (float)
+       Column_b: width of the column section in mm (float)
        Column_f_t: Thickness of flange in mm (float)
        axial_force: Factored axial force in kN (float)
        moment_load: Factored bending moment in kN-m (float)
@@ -106,11 +108,12 @@ def flange_force(column_d, column_f_t,area_f,total_area, axial_force, moment_loa
         Force in flange in kN (float)
     """
     tm = moment_load
-    axial_force_f = area_f * axial_force / total_area
+    area_f = column_b * column_f_t
+    axial_force_f = float(area_f * axial_force / column_area)
     return round((tm*1000)/(column_d - column_f_t), 2) + (axial_force_f)        # kN
 
 # Force in flange (kN)  [Reference:  N. Subramanian (page 428)]
-def web_force(column_d,column_f_t, column_t_w, axial_force, total_area):
+def web_force(column_d,column_f_t, column_t_w, axial_force,column_area):
     """
     Args:
        column_d: Overall depth of the column section in mm (float)
@@ -121,7 +124,7 @@ def web_force(column_d,column_f_t, column_t_w, axial_force, total_area):
     Returns:
         Force in flange in kN (float)
     """
-    axial_force_w = ((column_d - 2(column_f_t)) * column_t_w * axial_force) / total_area
+    axial_force_w = ((column_d - 2(column_f_t)) * column_t_w * axial_force) / column_area
     return round(axial_force_w)
 ########################################################################################################################
 ########################################################################################################################
@@ -229,7 +232,7 @@ def web_max_t(bolt_diameter):
         bolt_dia: Nominal bolt diameter in mm (int)
     Returns: Maximum thickness of web splice plate in mm (float)
     """
-    max_web_t = round(0.5 * bolt_diameter, 2)
+    max_web_t = round((0.5 * bolt_diameter), 2)
     return max_web_t
 
 ## Minimum thickness of web splice plate [Reference: N. subramanian, page 373]
@@ -522,8 +525,8 @@ def fetchColumnPara(self):
 
 
 def coverplateboltedconnection(uiObj):
-
     global logger
+    logger = logging.getLogger("osdag.cover_plate_bolted_calc")
     global design_status
     design_status = True
 
@@ -533,7 +536,7 @@ def coverplateboltedconnection(uiObj):
     column_fu = float(uiObj["Member"]["fu (MPa)"])
     column_fy = float(uiObj["Member"]["fy (MPa)"])
 
-    axial_force = str(uiObj["Load"]["AxialForce"])
+    axial_force = float(uiObj["Load"]["AxialForce"])
     moment_load = float(uiObj["Load"]["Moment (kNm)"])
     shear_load = float(uiObj["Load"]["ShearForce (kN)"])
     # if shear_load == '':
@@ -545,7 +548,7 @@ def coverplateboltedconnection(uiObj):
     bolt_grade = float(uiObj["Bolt"]["Grade"])
     bolt_type = (uiObj["Bolt"]["Type"])
     flange_plate_preference = uiObj['FlangePlate']['Preferences']
-    gap = float(uiObj["detailing"]["Gap (mm)"]) # gap between web  plate and column flange
+    gap = float(uiObj["detailing"]["gap(mm)"]) # gap between web  plate and column flange
 
     mu_f = float(uiObj["bolt"]["slip_factor"])
     dp_bolt_hole_type = str(uiObj["bolt"]["bolt_hole_type"])
@@ -555,7 +558,7 @@ def coverplateboltedconnection(uiObj):
     web_plate_t = float(uiObj['WebPlate']['Thickness (mm)'])
     web_plate_w = str(uiObj['WebPlate']['Width (mm)'])
     flange_plate_t = float(uiObj["FlangePlate"]["Thickness (mm)"])
-    flange_plate_w = str(uiObj["FlangePlate"]["Width (mm)"])
+    flange_plate_w = float(uiObj["FlangePlate"]["Width (mm)"])
     # if flange_plate_w == '':
     #     flange_plate_w = 0
     # else:
@@ -569,8 +572,8 @@ def coverplateboltedconnection(uiObj):
     # else:
     #     flange_plate_l = float(flange_plate_l)
 
-    flange_plate_fu = float(uiObj["Member"]["fu (Mpa)"])
-    flange_plate_fy = float(uiObj["Member"]["fy (MPa)"])
+    # flange_plate_fu = float(uiObj["Member"]["fu (Mpa)"])
+    # flange_plate_fy = float(uiObj["Member"]["fy (MPa)"])
     flange_plate_fu = column_fu
     flange_plate_fy = column_fy
 
@@ -628,10 +631,14 @@ def coverplateboltedconnection(uiObj):
     #webmint = float(web_min_t( shear_load, column_d, gamma_m0, column_fy))
     #if web_plate_t < web_min_t( shear_load, column_d, gamma_m0, column_fy)
     gamma_m0  = 1.1
+    # a = web_max_t(bolt_diameter)
     if web_plate_t < float(column_t_w / 2):  ## Web plate thickness = web plate 1 thickness = (thickness of web / 2)
         min_web_t = float(math.sqrt(3) * (gamma_m0 * shear_load) / (0.6 * column_d * column_fy))
         web_opt_thk = max(min_web_t, (column_t_w / 2))
-        web_opt_thk = web_plate_t
+        # print (web_opt_thk)
+        # print(logger)
+        # # web_opt_thk = web_plate_t
+        # web_plate_t = web_opt_thk
         # web_plate_t = web_opt_thk
         design_status = False
         logger.error(": Chosen web splice plate thickness is not sufficient")
@@ -639,10 +646,13 @@ def coverplateboltedconnection(uiObj):
         logger.info(": Increase the thickness of web splice plate")
 
     elif web_plate_t > web_max_t(bolt_diameter):
+        # print (a)
+        # print (web_plate_t)
+        # print(logger)
         design_status = False
         logger.error(": Thickness of web splice plate is greater than the maximum thickness")
-        logger.warning(": Maximum allowed thickness of web splice plate is %2.2f mm" % (web_max_t(bolt_diameter)))
-        logger.info(": Decrease the thickness of web splice plate")
+        # logger.warning(": Maximum allowed thickness of web splice plate is %2.2f mm" % (a))
+        # logger.info(": Decrease the thickness of web splice plate")
 
     else:
         pass
@@ -707,7 +717,7 @@ def coverplateboltedconnection(uiObj):
 
     elif flange_plate_preference == "Outside + Inside":
         # if flange_plate_w != 0:
-            if flange_plate_w < (column_b - 2 * 10):  # AISC Essential detailing requirements for a splice --> B - Half inch on both sides
+            if flange_plate_w < float(column_b - 2 * 10):  # AISC Essential detailing requirements for a splice --> B - Half inch on both sides
                 # Note: half inch (0.5 inch) = 12.7 mm
                 flangeplatewidth = round(column_b - (2 * 10), 2)
                 design_status = False
@@ -769,8 +779,8 @@ def coverplateboltedconnection(uiObj):
         kbChk2 = min_pitch / float(3 * dia_hole) - 0.25
         kbChk3 = bolt_fu / float(column_fu)
         kbChk4 = 1
-        kb = min(kbChk1, kbChk2, kbChk3, kbChk4)
-        kb = round(float(kb, 3))
+        kb = float(min(kbChk1, kbChk2, kbChk3, kbChk4))
+        kb = round(kb, 3)
 
         # Bolt capacity calculation for web splice
 
@@ -834,188 +844,188 @@ def coverplateboltedconnection(uiObj):
             max_gauge_flange = int(min((32 * flange_t_thinner), 300))
 
     # Calculation of number of bolts required for web splice plate
-            if shear_load != 0:
-                web_bolts_required = float(math.ceil(shear_load/ web_bolt_capacity))
-            else:
-                web_bolts_required = 2
+        if shear_load != 0:
+            web_bolts_required = float(math.ceil(shear_load/ web_bolt_capacity))
+        else:
+            web_bolts_required = 2
 
-     # Calculation of axial capacity
-            if axial_force == 0:
-                axial_capacity = float((0.3* column_area * column_fy)/ gamma_m0)
-            else:
-                pass
+ # Calculation of axial capacity
+        if axial_force == 0:
+            axial_capacity = float((0.3* column_area * column_fy)/ gamma_m0)
+        else:
+            pass
 
-    # Calculation of number of bolts required for flange splice plate
-        #### 1. No. of bolts along column length; connecting each column = 1.05 * Force in flange [Reference: Annex F, Clause 10.6.1, F-2.2, Page 130]
-            ff = flange_force(column_d, column_f_t, axial_force, moment_load)
-            if ff != 0:
-                flange_bolts_required = int(math.ceil((ff/ flange_bolt_capacity)))
-            else:
-                flange_bolts_required = 2
+# Calculation of number of bolts required for flange splice plate
+    #### 1. No. of bolts along column length; connecting each column = 1.05 * Force in flange [Reference: Annex F, Clause 10.6.1, F-2.2, Page 130]
+        ff = flange_force(column_d, column_f_t,column_b,column_area, axial_force, moment_load)
+        if ff != 0:
+            flange_bolts_required = int(math.ceil((ff/ flange_bolt_capacity)))
+        else:
+            flange_bolts_required = 2
 
-    # From practical considerations, minimum number of bolts required for web splice plate is  [Reference: ML Gambhir page 10.84]
-            if web_bolts_required > 0 and web_bolts_required <= 1:
-                web_bolts_required = 2
+# From practical considerations, minimum number of bolts required for web splice plate is  [Reference: ML Gambhir page 10.84]
+        if web_bolts_required > 0 and web_bolts_required <= 1:
+            web_bolts_required = 2
 
-        # number_of_rows_web = web_bolts_required
+    # number_of_rows_web = web_bolts_required
 
-    # Number of bolts in even number (for design of flange splice plate)
-            if flange_bolts_required % 2 == 0:
-                flange_bolts_required = flange_bolts_required
-            else:
-                flange_bolts_required = flange_bolts_required + 1
-
-
-            #flange_bolts_required
-    # # Number of rows of bolts in flange splice
-
-    #
-    #
-    #     '''
-    #     ASCII Diagram to represent flange splice plate
-    #                     row 1                 row 4   Gap between beams
-    #                   +---->                  +-->   ++-----+
-
-    #                   |                       |      ||
-    #     +--------+----|-----------------------|------||-----------------------------------+---------+
-    #     |        |    +                       |      vv                                   |         |
-    #     |        |                            |      ||                                   |         |
-    #     |        |    +       +       +       +      ||    +       +       +       +      |         |
-    #     |        |                                   ||                                   |         |
-    #     |        |                                   ||                                   |         |
-    #     |        |                                   ||                   ++-+            |         |
-    #     |        |    +       +       +       +      ||    +       +      |+ |     +      |         |
-    #     |        |                                   ||                   +--v            |         |
-    #     |   ^    |            ^                      ||                      |            |         |
-    #     +---|----+------------|--------------- ------++----------------------|------------+---------+
-    #         |                 |                                              | Bolt
-    #         | Beam            |Flange splice plate                           +------+
-    #         +-----+           +--------+
-    #                            In the above diagram total number of bolts along one side of beam is 8
-    #                              number of rows = 8/2 = 4
-    #     '''
+# Number of bolts in even number (for design of flange splice plate)
+        if flange_bolts_required % 2 == 0:
+            flange_bolts_required = flange_bolts_required
+        else:
+            flange_bolts_required = flange_bolts_required + 1
 
 
+        #flange_bolts_required
+# # Number of rows of bolts in flange splice
 
-            number_of_rows_flange = flange_bolts_required / 2
-            total_web_plate_bolts = web_bolts_required * 2
-            total_flange_plate_bolts = flange_bolts_required * 4
-            number_of_column_flange = column_b - 2 * column_f_t - 2 * column_r1 - 2 * edge_distance
+#
+#
+#     '''
+#     ASCII Diagram to represent flange splice plate
+#                     row 1                 row 4   Gap between beams
+#                   +---->                  +-->   ++-----+
+
+#                   |                       |      ||
+#     +--------+----|-----------------------|------||-----------------------------------+---------+
+#     |        |    +                       |      vv                                   |         |
+#     |        |                            |      ||                                   |         |
+#     |        |    +       +       +       +      ||    +       +       +       +      |         |
+#     |        |                                   ||                                   |         |
+#     |        |                                   ||                                   |         |
+#     |        |                                   ||                   ++-+            |         |
+#     |        |    +       +       +       +      ||    +       +      |+ |     +      |         |
+#     |        |                                   ||                   +--v            |         |
+#     |   ^    |            ^                      ||                      |            |         |
+#     +---|----+------------|--------------- ------++----------------------|------------+---------+
+#         |                 |                                              | Bolt
+#         | Beam            |Flange splice plate                           +------+
+#         +-----+           +--------+
+#                            In the above diagram total number of bolts along one side of beam is 8
+#                              number of rows = 8/2 = 4
+#     '''
+
+        # boltparameters = boltdesignweb(web_plate_l, flange_plate_w, flange_plate_l, flange_plate_t, web_t_thinner)
+        edge_distance =50
+        number_of_rows_flange = flange_bolts_required / 2
+        total_web_plate_bolts = web_bolts_required * 2
+        total_flange_plate_bolts = flange_bolts_required * 4
+        number_of_column_flange = column_b - 2 * column_f_t - 2 * column_r1 - 2 * edge_distance
 
 
 
 
-        # Calculation of bolt group capacity for web splice plate
-            web_bolt_group_capcity = web_bolts_required * web_bolt_capacity
+    # Calculation of bolt group capacity for web splice plate
+        web_bolt_group_capcity = web_bolts_required * web_bolt_capacity
 
-        # Calculation of bolt group capacity for flange splice plate
-            flange_bolt_group_capacity = flange_bolts_required * flange_bolt_capacity
+    # Calculation of bolt group capacity for flange splice plate
+        flange_bolt_group_capacity = flange_bolts_required * flange_bolt_capacity
 
 
-            max_pitch = int(min((32 * web_t_thinner), 300))
-            max_gauge = int(min((32 * web_t_thinner), 300))
+        max_pitch = int(min((32 * web_t_thinner), 300))
+        max_gauge = int(min((32 * web_t_thinner), 300))
 
-        # Roundup pitch and end distances as a whole number in the multiples of 10
-            if min_pitch % 10 != 0 or min_gauge % 10 != 0:
-                min_pitch = int(min_pitch / 10) * 10 + 10
-                min_gauge = int(min_pitch / 10) * 10 + 10
-            else:
-                min_pitch = min_pitch + 10
-                min_gauge = min_gauge + 10
+    # Roundup pitch and end distances as a whole number in the multiples of 10
+        if min_pitch % 10 != 0 or min_gauge % 10 != 0:
+            min_pitch = int(min_pitch / 10) * 10 + 10
+            min_gauge = int(min_pitch / 10) * 10 + 10
+        else:
+            min_pitch = min_pitch + 10
+            min_gauge = min_gauge + 10
 
-        # Roundup end and edge distances as a whole number in the multiples of 10
-            if min_end_dist % 10 != 0:
-                min_end_dist = int(min_end_dist / 10) * 10 + 10
-                min_edge_dist = int(min_edge_dist / 10) * 10 + 10
-            else:
-                min_end_dist = min_end_dist
-                min_edge_dist = min_end_dist
+    # Roundup end and edge distances as a whole number in the multiples of 10
+        if min_end_dist % 10 != 0:
+            min_end_dist = int(min_end_dist / 10) * 10 + 10
+            min_edge_dist = int(min_edge_dist / 10) * 10 + 10
+        else:
+            min_end_dist = min_end_dist
+            min_edge_dist = min_end_dist
 
 
 
 ##########################################################################################################################################################
-       #flange cover plate details (height,width,thickness)
+   #flange cover plate details (height,width,thickness)
 
 
 
-        # def validation_input(max_value,min_value, user_input, parameter):
-        #     if  user_input < max_value and user_input > min_value:
-        #         design_status = False
-        #         #logger.error(": Chosen range of flange splice plate is not sufficient")
-        #         logger.warning("Please enter in the range { } to { }".format(parameter,max_value, min_value))
-        #         #logger.info(": Increase the height of flange splice plate")
-        #     else:
-        #         pass
-        #     return design_status
-        #
-        # flange_plate_l = validation_input(max_h, max)
+    # def validation_input(max_value,min_value, user_input, parameter):
+    #     if  user_input < max_value and user_input > min_value:
+    #         design_status = False
+    #         #logger.error(": Chosen range of flange splice plate is not sufficient")
+    #         logger.warning("Please enter in the range { } to { }".format(parameter,max_value, min_value))
+    #         #logger.info(": Increase the height of flange splice plate")
+    #     else:
+    #         pass
+    #     return design_status
+    #
+    # flange_plate_l = validation_input(max_h, max)
 
 
 
-        # Pitch calculation for a user given height of web splice plate
-            if web_plate_l != 0:
-                length_avail = (web_plate_l - 2 * min_edge_dist )
-                web_pitch = round(length_avail / (web_bolts_required - 1), 3)
+    # Pitch calculation for a user given height of web splice plate
+        if web_plate_l != 0:
+            length_avail = (web_plate_l - 2 * min_edge_dist )
+            web_pitch = round(length_avail / (web_bolts_required - 1), 3)
 
-        # Case : When there is no user input for height of web splice plate
+    # Case : When there is no user input for height of web splice plate
 
-                #minwebw = web_min_w(column_d)
-            elif web_plate_l == 0:
-        # Consider web splice plate equal to minimum required height of web splice plate & calc pitch
-
-                web_plate_l_opt = web_min_w(column_d)
-                web_pitch = int(round((((web_plate_l_opt - (2 * min_end_dist)) / (web_bolts_required - 1)) / 5)) * 5 + 5)
-                web_plate_l = round(int(web_pitch * (web_bolts_required - 1) + (2 * min_end_dist)), 2)
-
-            else:
-                pass
-
-        ## In the above case if "pitch < requ_web_t
-        ## In the above case if "pitch < required min pitch" then recalculate height of web splice plate
             #minwebw = web_min_w(column_d)
-            if web_pitch <= min_pitch:
-                web_plate_l_opt = (web_bolts_required - 1) * min_pitch + 2 * min_end_dist
-                web_pitch = min_pitch
+        elif web_plate_l == 0:
+    # Consider web splice plate equal to minimum required height of web splice plate & calc pitch
+
+            web_plate_l_opt = web_min_w(column_d)
+            web_pitch = int(round((((web_plate_l_opt - (2 * min_end_dist)) / (web_bolts_required - 1)) / 5)) * 5 + 5)
+            web_plate_l = round(int(web_pitch * (web_bolts_required - 1) + (2 * min_end_dist)), 2)
+
+        else:
+            pass
+
+    ## In the above case if "pitch < requ_web_t
+    ## In the above case if "pitch < required min pitch" then recalculate height of web splice plate
+        #minwebw = web_min_w(column_d)
+        if web_pitch <= min_pitch:
+            web_plate_l_opt = (web_bolts_required - 1) * min_pitch + 2 * min_end_dist
+            web_pitch = min_pitch
 
 
-            elif web_pitch >= max_pitch:
-                web_plate_l_opt = (web_bolts_required - 1) * max_pitch + 2 * min_end_dist
-                web_pitch = max_pitch
-                web_plate_l = web_plate_l_opt
-            # web_plate_l = web_plate_l_opt
+        elif web_pitch >= max_pitch:
+            web_plate_l_opt = (web_bolts_required - 1) * max_pitch + 2 * min_end_dist
+            web_pitch = max_pitch
+            web_plate_l = web_plate_l_opt
+        # web_plate_l = web_plate_l_opt
 
-            else:
-                 pass
+        else:
+             pass
 
 
 # Recalculate pitch if height of web splice plate is greater than maximum height of web splice plate
 
-            if web_plate_l > webmaxw:
-                web_plate_l_opt = web_max_w(column_d, column_f_t, column_r1)
-                web_pitch = (web_plate_l_opt - 2 * min_end_dist) / (web_bolts_required - 1)
+        if web_plate_l > webmaxw:
+            web_plate_l_opt = web_max_w(column_d, column_f_t, column_r1)
+            web_pitch = (web_plate_l_opt - 2 * min_end_dist) / (web_bolts_required - 1)
 
-            else:
-                 pass
+        else:
+             pass
 
 
 
-    # # Calculation of height of flange splice plate (When user doesn't specify the value)
-    #
-    #     '''
-    #     ASCII Diagram to represent length and height of flange splice plate
-    #              <----------------length = (2 * Ltp) + Gap------------------>
-    #              +----------------------------++----------------------------+  ^
-    #              |                            ||                            |  |
-    #              |   +        +       +       ||    +         +       +     |
-    #              |                            ||                            | width
-    #              |   +        +       +       ||    +         +       +     |
-    #              |                            ||                            |  |
-    #              +----------------------------++----------------------------+  v
-    #                                           ||
-    #              <---------+  Ltp  +--------->||<---------+  Ltp  +--------->
-    #                                          Gap
-    #                                           vv
-    #     '''
+# # Calculation of height of flange splice plate (When user doesn't specify the value)
+#
+#     '''
+#     ASCII Diagram to represent length and height of flange splice plate
+#              <----------------length = (2 * Ltp) + Gap------------------>
+#              +----------------------------++----------------------------+  ^
+#              |                            ||                            |  |
+#              |   +        +       +       ||    +         +       +     |
+#              |                            ||                            | width
+#              |   +        +       +       ||    +         +       +     |
+#              |                            ||                            |  |
+#              +----------------------------++----------------------------+  v
+#                                           ||
+#              <---------+  Ltp  +--------->||<---------+  Ltp  +--------->
+#                                          Gap
+#                                           vv
+#     '''
 
 
     # Calculation of length of outer flange splice plate (optional input)
@@ -1175,7 +1185,7 @@ def coverplateboltedconnection(uiObj):
         boltParam["EdgeF"] = min_edge_dist
         boltParam["FlangePlateHeight"] = flange_plate_l
         boltParam["FlangePlateWidth"] = flange_plate_w
-        boltParam["FlangePlateDemand"] = flange_force(column_d, column_f_t, axial_force, moment_load)
+        boltParam["FlangePlateDemand"] = flange_force (column_d, column_f_t,column_b,column_area, axial_force, moment_load)
         boltParam['MaxPitchF'] = max_pitch_flange
         boltParam["FlangeTThinner"] = flange_t_thinner
         boltParam["WebTThinner"] = web_t_thinner

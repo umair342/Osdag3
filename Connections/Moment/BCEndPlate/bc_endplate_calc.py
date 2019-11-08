@@ -35,7 +35,7 @@ beam_B = 0
 def module_setup():
     global logger
     logger = logging.getLogger("osdag.bc_endplate_calc")
-
+    print(logger)
 
 module_setup()
 

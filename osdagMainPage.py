@@ -2,29 +2,30 @@
 '''
 Created on 31-Mar-2016
 
-@author: darshan
+@author: deepa
 '''
 
 import sys
-from PyQt5 import Qt
+# from PyQt5 import Qt
 
 from PyQt5.QtCore import pyqtSlot,pyqtSignal, QObject
 from PyQt5.QtWidgets import QMainWindow, QDialog,QMessageBox, QFileDialog, QApplication
-from Osdag3.ui_OsdagMainPage import Ui_MainWindow
-from Osdag3.ui_tutorial import Ui_Tutorial
-from Osdag3.ui_aboutosdag import Ui_AboutOsdag
-from Osdag3.ui_ask_question import Ui_AskQuestion
-from Osdag3.Connections.Shear.Finplate.finPlateMain import launchFinPlateController
-
+from ui_OsdagMainPage import Ui_MainWindow
+from ui_tutorial import Ui_Tutorial
+from ui_aboutosdag import Ui_AboutOsdag
+from ui_ask_question import Ui_AskQuestion
 import os
+
+from Connections.Shear.Finplate.finPlateMain import launchFinPlateController
 from Connections.Shear.SeatedAngle.seat_angle_main import launchSeatedAngleController
 from Connections.Shear.cleatAngle.cleatAngleMain import launch_cleatangle_controller
 from Connections.Shear.Endplate.endPlateMain import launch_endplate_controller
 from Connections.Moment.BBSpliceCoverPlate.BBSpliceCoverPlateBolted.coverplate_bolted_main import launch_coverplate_controller
 from Connections.Moment.ExtendedEndPlate.extended_main import launch_extendedendplate_controller
 from Connections.Moment.BCEndPlate.bc_endplate_main import launch_bc_endplate_controller
-from Tension.Tension_bolted_main import launch_tension_bolted_controller
-from Tension.Tension_welded_main import launch_tension_welded_controller
+from Connections.Moment.CCSpliceCoverPlate.CCSpliceCoverPlateBolted.coverplate_bolted_main import launch_column_coverplate_controller
+
+
 import os.path
 import subprocess
 import shutil
@@ -63,7 +64,7 @@ class OsdagMainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.showMaximized()
-        list_of_items = {'Osdagpage': 0, 'connectionpage': 1, 'Tension': 2, 'beamtocolumnpage': 3,'compressionpage': 4, 'flexuralpage': 5}
+        list_of_items = {'Osdagpage': 0, 'connectionpage': 1, 'beamtobeampage': 2, 'beamtocolumnpage': 3,'compressionpage': 4, 'flexuralpage': 5}
 
         self.ui.myStackedWidget.setCurrentIndex(list_of_items['Osdagpage'])
         self.ui.btn_connection.clicked.connect(lambda: self.change_desgin_page(list_of_items['connectionpage'], list_of_items['Osdagpage']))
@@ -71,7 +72,8 @@ class OsdagMainWindow(QMainWindow):
         self.ui.btn_start.clicked.connect(self.show_shear_connection)
         self.ui.btn_start_2.clicked.connect(self.show_moment_connection)
         self.ui.btn_start_3.clicked.connect(self.show_moment_connection_bc)
-        self.ui.Tension_Start.clicked.connect(self.show_tension)
+        self.ui.Start.clicked.connect(self.show_moment_connection_cc)
+
 
         self.ui.btn_beamCol.clicked.connect(self.unavailable)
         self.ui.btn_compression.clicked.connect(self.unavailable)
@@ -80,7 +82,7 @@ class OsdagMainWindow(QMainWindow):
         self.ui.btn_2dframe.clicked.connect(self.unavailable)
         self.ui.btn_3dframe.clicked.connect(self.unavailable)
         self.ui.btn_groupdesign.clicked.connect(self.unavailable)
-        self.ui.btn_tension.clicked.connect(lambda: self.change_desgin_page(list_of_items['Tension'], list_of_items['Osdagpage']))
+        self.ui.btn_tension.clicked.connect(self.unavailable)
         self.ui.btn_plate.clicked.connect(self.unavailable)
         self.ui.comboBox_help.setCurrentIndex(0)
         self.ui.comboBox_help.currentIndexChanged.connect(self.selection_change)
@@ -135,7 +137,7 @@ class OsdagMainWindow(QMainWindow):
 
 
         config = configparser.ConfigParser()
-        config.readfp(open(r'Osdag.config'))
+        config.read_file(open(r'Osdag.config'))
         desktop_path = config.get("desktop_path", "path1")
         folder = QFileDialog.getExistingDirectory(self, "Select Workspace Folder (Don't use spaces in the folder name)", desktop_path)
 
@@ -227,11 +229,11 @@ class OsdagMainWindow(QMainWindow):
                     shutil.rmtree(os.path.join(folder, create_folder))
                     os.mkdir(os.path.join(root_path, create_folder))
 
-        if self.ui.rdbtn_coverplate.isChecked():
+        if self.ui.rdbtn_coverplate_7.isChecked():
             launch_coverplate_controller(self, folder)
             self.ui.myStackedWidget.setCurrentIndex(0)
 
-        elif self.ui.rdbtn_endplate_ext.isChecked():
+        elif self.ui.rdbtn_endplate_ext_7.isChecked():
             launch_extendedendplate_controller(self, folder)
             self.ui.myStackedWidget.setCurrentIndex(0)
 
@@ -266,16 +268,17 @@ class OsdagMainWindow(QMainWindow):
 
 
 
-        if self.ui.rdbtn_endplate_bc.isChecked():
+        if self.ui.rdbtn_endplate_bc_7.isChecked():
             launch_bc_endplate_controller(self, folder)
             self.ui.myStackedWidget.setCurrentIndex(0)
 
         else:
             QMessageBox.about(self, "INFO", "Please select appropriate connection")
 
-    ####added#####
 
-    def show_tension(self):
+
+
+    def show_moment_connection_cc(self):
 
         folder = self.select_workspace_folder()
         folder = str(folder)
@@ -299,23 +302,14 @@ class OsdagMainWindow(QMainWindow):
                     shutil.rmtree(os.path.join(folder, create_folder))
                     os.mkdir(os.path.join(root_path, create_folder))
 
-        if self.ui.rdbtn_bolted.isChecked():
-            launch_tension_bolted_controller(self, folder)
-            self.ui.myStackedWidget.setCurrentIndex(0)
-        # else:
-        #     QMessageBox.about(self, "INFO", "Please select appropriate connection")
 
-        elif self.ui.rdbtn_welded.isChecked():
-            launch_tension_welded_controller(self, folder)
+
+        #if self.ui.rdbtn_coverplate.isChecked():
+            launch_column_coverplate_controller(self, folder)
             self.ui.myStackedWidget.setCurrentIndex(0)
-        else:
-            QMessageBox.about(self, "INFO", "Please select appropriate connection")
-        # if self.ui.btn_tension.isChecked():
-        # launch_tension_controller(self, folder)
-        #     # self.ui.myStackedWidget.setCurrentIndex(0)
-        #
-        # # else:
-        # #     QMessageBox.about(self, "INFO", "Please select appropriate connection")
+
+        #else:
+            #QMessageBox.about(self, "INFO", "Please select appropriate connection")
 
     # ********************************* Help Action *********************************************************************************************
 
@@ -377,7 +371,7 @@ def the_exception_hook(exctype, value, traceback):
         system exit(1)
     '''
     # Print the error and traceback
-    print("Error occurred: ", (exctype, value, traceback))
+    print ("Error occurred: ", (exctype, value, traceback))
     # Call the normal Exception hook after
     sys.__excepthook__(exctype, value, traceback)
     sys.exit(1)
@@ -393,4 +387,4 @@ if __name__ == '__main__':
     try:
         sys.exit(app.exec_())
     except:
-        print("ERROR")
+        print ("ERROR")

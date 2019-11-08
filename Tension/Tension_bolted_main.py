@@ -712,7 +712,19 @@ class Maincontroller(QMainWindow):
 		# self.ui.btnTop.clicked.connect(lambda: self.call_2D_drawing("Top"))
 		# self.ui.btnSide.clicked.connect(lambda: self.call_2D_drawing("Side"))
 		self.ui.combo_diameter.currentIndexChanged[str].connect(self.bolt_hole_clearance)
-		self.ui.combo_diameter.currentIndexChanged[str].connect(self.pitch_validation)
+		self.ui.txt_rowpitch.editingFinished.connect(lambda: self.row_pitch_validation(self.ui.txt_rowpitch,self.ui.lbl_beam1_6))
+		self.ui.txt_columpitch.editingFinished.connect(lambda: self.pitch_validation(self.ui.txt_columpitch,self.ui.lbl_beam1_8))
+		self.ui.txt_Enddistance.editingFinished.connect(
+			lambda: self.enddistance_validation(self.ui.txt_Enddistance, self.ui.lbl_beam1_7))
+		self.ui.txt_Edgedistance.editingFinished.connect(
+			lambda: self.enddistance_validation(self.ui.txt_Edgedistance,self.ui.lbl_edgedistance))
+
+		# #todo#
+
+
+
+
+		# self.ui.combo_diameter.currentIndexChanged[str].connect(self.enddistance_validation)
 		# self.ui.combo_grade.currentIndexChanged[str].connect(self.call_bolt_fu)
 		self.ui.txt_Fu.textChanged.connect(self.call_weld_fu)
 		#added
@@ -788,14 +800,12 @@ class Maincontroller(QMainWindow):
 		min_fu = 290
 		max_fu = 780
 		self.ui.txt_Fu.editingFinished.connect(lambda: self.check_range(self.ui.txt_Fu, min_fu, max_fu))
-		self.ui.txt_Fu.editingFinished.connect(
-			lambda: self.validate_fu_fy(self.ui.txt_Fu, self.ui.txt_Fy, self.ui.txt_Fu, self.ui.lbl_fu))
+		self.ui.txt_Fu.editingFinished.connect(lambda: self.validate_fu_fy(self.ui.txt_Fu, self.ui.txt_Fy, self.ui.txt_Fu, self.ui.lbl_fu))
 
 		min_fy = 165
 		max_fy = 650
 		self.ui.txt_Fy.editingFinished.connect(lambda: self.check_range(self.ui.txt_Fy, min_fy, max_fy))
-		self.ui.txt_Fy.editingFinished.connect(
-			lambda: self.validate_fu_fy(self.ui.txt_Fu, self.ui.txt_Fy, self.ui.txt_Fy, self.ui.lbl_fy))
+		self.ui.txt_Fy.editingFinished.connect(lambda: self.validate_fu_fy(self.ui.txt_Fu, self.ui.txt_Fy, self.ui.txt_Fy, self.ui.lbl_fy))
 
 		min_val= float(1)
 		max_val = (15/2.5)
@@ -830,33 +840,99 @@ class Maincontroller(QMainWindow):
 	# 		self.ui.txt_plate_thk.setEnabled(True)
 	# 	else:
 	# 		self.ui.txt_plate_thk.setEnabled(False)
-	def pitch_validation(self,uiObj):
-		diameter = self.ui.combo_diameter.currentText()
-		min_val = round((float(diameter) * 2.5), 2)
-		plate_thick = self.ui.txt_plate_thk.text()
-		max_val = max((32 * float(plate_thick)), 300.0)
-		self.ui.txt_rowpitch.editingFinished.connect(lambda: self.check_range(self.ui.txt_rowpitch, min_val, max_val))
-		self.ui.txt_columpitch.editingFinished.connect(lambda: self.check_range(self.ui.txt_columpitch, min_val, max_val))
+	def row_pitch_validation(self, widget, lblwidget):
+		def clear_widget():
+			''' Clear the widget and change the label colour in to red '''
+			widget.clear()
+			widget.setFocus()
+			palette = QPalette()
+			palette.setColor(QPalette.Foreground, Qt.red)
+			lblwidget.setPalette(palette)
+			pass
+		if self.ui.combo_diameter.currentText()=="Select diameter":
+			QMessageBox.about(self, 'Information', "Select Diameter Value")
+			clear_widget()
+			pass
+		else:
+			diameter = self.ui.combo_diameter.currentText()
+			min_val = float(diameter) * 2.5
+			plate_thick = self.ui.txt_plate_thk.text()
+			b = 32 * float(plate_thick)
+			max_val = max(b, 300.0)
+			text_str = widget.text()
+			text_str = float(text_str)
+			if (text_str < min_val or text_str > max_val or text_str == ''):
+				QMessageBox.about(self, "Error", "Please enter a value between %s-%s" % (min_val, max_val))
+				widget.clear()
+				widget.setFocus()
+
+	def column_pitch_validation(self, widget, lblwidget):
+		def clear_widget():
+			''' Clear the widget and change the label colour in to red '''
+			widget.clear()
+			widget.setFocus()
+			palette = QPalette()
+			palette.setColor(QPalette.Foreground, Qt.red)
+			lblwidget.setPalette(palette)
+			pass
+		if self.ui.combo_diameter.currentText()=="Select diameter":
+			QMessageBox.about(self, 'Information', "Select Diameter Value")
+			clear_widget()
+		elif self.ui.combo_sectionsize.currentText()=="Select section":
+			QMessageBox.about(self, 'Information', "Select Section Size")
+			clear_widget()
+		else:
+			dict_memb_data = self.fetchMembPara()
+			beam_D = float(dict_beam_data['D'])
+			col_T = float(dict_column_data['T'])
+			col_R1 = float(dict_column_data['R1'])
+			beam_T = float(dict_beam_data['T'])
+			beam_R1 = float(dict_beam_data['R1'])
+			diameter = self.ui.combo_diameter.currentText()
+			min_val = float(diameter) * 2.5
+			plate_thick = self.ui.txt_plate_thk.text()
+			b = 32 * float(plate_thick)
+			max_val = max(b, 300.0)
+			text_str = widget.text()
+			text_str = float(text_str)
+			if (text_str < min_val or text_str > max_val or text_str == ''):
+				QMessageBox.about(self, "Error", "Please enter a value between %s-%s" % (min_val, max_val))
+				widget.clear()
+				widget.setFocus()
+
 
 		#todo#
-		standard_clrnce = {12: 1, 14: 1, 16: 2, 18: 2, 20: 2, 22: 2, 24: 2, 30: 3, 34: 3, 36: 3}
-		overhead_clrnce = {12: 3, 14: 3, 16: 4, 18: 4, 20: 4, 22: 4, 24: 6, 30: 8, 34: 8, 36: 8}
+		# standard_clrnce = {12: 1, 14: 1, 16: 2, 18: 2, 20: 2, 22: 2, 24: 2, 30: 3, 34: 3, 36: 3}
+		# overhead_clrnce = {12: 3, 14: 3, 16: 4, 18: 4, 20: 4, 22: 4, 24: 6, 30: 8, 34: 8, 36: 8}
+	def enddistance_validation(self,widget, lblwidget):
+		def clear_widget():
+			''' Clear the widget and change the label colour in to red '''
+			widget.clear()
+			widget.setFocus()
+			palette = QPalette()
+			palette.setColor(QPalette.Foreground, Qt.red)
+			lblwidget.setPalette(palette)
+			pass
 
-		# boltHoleType = str(self.ui_design.combo_boltHoleType.currentText())
-		# if boltHoleType == "Standard":
-		# 	clearance = standard_clrnce[int(diameter)]
-		# else:
-		# 	clearance = overhead_clrnce[int(diameter)]
-		uiObj = self.designParameters()
-		print(uiObj["bolt"]["bolt_hole_clrnce"])
-		min_val = (round(1.5 *(float(diameter) + int(uiObj["bolt"]["bolt_hole_clrnce"]))),2)
-		fy = self.ui.txt_Fy.text()
-		a = float(math.sqrt(250/float(fy)))
-		plate_thick = self.ui.txt_plate_thk.text()
-		max_val = round((float(12 * float(plate_thick) * a)),2)
-		self.ui.txt_Edgedistance.editingFinished.connect(lambda: self.check_range(self.ui.txt_Edgedistance, min_val, max_val))
-		self.ui.txt_Enddistance.editingFinished.connect(lambda: self.check_range(self.ui.txt_Enddistance, min_val, max_val))
-		#todo#
+		if self.ui.combo_diameter.currentText() == "Select diameter":
+			QMessageBox.about(self, 'Information', "Select Diameter Value")
+			clear_widget()
+			pass
+		else:
+			diameter = self.ui.combo_diameter.currentText()
+			uiObj = self.designParameters()
+			min_val = round(1.5 *(float(diameter) + int(uiObj["bolt"]["bolt_hole_clrnce"])),2)
+			fy = self.ui.txt_Fy.text()
+			a = float(math.sqrt(250/float(fy)))
+			plate_thick = self.ui.txt_plate_thk.text()
+			max_val = round((float(12 * float(plate_thick) * a)),2)
+			text_str = widget.text()
+			text_str = float(text_str)
+			if (text_str < min_val or text_str > max_val or text_str == ''):
+				QMessageBox.about(self, "Error", "Please enter a value between %s-%s" % (min_val, max_val))
+				widget.clear()
+				widget.setFocus()
+
 
 	def init_display(self, backend_str=None, size=(1024, 768)):
 
@@ -1631,11 +1707,11 @@ class Maincontroller(QMainWindow):
 		for i in duplicate:
 			combo_section.setItemData(i, QBrush(QColor("red")), Qt.TextColorRole)
 
-	# def fetchMembPara(self):
-	# 	membertype_sec = self.ui.combo_sectiontype.currentText()
-	# 	memberdata_sec = self.ui.combo_sectionsize.currentText()
-	# 	dictcolumndata = get_memberdata(memberdata_sec,membertype_sec)
-	# 	return dictcolumndata
+	def fetchMembPara(self):
+		membertype_sec = self.ui.combo_sectiontype.currentText()
+		memberdata_sec = self.ui.combo_sectionsize.currentText()
+		dictmembdata = get_memberdata(memberdata_sec, membertype_sec)
+		return dictmembdata
 
 	# def fetchBeamPara(self):
 	# 	beamdata_sec = self.ui.combo_sectionsize.currentText()

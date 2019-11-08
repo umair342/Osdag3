@@ -3102,7 +3102,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>350</y>
+       <y>420</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3119,9 +3119,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>350</y>
+       <y>420</y>
        <width>131</width>
-       <height>21</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">
@@ -3139,7 +3139,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>380</y>
+       <y>450</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3156,7 +3156,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>410</y>
+       <y>480</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3173,9 +3173,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>410</y>
+       <y>480</y>
        <width>131</width>
-       <height>21</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">
@@ -3193,9 +3193,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>380</y>
+       <y>450</y>
        <width>131</width>
-       <height>21</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">
@@ -3213,7 +3213,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>440</y>
+       <y>330</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3272,9 +3272,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>290</y>
+       <y>360</y>
        <width>131</width>
-       <height>21</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">
@@ -3292,7 +3292,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>290</y>
+       <y>360</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3309,7 +3309,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>320</y>
+       <y>390</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3326,9 +3326,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>440</y>
+       <y>330</y>
        <width>131</width>
-       <height>25</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">
@@ -3346,7 +3346,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>320</y>
+       <y>396</y>
        <width>151</width>
        <height>21</height>
       </rect>
@@ -3721,9 +3721,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>470</y>
+       <y>510</y>
        <width>131</width>
-       <height>21</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">
@@ -3741,7 +3741,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>470</y>
+       <y>510</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3758,7 +3758,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>500</y>
+       <y>300</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -3775,9 +3775,9 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>500</y>
+       <y>300</y>
        <width>131</width>
-       <height>21</height>
+       <height>27</height>
       </rect>
      </property>
      <property name="font">

@@ -32,6 +32,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets, QtOpenGL
 from .model import *
 import sys
 import os
+import math
 import pickle
 import pdfkit
 import json
@@ -674,6 +675,8 @@ class Maincontroller(QMainWindow):
 		QMainWindow.__init__(self)
 		self.ui = Ui_MainWindow()
 		self.ui.setupUi(self)
+		# self.ui_design = Ui_DesignPreferences()
+		# self.ui_design.setupUi(self)
 		self.showMaximized()
 		self.folder = folder
 		self.connection = "Tension"
@@ -709,6 +712,7 @@ class Maincontroller(QMainWindow):
 		# self.ui.btnTop.clicked.connect(lambda: self.call_2D_drawing("Top"))
 		# self.ui.btnSide.clicked.connect(lambda: self.call_2D_drawing("Side"))
 		self.ui.combo_diameter.currentIndexChanged[str].connect(self.bolt_hole_clearance)
+		self.ui.combo_diameter.currentIndexChanged[str].connect(self.pitch_validation)
 		# self.ui.combo_grade.currentIndexChanged[str].connect(self.call_bolt_fu)
 		self.ui.txt_Fu.textChanged.connect(self.call_weld_fu)
 		#added
@@ -749,7 +753,7 @@ class Maincontroller(QMainWindow):
 		self.ui.actionAsk_Us_a_Question.triggered.connect(self.open_ask_question)
 		self.ui.actionSample_Tutorials.triggered.connect(self.open_tutorials)
 		self.ui.actionDesign_examples.triggered.connect(self.design_examples)
-		self.ui.combo_conn_loc.currentTextChanged.connect(self.on_change)
+		# self.ui.combo_conn_loc.currentTextChanged.connect(self.on_change)
 		# self.ui.combo_conn_loc.activated.connect(self.on_change)
 		# self.ui.btn_Weld.clicked.connect(self.weld_details)
 		# self.ui.btn_pitchDetail.clicked.connect(self.pitch_details)
@@ -793,6 +797,14 @@ class Maincontroller(QMainWindow):
 		self.ui.txt_Fy.editingFinished.connect(
 			lambda: self.validate_fu_fy(self.ui.txt_Fu, self.ui.txt_Fy, self.ui.txt_Fy, self.ui.lbl_fy))
 
+		min_val= float(1)
+		max_val = (15/2.5)
+		self.ui.txt_rowsofbolts.editingFinished.connect(lambda: self.check_range(self.ui.txt_rowsofbolts, min_val, max_val))
+
+		min_val = float(1)
+		max_val = (15/2.5)
+		self.ui.txt_columssofbolts.editingFinished.connect(lambda: self.check_range(self.ui.txt_columssofbolts, min_val, max_val))
+
 		from osdagMainSettings import backend_name
 		self.display, _ = self.init_display(backend_str=backend_name())
 		self.uiObj = None
@@ -808,17 +820,43 @@ class Maincontroller(QMainWindow):
 	# 	return membertype
 	# #added
 
+	#
+	# def on_change(self, newIndex):
+	# 	if newIndex == "Back to Back Angles" :
+	# 		self.ui.txt_plate_thk.setEnabled(True)
+	# 	elif newIndex ==  "Star Angles":
+	# 		self.ui.txt_plate_thk.setEnabled(True)
+	# 	elif newIndex == "Back to Back Web":
+	# 		self.ui.txt_plate_thk.setEnabled(True)
+	# 	else:
+	# 		self.ui.txt_plate_thk.setEnabled(False)
+	def pitch_validation(self,uiObj):
+		diameter = self.ui.combo_diameter.currentText()
+		min_val = round((float(diameter) * 2.5), 2)
+		plate_thick = self.ui.txt_plate_thk.text()
+		max_val = max((32 * float(plate_thick)), 300.0)
+		self.ui.txt_rowpitch.editingFinished.connect(lambda: self.check_range(self.ui.txt_rowpitch, min_val, max_val))
+		self.ui.txt_columpitch.editingFinished.connect(lambda: self.check_range(self.ui.txt_columpitch, min_val, max_val))
 
-	def on_change(self, newIndex):
-		if newIndex == "Back to Back Angles" :
-			self.ui.txt_plate_thk.setEnabled(True)
-		elif newIndex ==  "Star Angles":
-			self.ui.txt_plate_thk.setEnabled(True)
-		elif newIndex == "Back to Back Web":
-			self.ui.txt_plate_thk.setEnabled(True)
-		else:
-			self.ui.txt_plate_thk.setEnabled(False)
+		#todo#
+		standard_clrnce = {12: 1, 14: 1, 16: 2, 18: 2, 20: 2, 22: 2, 24: 2, 30: 3, 34: 3, 36: 3}
+		overhead_clrnce = {12: 3, 14: 3, 16: 4, 18: 4, 20: 4, 22: 4, 24: 6, 30: 8, 34: 8, 36: 8}
 
+		# boltHoleType = str(self.ui_design.combo_boltHoleType.currentText())
+		# if boltHoleType == "Standard":
+		# 	clearance = standard_clrnce[int(diameter)]
+		# else:
+		# 	clearance = overhead_clrnce[int(diameter)]
+		uiObj = self.designParameters()
+		print(uiObj["bolt"]["bolt_hole_clrnce"])
+		min_val = (round(1.5 *(float(diameter) + int(uiObj["bolt"]["bolt_hole_clrnce"]))),2)
+		fy = self.ui.txt_Fy.text()
+		a = float(math.sqrt(250/float(fy)))
+		plate_thick = self.ui.txt_plate_thk.text()
+		max_val = round((float(12 * float(plate_thick) * a)),2)
+		self.ui.txt_Edgedistance.editingFinished.connect(lambda: self.check_range(self.ui.txt_Edgedistance, min_val, max_val))
+		self.ui.txt_Enddistance.editingFinished.connect(lambda: self.check_range(self.ui.txt_Enddistance, min_val, max_val))
+		#todo#
 
 	def init_display(self, backend_str=None, size=(1024, 768)):
 
@@ -1273,17 +1311,8 @@ class Maincontroller(QMainWindow):
 		if self.ui.txt_Enddistance.text() == "":
 			incomplete_list.append("Enddistance")
 
-		if self.ui.combo_conn_loc.currentText() == "Back to Back Angles":
-			if self.ui.txt_plate_thk.text() == "":
-				incomplete_list.append("Platethickness")
-		elif self.ui.combo_conn_loc.currentText() =="Star Angles":
-			if self.ui.txt_plate_thk.text() == "":
-				incomplete_list.append("Platethickness")
-		elif self.ui.combo_conn_loc.currentText() == "Back to Back Web":
-			if self.ui.txt_plate_thk.text() == "":
-				incomplete_list.append("Platethickness")
-		else:
-			pass
+		if self.ui.txt_plate_thk.text() == "":
+			incomplete_list.append("Platethickness")
 
 		if self.ui.combo_diameter.currentIndex() == 0:
 			incomplete_list.append("Diameter of Bolts")
@@ -1688,11 +1717,28 @@ class Maincontroller(QMainWindow):
 		Returns: Check for the value mentioned for the given range
 		"""
 		text_str = widget.text()
-		text_str = int(text_str)
+		text_str = float(text_str)
 		if (text_str < min_val or text_str > max_val or text_str == ''):
 			QMessageBox.about(self, "Error", "Please enter a value between %s-%s" % (min_val, max_val))
 			widget.clear()
 			widget.setFocus()
+
+	# def check_bolt_rows(self, widget, min_val, max_val):
+	# 	"""
+	# 	Args:
+	# 		widget: Fu , Fy lineedit
+	# 		min_val: min value
+	# 		max_val: max value
+	# 	Returns: Check for the value mentioned for the given range
+	# 	"""
+	# 	text_str = widget.text()
+	# 	text_str = int(text_str)
+	# 	min_bolt_row = 1
+	# 	max_bolt_row = (15/2.5) + 1
+	# 	if (text_str < min_bolt_row or text_str > max_bolt_row  or text_str == ''):
+	# 		QMessageBox.about(self, "Error", "Please enter a value between %s-%s" % (min_bolt_row, min_bolt_row))
+	# 		widget.clear()
+	# 		widget.setFocus()
 
 	def validate_fu_fy(self, fu_widget, fy_widget, current_widget, lblwidget):
 		'''(QlineEdit,QLable,Number,Number)---> NoneType

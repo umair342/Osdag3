@@ -42,6 +42,7 @@ class Ui_DesignPreferences(object):
         self.gridLayout_2.addWidget(self.btn_defaults, 0, 1, 1, 1)
         self.gridLayout_5.addLayout(self.gridLayout_2, 1, 0, 1, 1)
         self.tabWidget = QtWidgets.QTabWidget(DesignPreferences)
+        self.tabWidget.setEnabled(False)
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.tabWidget.setFont(font)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1366</width>
+    <width>1491</width>
     <height>768</height>
    </rect>
   </property>
@@ -424,7 +424,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1366</width>
+     <width>1491</width>
      <height>26</height>
     </rect>
    </property>
@@ -680,35 +680,13 @@ QMenu::item:selected {
     <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
-    <widget class="QLineEdit" name="txt_tension_block_shear">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>180</y>
-       <width>100</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_157">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>5</y>
-       <width>131</width>
-       <height>20</height>
+       <width>201</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -722,7 +700,7 @@ QMenu::item:selected {
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Tension Member&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Compression Member&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_SaveMessages">
@@ -763,10 +741,10 @@ QMenu::item:selected {
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_efficiency">
+    <widget class="QLineEdit" name="txt_slender_yy">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>220</x>
        <y>260</y>
        <width>100</width>
        <height>25</height>
@@ -782,10 +760,10 @@ QMenu::item:selected {
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_tension_yielding">
+    <widget class="QLineEdit" name="txt_comp_capacity_zz">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>220</x>
        <y>60</y>
        <width>100</width>
        <height>25</height>
@@ -807,11 +785,11 @@ QMenu::item:selected {
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_tension_rupture">
+    <widget class="QLineEdit" name="txt_comp_capacity_yy">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>120</y>
+       <x>220</x>
+       <y>130</y>
        <width>100</width>
        <height>25</height>
       </rect>
@@ -834,7 +812,7 @@ QMenu::item:selected {
       <rect>
        <x>0</x>
        <y>30</y>
-       <width>191</width>
+       <width>211</width>
        <height>61</height>
       </rect>
      </property>
@@ -846,15 +824,20 @@ QMenu::item:selected {
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tension capacity due to &lt;/p&gt;&lt;p&gt;yielding of gross area (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compression capacity in &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Major axis (z-z) (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_159">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>90</y>
-       <width>191</width>
+       <y>110</y>
+       <width>201</width>
        <height>61</height>
       </rect>
      </property>
@@ -866,34 +849,14 @@ QMenu::item:selected {
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tension capacity due to &lt;/p&gt;&lt;p&gt;rupture of critical section(kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_169">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>150</y>
-       <width>191</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tension capacity due to &lt;/p&gt;&lt;p&gt;Block Shear(kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Compression capacity in &lt;/p&gt;&lt;p&gt;Minor axis (y-y) (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_170">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>260</y>
+       <y>310</y>
        <width>201</width>
        <height>25</height>
       </rect>
@@ -913,7 +876,7 @@ QMenu::item:selected {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>220</y>
+       <y>200</y>
        <width>201</width>
        <height>25</height>
       </rect>
@@ -929,11 +892,11 @@ QMenu::item:selected {
       <string>Slenderness value</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_slender">
+    <widget class="QLineEdit" name="txt_slender_zz">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>220</y>
+       <x>220</x>
+       <y>200</y>
        <width>100</width>
        <height>25</height>
       </rect>
@@ -946,6 +909,84 @@ QMenu::item:selected {
      </property>
      <property name="focusPolicy">
       <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_172">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>260</y>
+       <width>201</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Slenderness value</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_173">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>370</y>
+       <width>201</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Efficiency</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txt_efficiency_zz">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>310</y>
+       <width>100</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txt_efficiency_yy">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>370</y>
+       <width>100</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -1136,1737 +1177,6 @@ QMenu::item:selected {
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;f&lt;/span&gt;&lt;span style=&quot; vertical-align:sub;&quot;&gt;y &lt;/span&gt;(MPa) *&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-    <widget class="QFrame" name="outputFrame_2">
-     <property name="geometry">
-      <rect>
-       <x>988</x>
-       <y>620</y>
-       <width>320</width>
-       <height>690</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>320</width>
-       <height>690</height>
-      </size>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLineEdit" name="txtShrCapacity_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>50</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtbearCapacity_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>80</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtBoltCapacity_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>110</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtNoBolts_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>140</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtPitch_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>230</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtGuage_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>260</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtEndDist_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>290</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtEdgeDist_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>320</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtWeldThick_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>380</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtResltShr_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>410</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtWeldStrng_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>440</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtPlateThick_2">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>510</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_44">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>30</y>
-        <width>66</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Bolt&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_45">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Shear Capacity (kN)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_46">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>150</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bearing Capacity (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labl123_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>110</y>
-        <width>150</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capacity of Bolt (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="t_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>140</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Bolts</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_47">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>230</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Pitch (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_48">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>290</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>End Distance (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_49">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>380</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Thickness (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_50">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>440</y>
-        <width>160</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Weld Strength (kN/mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_51">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>260</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Gauge (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_52">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>350</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Weld&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_53">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>320</y>
-        <width>140</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edge Distance (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_54">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>510</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Thickness (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_55">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>410</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resultant Shear (kN/mm)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_56">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>540</y>
-        <width>160</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>External Moment (kNm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_57">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>480</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Plate&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtExtMomnt_2">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>540</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtMomntCapacity_2">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>570</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_58">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>570</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Moment Capacity (KNm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbl_col_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>200</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Column</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbl_row_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>170</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Row</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_3">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>170</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_4">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>200</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_59">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>0</y>
-        <width>60</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00007f;&quot;&gt;OUTPUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>620</y>
-        <width>40</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>:/images/logo.jpg</normaloff>:/images/logo.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>40</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QPushButton" name="btnReset_2">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>1249</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Reset</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btnDesign_2">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>1249</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Design</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>false</bool>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QFrame" name="outputFrame_3">
-     <property name="geometry">
-      <rect>
-       <x>1088</x>
-       <y>610</y>
-       <width>320</width>
-       <height>690</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>320</width>
-       <height>690</height>
-      </size>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLineEdit" name="txtShrCapacity_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>50</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtbearCapacity_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>80</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtBoltCapacity_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>110</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtNoBolts_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>140</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtPitch_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>230</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtGuage_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>260</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtEndDist_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>290</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtEdgeDist_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>320</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtWeldThick_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>380</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtResltShr_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>410</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtWeldStrng_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>440</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtPlateThick_3">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>510</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_60">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>30</y>
-        <width>66</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Bolt&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_61">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Shear Capacity (kN)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_62">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>150</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bearing Capacity (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labl123_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>110</y>
-        <width>150</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capacity of Bolt (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="t_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>140</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Bolts</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_63">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>230</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Pitch (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_64">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>290</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>End Distance (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_65">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>380</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Thickness (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_66">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>440</y>
-        <width>160</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Weld Strength (kN/mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_67">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>260</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Gauge (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_68">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>350</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Weld&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_69">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>320</y>
-        <width>140</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edge Distance (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_70">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>510</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Thickness (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_71">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>410</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resultant Shear (kN/mm)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_72">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>540</y>
-        <width>160</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>External Moment (kNm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_73">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>480</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Plate&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtExtMomnt_3">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>540</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtMomntCapacity_3">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>570</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_74">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>570</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Moment Capacity (KNm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbl_col_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>200</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Column</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbl_row_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>170</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Row</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_5">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>170</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_6">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>200</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_75">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>0</y>
-        <width>60</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00007f;&quot;&gt;OUTPUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_3">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>620</y>
-        <width>40</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>:/images/logo.jpg</normaloff>:/images/logo.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>40</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QPushButton" name="btnReset_3">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>1239</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Reset</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btnDesign_3">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>1239</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Design</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>false</bool>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QFrame" name="outputFrame_4">
-     <property name="geometry">
-      <rect>
-       <x>1048</x>
-       <y>580</y>
-       <width>320</width>
-       <height>690</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>320</width>
-       <height>690</height>
-      </size>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLineEdit" name="txtShrCapacity_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>50</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtbearCapacity_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>80</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtBoltCapacity_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>110</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtNoBolts_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>140</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtPitch_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>230</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtGuage_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>260</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtEndDist_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>290</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtEdgeDist_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>320</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtWeldThick_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>380</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtResltShr_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>410</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtWeldStrng_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>440</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtPlateThick_4">
-      <property name="geometry">
-       <rect>
-        <x>181</x>
-        <y>510</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_76">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>30</y>
-        <width>66</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Bolt&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_77">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Shear Capacity (kN)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_78">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>150</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bearing Capacity (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="labl123_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>110</y>
-        <width>150</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capacity of Bolt (kN)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="t_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>140</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Bolts</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_79">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>230</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Pitch (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_80">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>290</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>End Distance (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_81">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>380</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Thickness (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_82">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>440</y>
-        <width>160</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Weld Strength (kN/mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_83">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>260</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Gauge (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_84">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>350</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Weld&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_85">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>320</y>
-        <width>140</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edge Distance (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_86">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>510</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Thickness (mm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_87">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>410</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resultant Shear (kN/mm)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_88">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>540</y>
-        <width>160</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>External Moment (kNm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_89">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>480</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Plate&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtExtMomnt_4">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>540</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtMomntCapacity_4">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>570</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_90">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>570</y>
-        <width>170</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Moment Capacity (KNm)</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbl_col_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>200</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Column</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbl_row_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>170</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>No. of Row</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_7">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>170</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_8">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>200</y>
-        <width>130</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_91">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>0</y>
-        <width>60</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00007f;&quot;&gt;OUTPUT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_4">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>620</y>
-        <width>40</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>:/images/logo.jpg</normaloff>:/images/logo.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>40</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QPushButton" name="btnReset_4">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>1209</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Reset</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btnDesign_4">
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>1209</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Design</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>false</bool>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_Reset">
@@ -3368,7 +1678,7 @@ QMenu::item:selected {
       </font>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_edgedistance_4">
+    <widget class="QLabel" name="Plate_thk">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -3425,6 +1735,33 @@ QMenu::item:selected {
       </font>
      </property>
     </widget>
+    <zorder>txt_Fy</zorder>
+    <zorder>txt_Fu</zorder>
+    <zorder>label</zorder>
+    <zorder>lbl_fu</zorder>
+    <zorder>lbl_fy</zorder>
+    <zorder>btn_Reset</zorder>
+    <zorder>btn_Design</zorder>
+    <zorder>lbl_column</zorder>
+    <zorder>combo_sectiontype</zorder>
+    <zorder>label_18</zorder>
+    <zorder>txt_Tensionforce</zorder>
+    <zorder>lbl_axial</zorder>
+    <zorder>txt_Member_length_zz</zorder>
+    <zorder>lbl_beam1_10</zorder>
+    <zorder>combo_end1_cond1</zorder>
+    <zorder>combo_end2_cond1</zorder>
+    <zorder>label_8</zorder>
+    <zorder>combo_end2_cond2</zorder>
+    <zorder>combo_end1_cond2</zorder>
+    <zorder>label_10</zorder>
+    <zorder>label_43</zorder>
+    <zorder>lbl_column_2</zorder>
+    <zorder>txt_plate_thk</zorder>
+    <zorder>Plate_thk</zorder>
+    <zorder>lbl_beam1_11</zorder>
+    <zorder>txt_Member_length_yy</zorder>
+    <zorder>combo_sectionsize</zorder>
    </widget>
   </widget>
   <action name="actionInput">
@@ -3923,70 +2260,12 @@ QMenu::item:selected {
   <tabstop>btn3D</tabstop>
   <tabstop>chkBx_beamSec</tabstop>
   <tabstop>chkBx_connector</tabstop>
-  <tabstop>txt_tension_yielding</tabstop>
-  <tabstop>txt_tension_rupture</tabstop>
-  <tabstop>txt_tension_block_shear</tabstop>
-  <tabstop>txt_efficiency</tabstop>
+  <tabstop>txt_comp_capacity_zz</tabstop>
+  <tabstop>txt_comp_capacity_yy</tabstop>
+  <tabstop>txt_slender_yy</tabstop>
   <tabstop>btn_SaveMessages</tabstop>
   <tabstop>btn_CreateDesign</tabstop>
-  <tabstop>btnReset_3</tabstop>
-  <tabstop>btnDesign_3</tabstop>
-  <tabstop>txtShrCapacity_4</tabstop>
-  <tabstop>txtbearCapacity_4</tabstop>
-  <tabstop>txtBoltCapacity_4</tabstop>
-  <tabstop>txtNoBolts_4</tabstop>
-  <tabstop>txtPitch_4</tabstop>
-  <tabstop>txtGuage_4</tabstop>
-  <tabstop>txtEndDist_4</tabstop>
-  <tabstop>txtEdgeDist_4</tabstop>
-  <tabstop>txtWeldThick_4</tabstop>
-  <tabstop>txtResltShr_4</tabstop>
-  <tabstop>txtWeldStrng_4</tabstop>
-  <tabstop>txtPlateThick_4</tabstop>
-  <tabstop>txtExtMomnt_4</tabstop>
-  <tabstop>txtMomntCapacity_4</tabstop>
-  <tabstop>lineEdit_7</tabstop>
-  <tabstop>lineEdit_8</tabstop>
-  <tabstop>pushButton_4</tabstop>
-  <tabstop>btnReset_4</tabstop>
-  <tabstop>btnDesign_4</tabstop>
-  <tabstop>txtShrCapacity_2</tabstop>
-  <tabstop>txtNoBolts_2</tabstop>
-  <tabstop>txtBoltCapacity_2</tabstop>
   <tabstop>textEdit</tabstop>
-  <tabstop>txtbearCapacity_2</tabstop>
-  <tabstop>txtBoltCapacity_3</tabstop>
-  <tabstop>btnReset_2</tabstop>
-  <tabstop>txtPitch_3</tabstop>
-  <tabstop>txtEndDist_3</tabstop>
-  <tabstop>txtNoBolts_3</tabstop>
-  <tabstop>txtGuage_2</tabstop>
-  <tabstop>txtWeldThick_3</tabstop>
-  <tabstop>txtEdgeDist_3</tabstop>
-  <tabstop>txtExtMomnt_3</tabstop>
-  <tabstop>txtPlateThick_3</tabstop>
-  <tabstop>lineEdit_5</tabstop>
-  <tabstop>txtMomntCapacity_3</tabstop>
-  <tabstop>txtPitch_2</tabstop>
-  <tabstop>txtShrCapacity_3</tabstop>
-  <tabstop>txtResltShr_3</tabstop>
-  <tabstop>txtWeldStrng_3</tabstop>
-  <tabstop>txtbearCapacity_3</tabstop>
-  <tabstop>txtEndDist_2</tabstop>
-  <tabstop>txtEdgeDist_2</tabstop>
-  <tabstop>txtWeldStrng_2</tabstop>
-  <tabstop>txtWeldThick_2</tabstop>
-  <tabstop>txtResltShr_2</tabstop>
-  <tabstop>txtPlateThick_2</tabstop>
-  <tabstop>txtExtMomnt_2</tabstop>
-  <tabstop>txtMomntCapacity_2</tabstop>
-  <tabstop>lineEdit_3</tabstop>
-  <tabstop>lineEdit_4</tabstop>
-  <tabstop>pushButton_3</tabstop>
-  <tabstop>lineEdit_6</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>txtGuage_3</tabstop>
-  <tabstop>btnDesign_2</tabstop>
  </tabstops>
  <resources>
   <include location="ResourceFiles/icons.qrc"/>

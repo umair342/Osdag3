@@ -344,7 +344,7 @@ class Ui_Design_Preferences(object):
         self.btn_close.setText(_translate("Design_Preferences", "Save"))
         self.btn_defaults.setText(_translate("Design_Preferences", "Defaults"))
         self.txt_boltFu.setText(_translate("Design_Preferences", "800"))
-        self.combo_boltHoleType.setItemText(0, _translate("Design_Preferences", "Standard"))
+        self.combo_boltHoleType.setItemText(0, _translate("Design_Preferences", "standard"))
         self.combo_boltHoleType.setItemText(1, _translate("Design_Preferences", "Over-sized"))
         self.label_8.setText(_translate("Design_Preferences", "Fu"))
         self.label_4.setText(_translate("Design_Preferences", "Material grade overwrite (MPa)"))

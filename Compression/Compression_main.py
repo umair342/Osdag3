@@ -10,7 +10,7 @@ from .svg_window import SvgWindow
 from ui_tutorial import Ui_Tutorial
 from ui_aboutosdag import Ui_AboutOsdag
 from ui_ask_question import Ui_AskQuestion
-from .Tension_calc import tension_bolted_design
+from .Compression_calc import compression_design
 # import bc_endplate_calc as db_value
 # from ui_weld_details_1 import Ui_Weld_Details_1
 # from ui_weld_details_2 import Ui_Weld_Details_2
@@ -371,9 +371,6 @@ class Maincontroller(QMainWindow):
 		# self.ui.btnSide.clicked.connect(lambda: self.call_2D_drawing("Side"))
 		# #todo#
 
-
-
-
 		# self.ui.combo_diameter.currentIndexChanged[str].connect(self.enddistance_validation)
 		# self.ui.combo_grade.currentIndexChanged[str].connect(self.call_bolt_fu)
 		self.ui.txt_Fu.textChanged.connect(self.call_weld_fu)
@@ -437,9 +434,9 @@ class Maincontroller(QMainWindow):
 		self.ui.txt_Fy.setValidator(doubl_validator)
 		# self.ui.txt_Moment.setValidator(doubl_validator)
 		# self.ui.txt_Shear.setValidator(doubl_validator)
-		self.ui.txt_Tensionforce.setValidator(doubl_validator)
+		self.ui.txt_Compressionforce.setValidator(doubl_validator)
 		self.ui.txt_Member_length_zz.setValidator(doubl_validator)
-		self.ui.txt_Tensionforce.setValidator(doubl_validator)
+		self.ui.txt_Compressionforce.setValidator(doubl_validator)
 
 		min_fu = 290
 		max_fu = 780
@@ -618,7 +615,7 @@ class Maincontroller(QMainWindow):
 		uiObj["Load"] = {}
 		# uiObj["Load"]["ShearForce (kN)"] = self.ui.txt_Shear.text()
 		# uiObj["Load"]["Moment (kNm)"] = self.ui.txt_Moment.text()
-		uiObj["Load"]["AxialForce (kN)"] = self.ui.txt_Tensionforce.text()
+		uiObj["Load"]["AxialForce (kN)"] = self.ui.txt_Compressionforce.text()
 
 		uiObj["Bolt"] = {}
 		uiObj["Bolt"]["Diameter (mm)"] = 20
@@ -734,7 +731,7 @@ class Maincontroller(QMainWindow):
 			self.ui.txt_Fy.setText(str(uiObj["Member"]["fy (MPa)"]))
 			self.ui.txt_Member_length_zz.setText(str(uiObj["Member"]["Member_length"]))
 			# self.ui.txt_Shear.setText(str(uiObj["Load"]["ShearForce (kN)"]))
-			self.ui.txt_Tensionforce.setText(str(uiObj["Load"]["AxialForce (kN)"]))
+			self.ui.txt_Compressionforce.setText(str(uiObj["Load"]["AxialForce (kN)"]))
 			# self.ui.txt_Moment.setText(str(uiObj["Load"]["Moment (kNm)"]))
 			self.ui.txt_plate_thk.setText(str(uiObj["Bolt"]["Platethickness"]))
 			# self.ui.txt_Edgedistance.setText(str(uiObj["Bolt"]["Edgedistance"]))
@@ -878,7 +875,7 @@ class Maincontroller(QMainWindow):
 		if self.ui.txt_Member_length_zz.text() == "":
 			incomplete_list.append("Member length")
 
-		if self.ui.txt_Tensionforce.text() == '' or float(self.ui.txt_Tensionforce.text()) == 0:
+		if self.ui.txt_Compressionforce.text() == '' or float(self.ui.txt_Compressionforce.text()) == 0:
 			incomplete_list.append("Axial force")
 
 		if self.ui.txt_plate_thk.text() == "":
@@ -909,7 +906,7 @@ class Maincontroller(QMainWindow):
 		if self.validate_inputs_on_design_btn() is not True:
 			return
 		self.alist = self.designParameters()
-		self.outputs = tension_bolted_design(self.alist)
+		self.outputs = compression_design(self.alist)
 		print("output list ", self.outputs)
 
 		self.ui.outputDock.setFixedSize(310, 710)
@@ -947,57 +944,23 @@ class Maincontroller(QMainWindow):
 					resultObj = outputObj
 		print(resultObj)
 
-		tension_yielding = resultObj['Tension_Force']['Yielding']
-		self.ui.txt_tension_yielding.setText(str(tension_yielding))
+		comp_capacity_zz = resultObj['Compression_Force']['Capacity_zz']
+		self.ui.txt_comp_capacity_zz.setText(str(comp_capacity_zz))
 
-		tension_rupture = resultObj['Tension_Force']['Rupture']
-		self.ui.txt_tension_rupture.setText(str(tension_rupture))
+		comp_capacity_yy = resultObj['Compression_Force']['Capacity_zz']
+		self.ui.txt_comp_capacity_yy.setText(str(comp_capacity_yy))
 
-		tension_block_shear = resultObj['Tension_Force']['Block_Shear']
-		self.ui.txt_tension_block_shear.setText(str(tension_block_shear))
+		slender_zz = resultObj['Compression_Force']['Slenderness_zz']
+		self.ui.txt_slender_zz.setText(str(slender_zz))
 
-		tension_efficiency = resultObj['Tension_Force']['Efficiency']
-		self.ui.txt_efficiency.setText(str(tension_efficiency))
+		slender_yy = resultObj['Compression_Force']['Slenderness_yy']
+		self.ui.txt_slender_yy.setText(str(slender_yy))
 
-		tension_slenderness = resultObj['Tension_Force']['Slenderness']
-		self.ui.txt_slender.setText(str(tension_slenderness))
+		efficiency_zz = resultObj['Compression_Force']['Efficiency_zz']
+		self.ui.txt_efficiency_zz.setText(str(efficiency_zz))
 
-		# shear_capacity = resultObj["Bolt"]["ShearCapacity"]
-		# if shear_capacity == 0:
-		# 	shear_capacity = resultObj["Bolt"]["SlipCapacity"]
-		# 	self.ui.label_167.setText("Slip resistance (kN)")
-		# self.ui.txt_shearCapacity.setText(str(shear_capacity))
-		#
-		# bearing_capacity = resultObj["Bolt"]["BearingCapacity"]
-		# if bearing_capacity == 0:
-		# 	bearing_capacity = 'N/A'
-		# self.ui.txt_bearCapacity.setText(str(bearing_capacity))
-		#
-		# combined_capacity = resultObj["Bolt"]["CombinedCapacity"]
-		# self.ui.txt_boltgrpcapacity.setText(str(combined_capacity))
-		#
-		# bolt_capacity = resultObj["Bolt"]["BoltCapacity"]
-		# self.ui.txt_boltcapacity.setText(str(bolt_capacity))
-		#
-		# bolts_required = resultObj["Bolt"]["NumberOfBolts"]
-		# self.ui.txt_noBolts.setText(str(bolts_required))
-		#
-		# cross_centre_gauge = resultObj["Bolt"]["CrossCentreGauge"]
-		# self.ui.txt_crossGauge.setText(str(cross_centre_gauge))
-		#
-		# end_distance = resultObj["Bolt"]["End"]
-		# self.ui.txt_endDist.setText(str(end_distance))
-		#
-		# edge_distance = resultObj["Bolt"]["Edge"]
-		# self.ui.txt_edgeDist.setText(str(edge_distance))
-		#
-		# self.ui.plate_lineEdit_2.setText(str(resultObj["Plate"]["Height"]))
-		# self.ui.plate_lineEdit_1.setText(str(resultObj["Plate"]["Width"]))
-		#
-		# if resultObj['Stiffener']['Status'] == False:
-		# 	self.ui.btn_stiffnrDetail.setEnabled(False)
-		# else:
-		# 	pass
+		efficiency_yy = resultObj['Compression_Force']['Efficiency_yy']
+		self.ui.txt_efficiency_yy.setText(str(efficiency_yy))
 
 	def display_log_to_textedit(self):
 		file = QFile(os.path.join('Tension', 'extnd.log'))
@@ -1075,7 +1038,7 @@ class Maincontroller(QMainWindow):
 		self.ui.txt_Fy.clear()
 		self.ui.txt_Member_length_zz.clear()
 		self.ui.txt_Member_length_yy.clear()
-		self.ui.txt_Tensionforce.clear()
+		self.ui.txt_Compressionforce.clear()
 		# self.ui.txt_Shear.clear()
 		# self.ui.txt_Moment.clear()
 		self.ui.txt_plate_thk.clear()

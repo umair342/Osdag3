@@ -869,7 +869,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Efficiency</string>
+      <string>Utility ratio (z-z)</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_171">
@@ -889,7 +889,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Slenderness value</string>
+      <string>Slenderness value (z-z)</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="txt_slender_zz">
@@ -931,7 +931,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Slenderness value</string>
+      <string>Slenderness value (y-y)</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_173">
@@ -951,7 +951,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Efficiency</string>
+      <string>Utility ratio (y-y)</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="txt_efficiency_zz">
@@ -1065,7 +1065,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>180</y>
+       <y>170</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -1085,9 +1085,9 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>0</y>
+       <y>10</y>
        <width>221</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="palette">
@@ -1136,14 +1136,14 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connecting members&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Compression member&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_fu">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>180</y>
+       <y>170</y>
        <width>120</width>
        <height>25</height>
       </rect>
@@ -1241,7 +1241,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>100</y>
+       <y>70</y>
        <width>151</width>
        <height>22</height>
       </rect>
@@ -1261,7 +1261,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>100</y>
+       <y>70</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -1303,7 +1303,22 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <property name="text">
+       <string>Back to Back Angles</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Star Angles</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Channels</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Back to Back Channels</string>
       </property>
      </item>
     </widget>
@@ -1328,7 +1343,7 @@ p, li { white-space: pre-wrap; }
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Factored loads&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_Tensionforce">
+    <widget class="QLineEdit" name="txt_Compressionforce">
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -1620,7 +1635,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>140</y>
+       <y>120</y>
        <width>151</width>
        <height>22</height>
       </rect>
@@ -1640,7 +1655,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>140</y>
+       <y>120</y>
        <width>160</width>
        <height>27</height>
       </rect>
@@ -1735,83 +1750,6 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_column_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>121</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
-&lt;p style=&quot;line-height:1&quot;&gt;&lt;span&gt;
-Connection&lt;br&gt;
-Location*
-&lt;/span&gt;&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="combo_conn_loc">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>50</y>
-       <width>160</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial</family>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QComboBox { combobox-popup: 0; }</string>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <property name="maxVisibleItems">
-      <number>5</number>
-     </property>
-     <item>
-      <property name="text">
-       <string>Select Type</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Beams</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Columns</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Angles</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Channels</string>
-      </property>
-     </item>
-    </widget>
     <zorder>txt_Fy</zorder>
     <zorder>txt_Fu</zorder>
     <zorder>label</zorder>
@@ -1822,7 +1760,7 @@ Location*
     <zorder>lbl_column</zorder>
     <zorder>combo_sectiontype</zorder>
     <zorder>label_18</zorder>
-    <zorder>txt_Tensionforce</zorder>
+    <zorder>txt_Compressionforce</zorder>
     <zorder>lbl_axial</zorder>
     <zorder>txt_Member_length_zz</zorder>
     <zorder>lbl_beam1_10</zorder>
@@ -1839,8 +1777,6 @@ Location*
     <zorder>lbl_beam1_11</zorder>
     <zorder>txt_Member_length_yy</zorder>
     <zorder>combo_sectionsize</zorder>
-    <zorder>lbl_column_3</zorder>
-    <zorder>combo_conn_loc</zorder>
    </widget>
   </widget>
   <action name="actionInput">

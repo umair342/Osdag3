@@ -17,6 +17,212 @@ class IS800_2007(object):
     # ==========================================================================
     """    SECTION  2     MATERIALS   """
     # ==========================================================================
+        # Table 2 Limiting width to thickness ratio
+    """ calculating class using Limiting width to thickness ratio
+            Args:
+                 b - width of element (float)
+                 d - depth of web (float)
+                 t - thickness of element (float)
+                 tf - thickness of flange (float)
+                 tw - thickness of web (float)
+                 D - outer diameter of element (float)
+                 r1 - actual average stress/design compressive stress of web alone (float) 
+                 r2 - actual average stress/design compressive stress of overall section (float)
+                 f_y - Yield stress of the plate material in MPa (float)
+                 e = sqrt(250/f_y)
+                 """
+    @staticmethod
+    def table2(b, tf, d, tw, t, D):
+
+        cl_3_7_Table_2 = {"Compression_elements": {
+            "outstanding_elements_compression_flange": {"rolled": b / tf, "welded": b / tf},
+            "internal_elements_compression_flange": {"compression_due_to_bending": b / tf,
+                                                     "axial_compression": b / tf},
+            "web_of_a_channel": d / tw,
+            "angle_compression_due_to_bending": {b / t, d / t},
+            "single_angles_or_double_angles_with_separated_elements_axial_compression": {b / t, d / t, (b + d) / t},
+            "outstanding_leg_in_back_to_back_in_a_double_angle_member": d / t,
+            "outstanding_leg_of_an_angle_with_its_back_in_cont_contact_with_another_component": d / t,
+            "stem_of_tsection_rolled_or_cut_from_a_rolled_IorH_section": D / tf,
+            "circular_hollow_tube_including_welded_tube_subjected_to": {"moment": D / t,
+                                                                        "axial_compression": D / t},
+            "web_of_an_I_or_H_section": {"general": d / tw, "axial_compression": d / tw}
+        }
+        }
+    #input array of string to find type of compression member
+    """compression_member =["outstanding_elements_compression_flange","rolled" ]
+       compression_member = ["internal_elements_compression_flange", "axial_compression"]
+    
+    """
+    def cl_3_7_3_class(self, cl_3_7_Table_2, e, r1,b, tf, d, tw, t, D, compression_member):
+        """ Gives class of cross sections using table 2
+        Args:
+             b - width of element (float)
+             d - depth of web (float)
+             t - thickness of element (float)
+             tf - thickness of flange (float)
+             tw - thickness of web (float)
+             D - outer diameter of element (float)
+             r1 - actual average stress/design compressive stress of web alone (float)
+             r2 - actual average stress/design compressive stress of overall section (float)
+             f_y - Yield stress of the plate material in MPa (float)
+             e = sqrt(250/f_y)
+        Return:
+            Class - type of the cross section (string)
+        Note:
+            Reference: IS 800:2007, cl 3.7.2
+        """
+
+
+        if  compression_member[0] == "outstanding_elements_compression_flange" and  compression_member[1] == "rolled":
+            if cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] <= 9.4 * e:
+                return ["class1"]
+            elif 10.5 * e >= cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 9.4 * e:
+                return ["class2"]
+            elif 15 * e >= cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 10.5 * e:
+                return ["class3"]
+            elif cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 15.7 * e:
+                return ["class4",15.7 * e]
+
+        elif compression_member[0] == "outstanding_elements_compression_flange" and compression_member[1] == "welded":
+
+            if cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] <= 8.4 * e:
+                return ["class1"]
+            elif 9.4 * e >= cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 8.4 * e:
+                return ["class2"]
+            elif 13.6 * e >= cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 9.4 * e:
+                return ["class3"]
+            elif cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 13.6 * e:
+                return ["class4", 13.6 * e]
+
+
+        elif compression_member == ["internal_elements_compression_flange","compression_due_to_bending"]:
+
+            if cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] <= 29.3 *e:
+                return ["class1"]
+
+            elif 33.5 * e >= cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] > 29.3 * e:
+                return ["class2"]
+            elif 42 * e >= cl_3_7_Table_2[0][compression_member[0]][compression_member[1]]> 33.5 * e:
+                return ["class3"]
+            else:
+                return ["class4", 33.5 * e]
+
+        elif compression_member == ["internal_elements_compression_flange", "axial_compression"]:
+            if cl_3_7_Table_2[0][compression_member[0]][compression_member[1]] >= 42 * e:
+                return ["class3"]
+            else:
+                return ["class3", 42*e]
+
+        elif compression_member == ["web_of_a_channel"]:
+            if cl_3_7_Table_2[0]["web_of_a_channel"] <= 42 * e:
+                return ["class1 or class2 or class3"]
+            else :
+                return ["class4", 42*e]
+
+        elif compression_member == ["angle_compression_due_to_bending"]:
+            if cl_3_7_Table_2[0][compression_member[0]] <= 9.4 * e and cl_3_7_Table_2[1][compression_member[0]][1] <= 9.4 * e:
+                return ["class1"]
+            elif 10.5 * e >= cl_3_7_Table_2[0][compression_member[0]][0] > 9.4 * e and \
+                10.5 * e <= cl_3_7_Table_2[0][compression_member[0]][1] > 9.4 * e:
+                return ["class2"]
+            elif 15.7 * e <= cl_3_7_Table_2[0][compression_member[0]][0] > 10.5 * e and \
+                15.7 * e <= cl_3_7_Table_2[0][compression_member[0]][1] > 10.5 * e:
+                return ["class3"]
+            else:
+                return ["class4", 15.7 * e]
+
+        elif compression_member == ["single_angles_or_double_angles_with_seperated_elements_axial_compression"]:
+            if cl_3_7_Table_2[0][compression_member[0]][0] <= 15.7 * e and cl_3_7_Table_2[0][compression_member[0]][1] <= 15.7 * e and \
+                cl_3_7_Table_2[0][compression_member[0]][2] <= 25 * e:
+                return ["class3"]
+            else:
+                return ["class4", 15.7*e]
+
+        elif compression_member == ["outstanding_leg_in_back_to_back_in_a_double_angle_member"]:
+            if cl_3_7_Table_2[0][compression_member[0]] <= 9.4 * e:
+                return ["class1"]
+            elif 10.5 * e >= cl_3_7_Table_2[0][compression_member[0]] > 9.4 * e:
+                return ["class2"]
+            elif 15.7 * e >= cl_3_7_Table_2[0][compression_member[0]] > 10.5 * e:
+                return ["class3"]
+            else:
+                return ["class4", 15.7*e]
+
+        elif compression_member == ["outstanding_leg_of_an_angle_with_its_back_in_cont_contact_with_another_component"]:
+            if cl_3_7_Table_2[0][compression_member[0]] <= 9.4 * e:
+                return ["class1"]
+            elif 10.5 * e >= cl_3_7_Table_2[0][compression_member[0]] > 9.4 * e:
+                return ["class2"]
+            elif 15.7 * e >= cl_3_7_Table_2[0][compression_member[0]] > 10.5 * e:
+                return ["class3"]
+            else:
+                return ["class4", 15.7 * e]
+        elif compression_member == ["stem_of_tsection_rolled_or_cut_from_a_rolled_IorH_section"]:
+            if cl_3_7_Table_2[0][compression_member[0]] <= 8.4 * e:
+                return ["class1"]
+            elif 9.4 * e >= cl_3_7_Table_2[0][compression_member[0]] > 8.4 * e:
+                return ["class2"]
+            elif 18.9 * e >= cl_3_7_Table_2[0][compression_member[0]] > 9.4 * e:
+                return ["class3"]
+            else:
+                return ["class4", 18.9*e]
+        elif compression_member == ["circular_hollow_tube_including_welded_tube_subjected_to"]:
+            if cl_3_7_Table_2[0][compression_member[0]][0] <= 42 * e * e:
+                return ["class1"]
+            elif 52 * e * e >= cl_3_7_Table_2[0][compression_member[0]][0] > 42 * e * e:
+                return ["class2"]
+            elif 146 * e * e >= cl_3_7_Table_2[0][compression_member[0]][0] > 52 * e * e:
+                return ["class3"]
+            else:
+                return ["class4", 146*e*e]
+        elif compression_member == ["circular_hollow_tube_including_welded_tube_subjected_to"]:
+            if cl_3_7_Table_2[0][compression_member[0]][1] <= 88 * e * e:
+                return ["class3"]
+            else:
+                return ["class4", 88*e*e]
+        elif compression_member == ["web_of_an_I_or_H_section"]["general"]:
+            if cl_3_7_Table_2[0]["web_of_an_I_or_H_section"]["general"] <= 84 * e / (1 + r1):
+                return ["class1"]
+            elif r1 < 0 and 84 * e / (1 + r1) > cl_3_7_Table_2[0]["web_of_an_I_or_H_section"]["general"] <= 105 * e / (
+                1 + r1):
+                return ["class2"]
+            elif r1 > 0 and 84 * e / (1 + r1) > cl_3_7_Table_2[0]["web_of_an_I_or_H_section"]["general"] <= 105 * e / (
+                1 + 1.5 * r1):
+                return ["class2"]
+            elif 105 * e / (1 + r1) > cl_3_7_Table_2[0]["web_of_an_I_or_H_section"]["general"] <= 126 * e / (1 + 2 * r1):
+                return ["class3"]
+            elif cl_3_7_Table_2[0]["web_of_an_I_or_H_section"]["axial_compression"] <= 42 * e:
+                return ["class3"]
+            else:
+                return ["class4", 42*e]
+
+    # Table 3 Maximum slendernesss ratio
+    """ Table 5 gives the maximum effective slenderness ratio (KL/r) according to member type 
+           Slenderness ratio=KL/r
+           KL:effective length of the member
+           r:appropriate radius of gyration based on effective section
+           Member types relating cases:
+           case1:A member carrying compressive loads from dead loads and imposed loads
+           case2:A tension member in which a reversal of direct stress occur dueto loads other than wind or seismic loads
+           case3:A member subjected to compression forces resulting only from combination with wind/earthquake actions,
+                 provided deformations does not adversely affect the stress in any part of the structure
+           case4:Compression flange of a beam  against lateral torsional buckling
+           case5:A member normally acting as tie in a roof truss or a bracing system not considered effective when
+                 when subjected to possible reversal of stress into compression resulting from action of wind or earthquake 
+                  forces
+           case6:Members always under tension(other than pre-tensioned members)"""
+
+    cl_3_8_Table_3 = {"case1": 180,
+                      "case2": 180,
+                      "case3": 250,
+                      "case4": 300,
+                      "case5": 350,
+                      "case6": 400}
+    
+    
+    
+    # ==========================================================================    
     """    SECTION  3     GENERAL DESIGN REQUIREMENTS   """
     # ==========================================================================
     @staticmethod
@@ -203,7 +409,249 @@ class IS800_2007(object):
     # ==========================================================================
     """    SECTION  7     DESIGN OF COMPRESS1ON MEMBERS   """
     # ==========================================================================
+    
+
+    @staticmethod
+    def cl_7_1_2_design_copmressive_strength_of_a_member(A_c, f_cd):
+        """
+            Calculation of design compressive strength
+        Args:
+            A_c - Effective sectional area (in square mm)
+            f_cd - Design Compressive stress(in N)
+
+        Return:
+            P_d - Design  Compressive Strength of a member (in N)
+
+        Note:
+            References:
+            IS800:2007 cl.7.2
+        """
+
+        P_d = f_cd * A_c
+        return P_d
+
+    # cl 7.1.2.1 design compressive stress of axially loaded member
+    @staticmethod
+    def cl_7_1_2_1_design_compressive_stress(alpha, f_y,f_cc, gamma_m0):
+        """
+            Calculation of design compressive stress
+        Args:
+                K_L  - Effective length of compression member in mm
+                alpha - Imperfection factor
+                E - Young's Modulus of Elasticity in N/mm**2
+                f_y - Yield Stress in N/mm**2
+                r - radius of gyration in mm
+
+            Return:
+                f_cd - Design  strength of compression member in N/mm**2
+
+            Note:
+                Reference:
+                IS 800:2007, cl.7.1.2.1
+        """
+        lambda_ = math.sqrt(f_y / f_cc)  # non-dimensional slenderness ratio
+        phi = 0.5 * (1 + alpha * (lambda_ - 0.2) + lambda_ ** 2)
+        kai = 1 / (phi + math.sqrt(phi ** 2 - lambda_ ** 2))  # stress reduction factor,kai
+        f_cd = min((f_y * kai) / gamma_m0 , f_y / gamma_m0)
+        return f_cd
+
+    # cl 7.1.2.2 Calculation of buckling class of given cross-section
+    @staticmethod
+    def cl_7_1_2_2_Table_10_Buckling_class_of_cross_section(Cross_section, t_f, t_w, h, b_f):
+        """
+            Defining Buckling Class of Cross-Section
+        Args:
+            Cross_section - Either 'Rolled_I_Section' or 'Welded_I_Section'
+                            or 'Hot_rolled_hollow' or 'cold_Formed_hollow' or 'Welded_Box_Section'
+                            or 'Channel,Angle,T,Solid Section' or 'Built_up_Member'
+
+            h- Depth of the section in mm
+            b_f - width of flange or width of section in case of welded box section(mm)
+            t_f - Thickness of flange in mm
+            t_w - Thickness of web in mm
+
+        Return:
+            Dictionary of Buckling axis and Buckling class with Buckling axis as key
+
+        Note:
+            Reference:
+            IS 800:2007, cl.7.1.2.2, Table_10
+        """
+        if Cross_section == "Rolled_I_Section":
+            if h / b_f > 1.2:
+                if t_f <= 40:
+                    return {'z-z': 'a', 'y-y': 'b'}
+
+                if t_f > 40 and t_f <= 100:
+                    return {'z-z': 'b', 'y-y': 'c'}
+
+            if h / b_f <= 1.2:
+                if t_f <= 100:
+                    return {'z-z': 'b', 'y-y': 'c'}
+
+                if t_f > 100:
+                    return {'z-z': 'd', 'y-y': 'd'}
+
+        if Cross_section == "Welded_I_Section":
+            if t_f <= 40:
+                return {'z-z': 'b', 'y-y': 'c'}
+            if t_f > 40:
+                return {'z-z': 'c', 'y-y': 'd'}
+
+        if Cross_section == "Hot_rolled_hollow":
+            return {'z-z': 'a', 'y-y': 'a'}
+
+        if Cross_section == "cold_Formed_hollow":
+            return {'z-z': 'b', 'y-y': 'b'}
+
+        if Cross_section == "Welded_Box_Section":
+            Buckling_Class_1 = 'b'
+            Buckling_Class_2 = 'b'
+
+            if b_f / t_f < 30:
+                Buckling_Class_1 = "c"
+
+            if h / t_w < 30:
+                Buckling_Class_2 = "c"
+
+            return {'z-z': Buckling_Class_1, 'y-y': Buckling_Class_2}
+
+        if Cross_section == "Channel_Angle_T_Solid_Section" or Cross_section == "Built_up_Member":
+            return {'z-z': 'c', 'y-y': 'c'}
+
+    # Imperfection Factor, alpha
+    # alpha for a given buckling class,'a','b','c' or 'd'
+    cl_7_1_Table_7_alpha = {
+        'a': 0.21,
+        'b': 0.34,
+        'c': 0.49,
+        'd': 0.76,
+    }
+
+    # Table 11 Effective Length of Prismatic Compression Members
+    @staticmethod
+    def cl_7_2_2_table11_effective_length_of_prismatic_compression_members(L, BC=[]):
+
+        """
+            Effective length of Prismatic Compression Member when the boundary conditions in the plane of buckling
+            can be assessed
+
+        Args:
+            BC - linked list of Boundary Conditions
+                 =[BC_translation_end1,BC_rotation_end1,BC_translation_end2,BC_rotation_end2]
+            L -  Length of the Compression member in mm
+
+        Return:
+            K_L - Effective length of Compression Member in mm
+
+        Note:
+            Reference:
+            IS 800:2007, cl.7.2.2, Table_11
+        """
+
+        if BC == ['Restrained', 'Restrained', 'Free', 'Free'] or BC == ['Restrained', 'Free', 'Free', 'Restrained']:
+            K_L = 2.0 * L
+        elif BC == ['Restrained', 'Free', 'Restrained', 'Free']:
+            K_L = L
+        elif BC == ['Restrained', 'Restrained', 'Free', 'Restrained']:
+            K_L = 1.2 * L
+        elif BC == ['Restrained', 'Restrained', 'Restrained', 'Free']:
+            K_L = 0.8 * L
+        elif BC == ['Restrained', 'Restrained', 'Restrained', 'Restrained']:
+            K_L = 0.65 * L
+        return K_L
+
+    # Table 12 - evaluation of constants K1,K2,K3 for effective slenderness ratio
+    @staticmethod
+    def cl_7_5_1_2_table12_constant_K_1_K_2_K_3(No_of_Bolts_at_Each_End_Connection, Connecting_member_Fixity):
+
+        """Value of constant K_1,K_2, K_3
+        Args:
+            No_of_Bolts_at_Each_End_Connection -  Either more than 2 or 1,
+            Fixity - Either Fixed or Hinged.
+
+        Return:
+            [K_1,K_2,K_3]
+
+        Note:
+            Reference:
+            IS 800:2007 cl.7.5.1.2
+
+
+        """
+
+        if No_of_Bolts_at_Each_End_Connection >= 2:
+            if Connecting_member_Fixity == "Fixed":
+                K_1 = 0.20
+                K_2 = 0.35
+                K_3 = 20
+
+            elif Connecting_member_Fixity == "Hinged":
+                K_1 = 0.70
+                K_2 = 0.60
+                K_3 = 5
+
+        if No_of_Bolts_at_Each_End_Connection == 1:
+            if Connecting_member_Fixity == "Fixed":
+                K_1 = 0.75
+                K_2 = 0.35
+                K_3 = 20
+
+            if Connecting_member_Fixity == "Hinged":
+                K_1 = 1.25
+                K_2 = 0.50
+                K_3 = 60
+
+        return [K_1, K_2, K_3]
+
+    # cl.7.5.1.2.Design strength of angle strut loaded through one leg
+    @staticmethod
+    def cl_7_5_1_2_Calculation_of_design_strength_of_single_angle_strut_loaded_through_one_leg(L, b_1, b_2, f_y, r_vv,
+                                                                                               t, E, K_list):
+        """
+            Calculation of design strength of single angle strut loaded through one leg
+
+        Args:
+            L - Length of Angle section in mm
+            b_1,b_2 - width of legs of angle section in mm
+            f_y - yield stress in N/mm**2
+            r_vv - radius of gyration about minor axis in mm
+            t - thickness of the leg in mm
+            E - Young's Modulus of elasticity in N/mm***2
+            epsilon  -  yield stress ratio
+
+        Return:
+            f_cd - Design compressive strength of the section
+
+        Note:
+            Reference:
+            IS 800:2007  cl.7.5.1.2
+
+        """
+        [K_1, K_2, K_3] = K_list
+
+        alpha = 0.49  # according to ammendment 1
+
+        gamma_m0 = IS800_2007.cl_5_4_1_Table_5["gamma_m0"]['yielding']
+        epsilon = math.sqrt(250 / f_y)
+
+        lambda_vv = (L / r_vv) / (epsilon * math.sqrt(math.pi ** 2 * E / 250))
+
+        lambda_phi = (b_1 + b_2) / (2 * t * epsilon * math.sqrt(math.pi * math.pi * E / 250))
+
+        lambda_e = math.sqrt(K_1 + (K_2 * lambda_vv ** 2) + (K_3 * lambda_phi ** 2))
+
+        phi = 0.5 * (1 + alpha * (lambda_e - 0.2) + lambda_e ** 2)
+        f_cd = min(f_y / (gamma_m0 * (phi + math.sqrt(phi ** phi - lambda_e ** 2))), f_y / gamma_m0)
+
+        return f_cd
+
+
+
+
+    # ==========================================================================    
     """    SECTION  8     DESIGN OF MEMBERS SUBJECTED TO BENDING   """
+    # ==========================================================================
     # -------------------------------------------------------------
     #   8.4 Shear
     # -------------------------------------------------------------

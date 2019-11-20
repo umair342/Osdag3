@@ -597,7 +597,7 @@ class Maincontroller(QMainWindow):
 
 	def call_designreport(self, fileName, report_summary):
 		self.alist = self.designParameters()
-		self.result = tension_bolted_design(self.alist)
+		self.result = compression_design(self.alist)
 		print("resultobj", self.result)
 		self.column_data = self.fetchColumnPara()
 		self.beam_data = self.fetchBeamPara()

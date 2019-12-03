@@ -556,7 +556,7 @@ class Ui_MainWindow(object):
         self.combo_sectiontype.setFont(font)
         self.combo_sectiontype.setStyleSheet("QComboBox { combobox-popup: 0; }")
         self.combo_sectiontype.setMaxVisibleItems(5)
-        self.combo_sectiontype.setObjectName("combo_sectiontype")
+        self.combo_sectiontype.setObjectName("")
         self.combo_sectiontype.addItem("")
         self.combo_sectiontype.addItem("")
         self.combo_sectiontype.addItem("")
@@ -958,6 +958,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DejaVu Sans")
         font.setItalic(False)
+
+        self.combo_sectiontype.currentIndexChanged.connect(self.comboChanged)
+
         self.actionShow_column_2.setFont(font)
         self.actionShow_column_2.setObjectName("actionShow_column_2")
         self.menuFile.addAction(self.action_load_input)
@@ -1187,4 +1190,13 @@ class Ui_MainWindow(object):
         self.actio_load_input.setShortcut(_translate("MainWindow", "Ctrl+L"))
         self.actionShow_column_2.setText(_translate("MainWindow", "Show column"))
         self.actionShow_column_2.setShortcut(_translate("MainWindow", "Alt+Shift+C"))
+    def comboChanged(self):
+        lst=["Back to Back Angles","Star Angles","Back to Back Channels"]
+        comboText=self.combo_sectiontype.currentText()
+        if comboText in lst:
+            self.txt_plate_thk.setEnabled(True)
+        else:
+            self.txt_plate_thk.setEnabled(False)
+
+
 from . import icons_rc

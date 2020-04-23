@@ -459,7 +459,7 @@ class CommonDesignLogic(object):
 
         '''
 
-        A = self.module_class()
+        A = self.module_class
 
         if self.connection == "Fin Plate":
             # A = self.module_class()
@@ -670,7 +670,7 @@ class CommonDesignLogic(object):
 
         if self.mainmodule  == "Shear Connection":
 
-            A = self.module_class()
+            A = self.module_class
 
             # if self.connection == KEY_DISP_FINPLATE:
             #     A = self.module_class()
@@ -783,7 +783,7 @@ class CommonDesignLogic(object):
 
         if self.mainmodule == "Shear Connection":
 
-            A = self.module_class()
+            A = self.module_class
 
             # if self.connection == "Fin Plate":
             #     # A = FinPlateConnection()

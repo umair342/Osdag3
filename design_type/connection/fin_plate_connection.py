@@ -425,9 +425,11 @@ class FinPlateConnection(ShearConnection):
             flag = True
 
         if flag and flag1 and flag2:
-            self.set_input_values(self, design_dictionary)
+            return True
+            # self.set_input_values(self, design_dictionary)
         else:
-            pass
+            return False
+            # pass
 
     def warn_text(self):
 
@@ -448,7 +450,7 @@ class FinPlateConnection(ShearConnection):
 
         print(design_dictionary)
 
-        super(FinPlateConnection,self).set_input_values(self, design_dictionary)
+        super(FinPlateConnection,self).set_input_values(design_dictionary)
 
         self.start_time = time.time()
         self.module = design_dictionary[KEY_MODULE]
@@ -458,7 +460,7 @@ class FinPlateConnection(ShearConnection):
 
         self.weld = Weld(material_grade=design_dictionary[KEY_MATERIAL],material_g_o=design_dictionary[KEY_DP_WELD_MATERIAL_G_O],fabrication = design_dictionary[KEY_DP_WELD_FAB])
         print("input values are set. Doing preliminary member checks")
-        self.member_capacity(self)
+        self.member_capacity()
 
         # if self.design_status:
         #     self.commLogicObj = CommonDesignLogic(window.display, window.folder, self.module, self.mainmodule)
@@ -492,7 +494,7 @@ class FinPlateConnection(ShearConnection):
                 logger.error(": Plate thickness should be greater than suppported section web thicknesss.")
             else:
                 print("Selecting bolt diameter")
-                self.select_bolt_dia(self)
+                self.select_bolt_dia()
 
         else:
             # self.design_status = False
@@ -507,7 +509,7 @@ class FinPlateConnection(ShearConnection):
                 logger.error(": Plate thickness should be greater than suppported section web thicknesss.")
             else:
                 print("Selecting bolt diameter")
-                self.select_bolt_dia(self)
+                self.select_bolt_dia()
             # self.select_bolt_dia(self)
 
     def select_bolt_dia(self):
@@ -574,7 +576,7 @@ class FinPlateConnection(ShearConnection):
             self.design_status = False
             logger.error(self.plate.reason)
         else:
-            self.get_bolt_grade(self,bolt_capacity_req)
+            self.get_bolt_grade(bolt_capacity_req)
 
     def get_bolt_grade(self,bolt_capacity_req):
         print(self.design_status, "Getting bolt grade")
@@ -603,7 +605,7 @@ class FinPlateConnection(ShearConnection):
             count += 1
 
         self.bolt.design_status = True
-        self.get_fin_plate_details(self)
+        self.get_fin_plate_details()
 
     def get_fin_plate_details(self):
 
@@ -630,7 +632,7 @@ class FinPlateConnection(ShearConnection):
             logger.error(self.plate.reason)
 
         else:
-            self.get_plate_thickness(self)
+            self.get_plate_thickness()
 
     def get_plate_thickness(self):
         initial_plate_height = self.plate.height
@@ -640,12 +642,12 @@ class FinPlateConnection(ShearConnection):
                 self.weld_connecting_plates = [self.supporting_section.flange_thickness, self.plate.thickness_provided]
             else:
                 self.weld_connecting_plates = [self.supporting_section.web_thickness, self.plate.thickness_provided]
-            [available_welds,self.weld_size_min,self.weld_size_max] = self.get_available_welds(self,self.weld_connecting_plates)
+            [available_welds,self.weld_size_min,self.weld_size_max] = self.get_available_welds(self.weld_connecting_plates)
             if available_welds:
                 while self.plate.height <= self.max_plate_height + 10:
-                    self.plate_shear_checks(self)
+                    self.plate_shear_checks()
                     if self.plate.design_status is True:
-                        self.design_weld(self, available_welds)
+                        self.design_weld(available_welds)
                         if self.weld.design_status is True:
                             break
                     else:
@@ -666,7 +668,7 @@ class FinPlateConnection(ShearConnection):
                             break
 
                 if self.plate.design_status == True and self.weld.design_status == True:
-                    self.plate_shear_checks(self)
+                    self.plate_shear_checks()
                     break
 
             else:
@@ -847,7 +849,7 @@ class FinPlateConnection(ShearConnection):
         else:
             self.weld.design_status = True
 
-        self.recalculating_bolt_values(self)
+        self.recalculating_bolt_values()
 
     def recalculating_bolt_values(self):
         self.bolt_conn_plates_t_fu_fy = []
@@ -861,7 +863,7 @@ class FinPlateConnection(ShearConnection):
         self.plate.get_bolt_red(bolts_one_line = self.plate.bolts_one_line,gauge=self.plate.gauge_provided,bolts_line=self.plate.bolt_line,
                                 pitch=self.plate.gauge_provided,bolt_capacity=self.bolt.bolt_capacity,bolt_dia=self.bolt.bolt_diameter_provided)
 
-        self.get_design_status(self)
+        self.get_design_status()
         print("--- %s seconds ---" % (time.time() - self.start_time))
 
     def get_design_status(self):
@@ -869,6 +871,9 @@ class FinPlateConnection(ShearConnection):
 
             self.design_status = True
             logger.info("=== End Of Design ===")
+            return True
+        else:
+            return False
 
     # r'/ResourceFiles/images/ColumnsBeams".png'
     def save_design(self,popup_summary):
@@ -1146,3 +1151,21 @@ class FinPlateConnection(ShearConnection):
 #     data = f.read()
 #     d = literal_eval(data)
 #     FinPlateConnection.set_input_values(FinPlateConnection(), d, False)
+    def design_file(self):
+        fileName = str('./ResourceFiles/last_design.osi')
+        if not fileName:
+            return
+        try:
+            in_file = str(fileName)
+            with open(in_file, 'r') as fileObject:
+                des_dictionary = yaml.load(fileObject)
+            f = FinPlateConnection()
+            f.set_input_values(des_dictionary)
+            return f.design_status, f
+            # self.set_input_values(uiObj)
+            # self.set_input_values(self, uiObj)
+        except IOError:
+            print('Design_file Error')
+            # QMessageBox.information(self, "Unable to open file",
+            #                         "There was an error opening \"%s\"" % fileName)
+            return

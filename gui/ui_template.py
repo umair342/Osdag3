@@ -1667,61 +1667,74 @@ class Ui_ModuleWindow(QMainWindow):
             pass
         else:
             main.design_button_status = True
-            main.func_for_validation(main, self, self.design_inputs)
-            status = main.design_status
-            print(status)
+            if main.func_for_validation(main, self, self.design_inputs):
+                fileName = str('./ResourceFiles/last_design.osi')
+                if not fileName:
+                    return
+                try:
+                    with open(fileName, 'w') as input_file:
+                        yaml.dump(self.design_inputs, input_file)
+                except Exception as e:
+                    QMessageBox.warning(self, "Application",
+                                        "Cannot write file %s:\n%s" % (fileName, str(e)))
+                    return
+                status_object = main.design_file(main)
+                status = status_object[0]
+                main = status_object[1]
+                # status = main.design_status
+                print(status)
 
-            # main.set_input_values(main, self.design_inputs, self)
-            # DESIGN_FLAG = 'True'
+                # main.set_input_values(main, self.design_inputs, self)
+                # DESIGN_FLAG = 'True'
 
-            out_list = main.output_values(main, status)
-            for option in out_list:
-                if option[2] == TYPE_TEXTBOX:
-                    txt = self.dockWidgetContents_out.findChild(QtWidgets.QWidget, option[0])
-                    txt.setText(str(option[3]))
-                elif option[2] == TYPE_OUT_BUTTON:
-                    self.dockWidgetContents_out.findChild(QtWidgets.QWidget, option[0]).setEnabled(True)
+                out_list = main.output_values(status)
+                for option in out_list:
+                    if option[2] == TYPE_TEXTBOX:
+                        txt = self.dockWidgetContents_out.findChild(QtWidgets.QWidget, option[0])
+                        txt.setText(str(option[3]))
+                    elif option[2] == TYPE_OUT_BUTTON:
+                        self.dockWidgetContents_out.findChild(QtWidgets.QWidget, option[0]).setEnabled(True)
 
-            # if status is True and main.module == "Fin Plate":
-            #     self.commLogicObj = cadconnection.commonfile(cadconnection, main.mainmodule, self.display, self.folder,
-            #                                                  main.module)
-            if self.design_inputs[KEY_MODULE] == KEY_DISP_FINPLATE:
-                module_class = FinPlateConnection
-            elif self.design_inputs[KEY_MODULE] == KEY_DISP_CLEATANGLE:
-                module_class = CleatAngleConnection
-            elif self.design_inputs[KEY_MODULE] == KEY_DISP_BEAMCOVERPLATE:
-                module_class = BeamCoverPlate
+                # if status is True and main.module == "Fin Plate":
+                #     self.commLogicObj = cadconnection.commonfile(cadconnection, main.mainmodule, self.display, self.folder,
+                #                                                  main.module)
+                if self.design_inputs[KEY_MODULE] == KEY_DISP_FINPLATE:
+                    module_class = FinPlateConnection
+                elif self.design_inputs[KEY_MODULE] == KEY_DISP_CLEATANGLE:
+                    module_class = CleatAngleConnection
+                elif self.design_inputs[KEY_MODULE] == KEY_DISP_BEAMCOVERPLATE:
+                    module_class = BeamCoverPlate
 
+                if status is True and (main.module == KEY_DISP_FINPLATE or main.module == KEY_DISP_BEAMCOVERPLATE or main.module == KEY_DISP_CLEATANGLE):
+                    self.commLogicObj = CommonDesignLogic(self.display, self.folder, main.module, main.mainmodule)
+                    status = main.design_status
+                    # module_class = self.return_class(main.module)
+                    module_class = main
+                    self.commLogicObj.call_3DModel(status, module_class)
+                    # self.callFin2D_Drawing("All")
+                    self.btn3D.setEnabled(True)
+                    self.chkBxBeam.setEnabled(True)
+                    self.chkBxCol.setEnabled(True)
+                    self.chkBxFinplate.setEnabled(True)
+                    self.actionShow_all.setEnabled(True)
+                    self.actionShow_beam.setEnabled(True)
+                    self.actionShow_column.setEnabled(True)
+                    self.actionShow_finplate.setEnabled(True)
+                    # image = main.generate_3D_Cad_image(main, self, self.folder)
+                    fName = str('./ResourceFiles/images/3d.png')
+                    file_extension = fName.split(".")[-1]
+                    if file_extension == 'png':
+                        self.display.ExportToImage(fName)
 
-            if status is True and (main.module == KEY_DISP_FINPLATE or main.module == KEY_DISP_BEAMCOVERPLATE or main.module == KEY_DISP_CLEATANGLE):
-                self.commLogicObj = CommonDesignLogic(self.display, self.folder, main.module, main.mainmodule)
-                status = main.design_status
-                module_class = self.return_class(main.module)
-                self.commLogicObj.call_3DModel(status, module_class)
-                # self.callFin2D_Drawing("All")
-                self.btn3D.setEnabled(True)
-                self.chkBxBeam.setEnabled(True)
-                self.chkBxCol.setEnabled(True)
-                self.chkBxFinplate.setEnabled(True)
-                self.actionShow_all.setEnabled(True)
-                self.actionShow_beam.setEnabled(True)
-                self.actionShow_column.setEnabled(True)
-                self.actionShow_finplate.setEnabled(True)
-                # image = main.generate_3D_Cad_image(main, self, self.folder)
-                fName = str('./ResourceFiles/images/3d.png')
-                file_extension = fName.split(".")[-1]
-                if file_extension == 'png':
-                    self.display.ExportToImage(fName)
-
-            else:
-                self.btn3D.setEnabled(False)
-                self.chkBxBeam.setEnabled(False)
-                self.chkBxCol.setEnabled(False)
-                self.chkBxFinplate.setEnabled(False)
-                self.actionShow_all.setEnabled(False)
-                self.actionShow_beam.setEnabled(False)
-                self.actionShow_column.setEnabled(False)
-                self.actionShow_finplate.setEnabled(False)
+                else:
+                    self.btn3D.setEnabled(False)
+                    self.chkBxBeam.setEnabled(False)
+                    self.chkBxCol.setEnabled(False)
+                    self.chkBxFinplate.setEnabled(False)
+                    self.actionShow_all.setEnabled(False)
+                    self.actionShow_beam.setEnabled(False)
+                    self.actionShow_column.setEnabled(False)
+                    self.actionShow_finplate.setEnabled(False)
 
 
     def osdag_header(self):
@@ -2094,7 +2107,6 @@ class Ui_ModuleWindow(QMainWindow):
         material = Material(material_grade)
         tab_Bolt.findChild(QtWidgets.QWidget, KEY_DP_BOLT_MATERIAL_G_O).setText(str(material.fu))
         tab_Weld.findChild(QtWidgets.QWidget, KEY_DP_WELD_MATERIAL_G_O).setText(str(material.fu))
-
 
         if module not in [KEY_DISP_BASE_PLATE,KEY_DISP_TENSION_BOLTED,KEY_DISP_TENSION_WELDED]:
 

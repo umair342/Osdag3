@@ -709,6 +709,7 @@ class Ui_ModuleWindow(QMainWindow):
                 d.get(new_list[9][0]).activated.connect(lambda: popup(d.get(new_list[9][0]), new_list))
                 d.get(new_list[10][0]).activated.connect(lambda: popup(d.get(new_list[10][0]), new_list))
             except IndexError:
+                pass
 
             # elif t[0] == KEY_GRD_ANCHOR and module == KEY_DISP_BASE_PLATE:
             #     key_customized_6 = self.dockWidgetContents.findChild(QtWidgets.QWidget, t[0])

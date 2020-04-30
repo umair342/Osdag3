@@ -1,5 +1,5 @@
 from design_type.connection.connection import Connection
-# from Common import *
+from Common import *
 import sqlite3
 import logging
 from PyQt5.QtCore import QFile, pyqtSignal, QTextStream, Qt, QIODevice
@@ -283,9 +283,9 @@ class GussetConnection(Connection):
 
         return lst
 
-    QMessageBox.information(QMessageBox(), "Information", "<Error Message>")
-    QMessageBox.warning(QMessageBox(), "Warning", "<Error Message>")
-    QMessageBox.about(QMessageBox(), "About", "<Error Message>")
+    # QMessageBox.information(QMessageBox(), "Information", "<Error Message>")
+    # QMessageBox.warning(QMessageBox(), "Warning", "<Error Message>")
+    # QMessageBox.about(QMessageBox(), "About", "<Error Message>")
 
     def tab_list(self):
 

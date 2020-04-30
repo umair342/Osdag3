@@ -156,7 +156,7 @@ class IS800_2007(object):
             M_d = (Z_e * f_y) / gamma_m0  # N-mm
         else:
             M_d = (1.0 * Z_p * f_y) / gamma_m0  # N-mm
-
+        return M_d
 
     @staticmethod
     #Used by shear End Plate. TODO: Sourarbh

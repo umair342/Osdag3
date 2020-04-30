@@ -598,7 +598,7 @@ class Ui_ModuleWindow(QMainWindow):
                 module = lable
                 j = j - 1
 
-            if type == TYPE_NOTE:
+            if inp_type == TYPE_NOTE:
                 l = QtWidgets.QLineEdit(self.dockWidgetContents)
                 l.setGeometry(QtCore.QRect(150, 10 + i, 150, 27))
                 font = QtGui.QFont()

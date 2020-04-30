@@ -630,7 +630,7 @@ class EndPlateConnection(ShearConnection):
         # plate_moment = min_edge_dist * bolt_tension
         Z_p = pitch * p_th **2 /4
         gamma_m0 = IS800_2007.cl_5_4_1_Table_5["gamma_m0"]['yielding']
-        plate_moment_capacity = IS800_2007.cl_8_2_1_2_design_moment_strength(1.0, Z_p, self.plate.fy, gamma_m0)
+        plate_moment_capacity = IS800_2007.cl_8_2_1_2_design_moment_strength_change(1.0, Z_p, self.plate.fy, gamma_m0)
         A_vg = p_h* p_th
         plate_shear_yielding_capacity = IS800_2007.cl_8_4_design_shear_strength(A_vg, self.plate.fy, gamma_m0)
 

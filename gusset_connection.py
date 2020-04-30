@@ -1,9 +1,9 @@
 from design_type.connection.connection import Connection
-# from Common import *
+from Common import *
 import sqlite3
 import logging
 from PyQt5.QtCore import QFile, pyqtSignal, QTextStream, Qt, QIODevice
-from PyQt5.QtWidgets import QMainWindow, QDialog, QFontDialog, QApplication, QFileDialog, QColorDialog
+from PyQt5.QtWidgets import QMainWindow, QDialog, QFontDialog, QApplication, QFileDialog, QColorDialog, QMessageBox
 import sys
 from gui.ui_template import Ui_ModuleWindow
 
@@ -282,6 +282,63 @@ class GussetConnection(Connection):
         lst.append(t2)
 
         return lst
+
+    # QMessageBox.information(QMessageBox(), "Information", "<Error Message>")
+    # QMessageBox.warning(QMessageBox(), "Warning", "<Error Message>")
+    # QMessageBox.about(QMessageBox(), "About", "<Error Message>")
+
+    def tab_list(self):
+
+        tabs = []
+
+        t1 = (KEY_DISP_COLSEC, TYPE_TAB_1, self.tab_column_section)
+        tabs.append(t1)
+
+        t3 = ("Bolt", TYPE_TAB_2, self.bolt_values)
+        tabs.append(t3)
+
+        return tabs
+
+    def bolt_values(self):
+
+        bolt = []
+
+        t1 = (KEY_DP_BOLT_TYPE, KEY_DISP_TYP, TYPE_COMBOBOX,
+              ['Pretensioned', 'Non-pretensioned'])
+        bolt.append(t1)
+
+        t2 = (KEY_DP_BOLT_HOLE_TYPE, KEY_DISP_DP_BOLT_HOLE_TYPE, TYPE_COMBOBOX,
+              ['Standard', 'Over-sized'])
+        bolt.append(t2)
+
+        t3 = (KEY_DP_BOLT_MATERIAL_G_O, KEY_DISP_DP_BOLT_MATERIAL_G_O, TYPE_TEXTBOX, '410')
+        bolt.append(t3)
+
+        t4 = (None, None, TYPE_ENTER, None)
+        bolt.append(t4)
+
+        t5 = (None, KEY_DISP_DP_BOLT_DESIGN_PARA, TYPE_TITLE, None)
+        bolt.append(t5)
+
+        t6 = (KEY_DP_BOLT_SLIP_FACTOR, KEY_DISP_DP_BOLT_SLIP_FACTOR,
+              TYPE_COMBOBOX,
+              ['0.2', '0.5', '0.1', '0.25', '0.3', '0.33', '0.48', '0.52', '0.55'])
+        bolt.append(t6)
+
+        t7 = (None, None, TYPE_ENTER, None)
+        bolt.append(t7)
+
+        t8 = (None, "NOTE : If slip is permitted under the design load,"
+                    " design the bolt as"
+                    "<br>a bearing bolt and select corresponding bolt grade.",
+              TYPE_NOTE, None)
+        bolt.append(t8)
+
+        t9 = ["textBrowser", "", TYPE_TEXT_BROWSER, BOLT_DESCRIPTION]
+        bolt.append(t9)
+
+        return bolt
+
 
 
 class MainController(QMainWindow):

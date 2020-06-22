@@ -165,7 +165,8 @@ class Window(QDialog):
                         font.setWeight(50)
                         line.setFont(font)
                         if lable in [KEY_DISP_FU, KEY_DISP_FY, KEY_DISP_POISSON_RATIO, KEY_DISP_THERMAL_EXP,
-                                     KEY_DISP_MOD_OF_ELAST, KEY_DISP_MOD_OF_RIGID, 'Source']:
+                                     KEY_DISP_MOD_OF_ELAST, KEY_DISP_MOD_OF_RIGID, 'Source', KEY_DISP_LOCATION,
+                                     KEY_DISP_SEC_PROFILE]:
                             line.setReadOnly(True)
                             self.do_not_clear_list.append(line)
                         r += 1
@@ -1465,6 +1466,10 @@ class DesignPreferences():
             event.ignore()
 
     def close_designPref(self):
+        resolution = QtWidgets.QDesktopWidget().screenGeometry()
+        width = resolution.width()
+        height = resolution.height()
+        self.ui.resize(width * (0.67), height * (0.60))
         self.ui.close()
 
     # def closeEvent(self, QCloseEvent):

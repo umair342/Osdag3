@@ -158,27 +158,27 @@ import subprocess
 from gui.ui_template import Ui_ModuleWindow
 
 
-class MyTutorials(QDialog):
-    def __init__(self, parent=None):
-        QDialog.__init__(self, parent)
-        self.ui = Ui_Tutorial()
-        self.ui.setupUi(self)
-        self.osdagmainwindow = parent
-
-
-class MyAboutOsdag(QDialog):
-    def __init__(self, parent=None):
-        QDialog.__init__(self, parent)
-        self.ui = Ui_AboutOsdag()
-        self.ui.setupUi(self)
-        self.osdagmainwindow = parent
-
-class MyAskQuestion(QDialog):
-    def __init__(self, parent=None):
-        QDialog.__init__(self, parent)
-        self.ui = Ui_AskQuestion()
-        self.ui.setupUi(self)
-        self.osdagmainwindow = parent
+# class MyTutorials(QDialog):
+#     def __init__(self, parent=None):
+#         QDialog.__init__(self, parent)
+#         self.ui = Ui_Tutorial()
+#         self.ui.setupUi(self)
+#         self.osdagmainwindow = parent
+#
+#
+# class MyAboutOsdag(QDialog):
+#     def __init__(self, parent=None):
+#         QDialog.__init__(self, parent)
+#         self.ui = Ui_AboutOsdag()
+#         self.ui.setupUi(self)
+#         self.osdagmainwindow = parent
+#
+# class MyAskQuestion(QDialog):
+#     def __init__(self, parent=None):
+#         QDialog.__init__(self, parent)
+#         self.ui = Ui_AskQuestion()
+#         self.ui.setupUi(self)
+#         self.osdagmainwindow = parent
 
 class New_Tab_Widget(QTabWidget):           # Empty Custom Tab Widget
     def __init__(self):
@@ -431,15 +431,20 @@ class OsdagMainWindow(QMainWindow):
             print('Error: ', e)
 
     def selection_change(self):
+        from Common import ask_question, design_examples, tutorials, about_osdag
         loc = self.ui.comboBox_help.currentText()
         if loc == "Design Examples":
-            self.design_examples()
+            design_examples()
+            # self.design_examples()
         elif loc == "Video Tutorials":
-            self.open_tutorials()
+            tutorials(self=self)
+            # self.open_tutorials()
         elif loc == "About Osdag":
-            self.about_osdag()
+            about_osdag(self=self)
+            # self.about_osdag()
         elif loc == "Ask Us a Question":
-            self.ask_question()
+            ask_question(self=self)
+            # self.ask_question()
         # elif loc == "FAQ":
         #     pass
 
@@ -617,38 +622,38 @@ class OsdagMainWindow(QMainWindow):
 
 ################################# Help Actions ############################################
 
-    def about_osdag(self):
-        dialog = MyAboutOsdag(self)
-        dialog.show()
-
-    def open_osdag(self):
-         self.about_osdag()
-
-    def tutorials(self):
-        dialog = MyTutorials(self)
-        dialog.show()
-
-    def open_tutorials(self):
-        self.tutorials()
-
-    def ask_question(self):
-        dialog = MyAskQuestion(self)
-        dialog.show()
-
-    def open_question(self):
-        self.ask_question()
-
-    def design_examples(self):
-        root_path = os.path.join('ResourceFiles', 'design_example', '_build', 'html')
-        for html_file in os.listdir(root_path):
-            # if html_file.startswith('index'):
-            print(os.path.splitext(html_file)[1])
-            if os.path.splitext(html_file)[1] == 'html':
-               if sys.platform == ("win32" or "win64"):
-                   os.startfile(os.path.join(root_path, html_file))
-               else:
-                   opener ="open" if sys.platform == "darwin" else "xdg-open"
-                   subprocess.call([opener, "%s/%s" % (root_path, html_file)])
+    # def about_osdag(self):
+    #     dialog = MyAboutOsdag(self)
+    #     dialog.show()
+    #
+    # def open_osdag(self):
+    #      self.about_osdag()
+    #
+    # def tutorials(self):
+    #     dialog = MyTutorials(self)
+    #     dialog.show()
+    #
+    # def open_tutorials(self):
+    #     self.tutorials()
+    #
+    # def ask_question(self):
+    #     dialog = MyAskQuestion(self)
+    #     dialog.show()
+    #
+    # def open_question(self):
+    #     self.ask_question()
+    #
+    # def design_examples(self):
+    #     root_path = os.path.join('ResourceFiles', 'design_example', '_build', 'html')
+    #     for html_file in os.listdir(root_path):
+    #         # if html_file.startswith('index'):
+    #         print(os.path.splitext(html_file)[1])
+    #         if os.path.splitext(html_file)[1] == '.html':
+    #            if sys.platform == ("win32" or "win64"):
+    #                os.startfile(os.path.join(root_path, html_file))
+    #            else:
+    #                opener ="open" if sys.platform == "darwin" else "xdg-open"
+    #                subprocess.call([opener, "%s/%s" % (root_path, html_file)])
 
 
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):

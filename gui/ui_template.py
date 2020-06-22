@@ -1198,8 +1198,8 @@ class Window(QMainWindow):
         # self.menuEdit.addAction(self.actionPaste)
         self.menuEdit.addAction(self.actionDesign_Preferences)
         self.menuEdit.addAction(self.actionOsdagSectionModeller)
-        self.menuView.addAction(self.actionEnlarge_font_size)
-        self.menuView.addSeparator()
+        # self.menuView.addAction(self.actionEnlarge_font_size)
+        # self.menuView.addSeparator()
         self.menuHelp.addAction(self.actionSample_Tutorials)
         self.menuHelp.addAction(self.actionDesign_examples)
         self.menuHelp.addSeparator()
@@ -1228,7 +1228,7 @@ class Window(QMainWindow):
         self.menuDB.addAction(self.actionReset_db)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
-        self.menubar.addAction(self.menuView.menuAction())
+        # self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuGraphics.menuAction())
         self.menubar.addAction(self.menuDB.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -1254,6 +1254,10 @@ class Window(QMainWindow):
         self.actionDownload_channel.triggered.connect(lambda: self.designPrefDialog.ui.download_Database(table="Channels"))
         self.actionDownload_angle.triggered.connect(lambda: self.designPrefDialog.ui.download_Database(table="Angles"))
         self.actionReset_db.triggered.connect(self.database_reset)
+        self.actionSample_Tutorials.triggered.connect(lambda: tutorials(self=self))
+        self.actionAsk_Us_a_Question.triggered.connect(lambda: ask_question(self=self))
+        self.actionAbout_Osdag_2.triggered.connect(lambda: about_osdag(self=self))
+        self.actionDesign_examples.triggered.connect(lambda: design_examples())
 
         last_design_folder = os.path.join('ResourceFiles', 'last_designs')
         last_design_file = str(main.module_name(main)).replace(' ', '') + ".osi"
@@ -2301,6 +2305,9 @@ class Window(QMainWindow):
         Returns:
 
         """
+        if not main.design_button_status:
+            QMessageBox.warning(self, 'Warning', 'No design created!')
+            return
 
         if main.design_status:
 
@@ -2315,13 +2322,17 @@ class Window(QMainWindow):
                 QMessageBox.about(self, 'Information', "File saved")
         else:
             # self.actionSave_current_image.setEnabled(False)
-            QMessageBox.about(self, 'Information', 'Design Unsafe: CAD image cannot be saved')
+            QMessageBox.about(self, 'Warning', 'Design Unsafe: CAD image cannot be saved')
 
     def save3DcadImages(self, main):
 
+        if not main.design_button_status:
+            QMessageBox.warning(self, 'Warning', 'No design created!')
+            return
+
         if main.design_status:
             if self.fuse_model is None:
-                self.fuse_model = CommonDesignLogic.create2Dcad(self.commLogicObj)
+                self.fuse_model = self.commLogicObj.create2Dcad()
             shape = self.fuse_model
 
             files_types = "IGS (*.igs);;STEP (*.stp);;STL (*.stl);;BREP(*.brep)"
@@ -2330,11 +2341,7 @@ class Window(QMainWindow):
                                                       files_types)
             fName = str(fileName)
 
-            flag = True
-            if fName == '':
-                flag = False
-                return flag
-            else:
+            if fName and self.fuse_model:
                 file_extension = fName.split(".")[-1]
 
                 if file_extension == 'igs':
@@ -2366,9 +2373,12 @@ class Window(QMainWindow):
                 self.fuse_model = None
 
                 QMessageBox.about(self, 'Information', "File saved")
+
+            else:
+                QMessageBox.about(self, 'Error', "File not saved")
         else:
             # self.actionSave_3D_model.setEnabled(False)
-            QMessageBox.about(self,'Information', 'Design Unsafe: 3D Model cannot be saved')
+            QMessageBox.about(self, 'Warning', 'Design Unsafe: 3D Model cannot be saved')
 
     def assign_display_mode(self, mode):
 

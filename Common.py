@@ -285,6 +285,65 @@ class MaterialValidator(object):
         else:
             return self.custom_format_flag
 
+
+################################ Help Actions ############################################
+from PyQt5.QtWidgets import *
+from gui.ui_tutorial import Ui_Tutorial
+from gui.ui_aboutosdag import Ui_AboutOsdag
+from gui.ui_ask_question import Ui_AskQuestion
+
+
+class MyTutorials(QDialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.ui = Ui_Tutorial()
+        self.ui.setupUi(self)
+
+
+class MyAboutOsdag(QDialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.ui = Ui_AboutOsdag()
+        self.ui.setupUi(self)
+
+
+class MyAskQuestion(QDialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.ui = Ui_AskQuestion()
+        self.ui.setupUi(self)
+
+
+def about_osdag(self):
+    dialog = MyAboutOsdag(self)
+    dialog.exec()
+
+
+def tutorials(self):
+    dialog = MyTutorials(self)
+    dialog.exec()
+
+
+def ask_question(self):
+    dialog = MyAskQuestion(self)
+    dialog.exec()
+
+
+def design_examples():
+    import os
+    import sys
+    import subprocess
+    root_path = os.path.join('ResourceFiles', 'design_example', '_build', 'html')
+    for html_file in os.listdir(root_path):
+        # if html_file.startswith('index'):
+        print(os.path.splitext(html_file)[1])
+        if os.path.splitext(html_file)[1] == '.html':
+            if sys.platform == ("win32" or "win64"):
+                os.startfile(os.path.join(root_path, html_file))
+            else:
+                opener ="open" if sys.platform == "darwin" else "xdg-open"
+                subprocess.call([opener, "%s/%s" % (root_path, html_file)])
+
 ##########################
 # Type Keys (Type of input field, tab type etc.)
 ###########################
